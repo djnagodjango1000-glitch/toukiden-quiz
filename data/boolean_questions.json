@@ -1,0 +1,338 @@
+[
+  {
+    "id": "tf001",
+    "type": "boolean",
+    "text": "1リットルは何ミリリットルですか？\n答えは「1000」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "生活",
+    "difficulty": 1,
+    "explanation": "1 L = 1000 mLです。",
+    "source": "https://www.bipm.org/en/publications/si-brochure",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf002",
+    "type": "boolean",
+    "text": "水が氷になる変化を何と呼びますか？\n答えは「蒸発」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "生活",
+    "difficulty": 1,
+    "explanation": "液体が固体になる変化が凝固です。",
+    "source": "https://ja.wikipedia.org/wiki/凝固",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf003",
+    "type": "boolean",
+    "text": "パンをふくらませる発酵に用いられる菌はどれですか？\n答えは「酵母」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "生活",
+    "difficulty": 1,
+    "explanation": "酵母が糖を分解して二酸化炭素を生じます。",
+    "source": "https://ja.wikipedia.org/wiki/酵母",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf004",
+    "type": "boolean",
+    "text": "通常のサッカーで、試合開始時の1チームの人数は？\n答えは「5人」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "スポーツ",
+    "difficulty": 1,
+    "explanation": "ゴールキーパーを含め最大11人です。",
+    "source": "https://www.theifab.com/laws/latest/the-players/",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf005",
+    "type": "boolean",
+    "text": "バスケットボールで通常のフリースロー成功は何点？\n答えは「1点」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "スポーツ",
+    "difficulty": 1,
+    "explanation": "フリースロー1本の成功で1点です。",
+    "source": "https://www.fiba.basketball/en/landing/official-basketball-rules",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf006",
+    "type": "boolean",
+    "text": "マラソンの正式な距離は？\n答えは「40 km」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "スポーツ",
+    "difficulty": 1,
+    "explanation": "マラソンは42.195 kmです。",
+    "source": "https://worldathletics.org/disciplines/road-running/marathon",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf007",
+    "type": "boolean",
+    "text": "『枕草子』の作者は誰ですか？\n答えは「清少納言」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "清少納言による随筆です。",
+    "source": "https://ja.wikipedia.org/wiki/枕草子",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf008",
+    "type": "boolean",
+    "text": "『源氏物語』の作者は誰ですか？\n答えは「清少納言」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "平安時代の紫式部の作品です。",
+    "source": "https://ja.wikipedia.org/wiki/源氏物語",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf009",
+    "type": "boolean",
+    "text": "俳句の基本的な音数の並びは？\n答えは「五・七・五」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "俳句の基本は五・七・五の十七音です。",
+    "source": "https://ja.wikipedia.org/wiki/俳句",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf010",
+    "type": "boolean",
+    "text": "江戸幕府を開いた人物は誰ですか？\n答えは「織田信長」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "歴史",
+    "difficulty": 1,
+    "explanation": "徳川家康は1603年に征夷大将軍となりました。",
+    "source": "https://ja.wikipedia.org/wiki/徳川家康",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf011",
+    "type": "boolean",
+    "text": "室町幕府の初代将軍は誰ですか？\n答えは「足利尊氏」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "歴史",
+    "difficulty": 1,
+    "explanation": "室町幕府の初代将軍は足利尊氏です。",
+    "source": "https://ja.wikipedia.org/wiki/足利尊氏",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf012",
+    "type": "boolean",
+    "text": "能を大成した父・観阿弥の子は誰ですか？\n答えは「雪舟」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "歴史",
+    "difficulty": 1,
+    "explanation": "世阿弥は観阿弥とともに能を大成しました。",
+    "source": "https://ja.wikipedia.org/wiki/世阿弥",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf013",
+    "type": "boolean",
+    "text": "水の化学式はどれですか？\n答えは「H₂O」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "水分子は水素原子2個と酸素原子1個からなります。",
+    "source": "https://ja.wikipedia.org/wiki/水",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf014",
+    "type": "boolean",
+    "text": "地球に最も近い恒星はどれですか？\n答えは「シリウス」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "太陽も恒星です。",
+    "source": "https://www.nao.ac.jp/astro/basic/sun.html",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf015",
+    "type": "boolean",
+    "text": "植物が光合成で主に取り込む気体は？\n答えは「二酸化炭素」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "光合成では二酸化炭素と水から有機物をつくります。",
+    "source": "https://ja.wikipedia.org/wiki/光合成",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf016",
+    "type": "boolean",
+    "text": "日本の都道府県の数は？\n答えは「46」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "1都1道2府43県の計47です。",
+    "source": "https://www.gsi.go.jp/KOKUJYOHO/MENCHO-title.htm",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf017",
+    "type": "boolean",
+    "text": "オーストラリアの首都はどこですか？\n答えは「キャンベラ」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "首都はキャンベラです。",
+    "source": "https://ja.wikipedia.org/wiki/キャンベラ",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf018",
+    "type": "boolean",
+    "text": "世界で面積が最大の海洋は？\n答えは「大西洋」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "太平洋は最大の海洋です。",
+    "source": "https://ja.wikipedia.org/wiki/太平洋",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf019",
+    "type": "boolean",
+    "text": "ピアノは鍵盤を使って主に何を打って音を出しますか？\n答えは「弦」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "エンタメ",
+    "difficulty": 1,
+    "explanation": "ハンマーで弦を打つ鍵盤楽器です。",
+    "source": "https://ja.wikipedia.org/wiki/ピアノ",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf020",
+    "type": "boolean",
+    "text": "オーケストラで演奏全体をまとめる人は？\n答えは「審判」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "エンタメ",
+    "difficulty": 1,
+    "explanation": "指揮者がテンポや表現をまとめます。",
+    "source": "https://ja.wikipedia.org/wiki/指揮者",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "tf021",
+    "type": "boolean",
+    "text": "映画などで、連続した絵を動いて見せる表現は？\n答えは「アニメーション」である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "エンタメ",
+    "difficulty": 1,
+    "explanation": "少しずつ異なる画像の連続で動きを表現します。",
+    "source": "https://ja.wikipedia.org/wiki/アニメーション",
+    "checked_at": null,
+    "review_status": "出典URL登録済・本文照合待ち"
+  }
+]

@@ -4,3 +4,5 @@ build/*
 *.keystore
 *.jks
 export_credentials.cfg
+!build/.gdignore
+docs/**/*.import

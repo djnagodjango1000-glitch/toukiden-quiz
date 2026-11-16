@@ -13,7 +13,11 @@ func check(condition: bool, message: String) -> void:
 
 func fresh():
 	var b = Battle.new()
-	b.setup(data.mitama.slice(0,4),data.missions[0],data.oni,data.balance,12345)
+	var baseline: Dictionary = data.balance.duplicate(true)
+	baseline.hayafuri.enabled = false
+	for row in baseline.attributes.values():
+		for attr in row: row[attr] = 1.0
+	b.setup(data.mitama.slice(0,4),data.missions[0],data.oni,baseline,12345)
 	return b
 
 func _initialize() -> void:

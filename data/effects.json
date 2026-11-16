@@ -1,0 +1,51 @@
+{
+  "provenance": "C: 新規の仮スキル。原作の個別ミタマ能力ではない。",
+  "definitions": {
+    "hay_pursuit": {
+      "label": "速答・追の一閃",
+      "kind": "attack",
+      "power": 0.45
+    },
+    "hay_heal": {
+      "label": "速答・癒しの詞",
+      "kind": "heal",
+      "fraction": 0.08
+    },
+    "hay_guard": {
+      "label": "速答・守りの舞",
+      "kind": "guard",
+      "multiplier": 0.6
+    },
+    "hay_rally": {
+      "label": "速答・奮起",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2
+    },
+    "tama_strike": {
+      "label": "穿つ霊光",
+      "kind": "attack",
+      "power": 2.5,
+      "cost": 3
+    },
+    "tama_heal": {
+      "label": "命の泉",
+      "kind": "heal",
+      "fraction": 0.35,
+      "cost": 3
+    },
+    "tama_guard": {
+      "label": "鎮めの幕",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3
+    },
+    "tama_rally": {
+      "label": "四魂の鼓動",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4
+    }
+  }
+}

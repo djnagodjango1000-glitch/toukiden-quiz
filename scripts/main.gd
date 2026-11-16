@@ -3,6 +3,8 @@ extends Control
 const Battle = preload("res://scripts/battle.gd")
 const SaveStore = preload("res://scripts/save_store.gd")
 const StageArt = preload("res://scripts/stage_art.gd")
+const Sound = preload("res://scripts/sound.gd")
+var sound = Sound.new()
 var store = SaveStore.new()
 var save: Dictionary
 var model = Battle.new()
@@ -12,34 +14,61 @@ var footer: Label
 var clock_label: Label
 var screen := "title"
 var battle_clock := 0.0
+var active_clock = preload("res://scripts/active_clock.gd").new()
 var paused := false
 var busy := false
 var mission: Dictionary
 var receipt := ""
 var question_serial := 0
 var notice := ""
+var event_history: Array = []
+var stage_art: Control
 var palette := {"paper": Color("e4d8b8"), "ink": Color("302c27"), "gold": Color("9c763c"), "dark": Color("253e3b")}
 
 func _ready() -> void:
 	var theme_data := Theme.new()
 	theme_data.default_font = load("res://assets/japanese.ttc")
 	theme_data.default_font_size = 25
+	theme_data.set_stylebox("normal","Button",style(Color("f2e8cc"),palette.gold,4))
+	theme_data.set_stylebox("disabled","Button",style(Color("d2c8ad"),Color("aa9d7d"),4))
+	theme_data.set_stylebox("hover","Button",style(Color("fff1c9"),palette.gold,4))
+	theme_data.set_stylebox("pressed","Button",style(Color("c7b482"),palette.ink,4))
+	for state in ["font_color","font_hover_color","font_pressed_color"]:
+		theme_data.set_color(state,"Button",palette.ink)
+	theme_data.set_color("font_disabled_color","Button",Color("77705f"))
 	theme = theme_data
-	for filename in ["balance", "mitama", "oni", "missions", "questions"]:
+	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions"]:
 		data[filename] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + filename + ".json"))
+	add_child(sound)
 	save = store.load_save()
 	notice = store.error
 	show_title()
 
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_PAUSED: paused = true
-	if what == NOTIFICATION_APPLICATION_RESUMED: paused = false
+func sync_clock() -> void:
+	battle_clock = float(active_clock.read())
 
-func _process(delta: float) -> void:
-	if paused or busy or screen != "battle" or model.status != "question": return
-	battle_clock += delta * 1000.0
-	if is_instance_valid(clock_label): clock_label.text = "残り %.1f 秒" % (model.remaining_ms(int(battle_clock))/1000.0)
-	if model.remaining_ms(int(battle_clock)) <= 0: answer(-1)
+func update_clock_state() -> void:
+	var timing: bool = (screen=="battle" and model.status=="question") or (screen=="musuhi" and model.status in ["musuhi","musuhi_feedback"])
+	active_clock.set_running(timing and not paused)
+	sync_clock()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_PAUSED:
+		active_clock.set_running(false)
+		paused = true
+	if what == NOTIFICATION_APPLICATION_RESUMED:
+		paused = false
+		update_clock_state()
+
+func _process(_delta: float) -> void:
+	if paused: return
+	sync_clock()
+	if screen == "musuhi" and model.status in ["musuhi","musuhi_feedback"]:
+		if is_instance_valid(clock_label): clock_label.text = "残り %.1f 秒" % (model.musuhi_remaining_ms(int(battle_clock))/1000.0)
+		if not busy and model.musuhi_remaining_ms(int(battle_clock)) == 0: end_musuhi()
+	elif not busy and screen == "battle" and model.status == "question":
+		if is_instance_valid(clock_label): clock_label.text = "残り %.1f 秒" % (model.remaining_ms(int(battle_clock))/1000.0)
+		if model.remaining_ms(int(battle_clock)) <= 0: answer(-1)
 
 func _draw() -> void:
 	draw_rect(Rect2(Vector2.ZERO,size),palette.paper)
@@ -62,6 +91,7 @@ func style(bg: Color, border: Color, radius: int = 4) -> StyleBoxFlat:
 
 func clear_page(title: String) -> void:
 	for child in get_children():
+		if child == sound: continue
 		remove_child(child)
 		child.queue_free()
 	var margin := MarginContainer.new()
@@ -94,7 +124,7 @@ func label(text_value: String, font_size: int = 24, color: Color = Color("302c27
 func button(text_value: String, action: Callable, disabled: bool = false) -> Button:
 	var b := Button.new()
 	b.text = text_value
-	b.custom_minimum_size.y = 78
+	b.custom_minimum_size.y = 66
 	b.add_theme_stylebox_override("normal",style(Color("f2e8cc"),palette.gold,12))
 	b.add_theme_stylebox_override("hover",style(Color("fff1c9"),palette.gold,12))
 	b.add_theme_stylebox_override("pressed",style(Color("c7b482"),palette.ink,12))
@@ -117,7 +147,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("Phase 1 開発版  0.1.0\n基本戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("Phase 2 開発版  0.2.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -125,6 +155,7 @@ func show_title() -> void:
 	if store.blocked: label("既存セーブは削除していません。保存ファイルの確認が必要です。",22)
 
 func show_home() -> void:
+	active_clock.set_running(false)
 	screen = "home"
 	clear_page("里 ── 鬼問戦記")
 	label("ハク  %d    経験値  %d" % [save.haku,save.xp],26)
@@ -136,7 +167,7 @@ func show_home() -> void:
 	button("ミタマ ── 編成を確認",show_party)
 	button("設定・セーブ情報",show_settings)
 	button("タイトルに戻る",show_title)
-	label("特殊技・大型鬼・育成・ガチャは後続フェーズで実装します。",20)
+	label("大型鬼・特殊技を追加しました。育成・ガチャは後続フェーズです。",20)
 
 func show_regions() -> void:
 	screen = "regions"
@@ -162,7 +193,7 @@ func show_missions() -> void:
 		var suffix := "  達成" if m.id in save.cleared else ""
 		button(m.label+suffix,func(): show_details(m),not unlocked(m))
 		label("報酬 %dハク / %d経験値" % [m.rewards.haku,m.rewards.xp],21)
-	label("二つ目の任務は初陣達成で解放されます。\n大型鬼の第三任務はPhase 2で追加します。",22)
+	label("初陣で連戦、連戦で大型鬼任務が解放されます。",22)
 	button("領域選択に戻る",show_regions)
 
 func show_details(m: Dictionary) -> void:
@@ -174,7 +205,7 @@ func show_details(m: Dictionary) -> void:
 	label("報酬 %dハク / %d経験値" % [m.rewards.haku,m.rewards.xp],26)
 	space(20)
 	label("4体のミタマを速さ順で使用します。\n巻物を選び、20秒以内に四択へ解答。正解で攻撃し、残った鬼が反撃します。\n敵をタップして攻撃対象を変更できます。",24)
-	label("仮仕様：一問一行動者。速答追撃は未実装です。",22)
+	label("仮仕様：4秒以内の正解で固有効果と後続1体の追撃。\n正解でタマフリとムスヒを蓄積。角を壊すと気絶、腕を壊すと攻撃低下。",22)
 	space(30)
 	button("出陣",start_battle)
 	button("任務一覧へ",show_missions)
@@ -188,15 +219,23 @@ func show_party() -> void:
 	for i in range(4):
 		var m: Dictionary = data.mitama[i]
 		label("%d  %s  [%s]  Lv.%d" % [i+1,m.name,m.attribute,m.level],29,palette.dark)
-		label("体力 %d / 攻撃 %d / 速さ %d\n固有技は調査・実装待ち" % [m.hp,m.attack,m.speed],23)
+		label("体力 %d / 攻撃 %d / 速さ %d" % [m.hp,m.attack,m.speed],23)
+		label("ハヤフリ：%s\nタマフリ：%s（%d pt）" % [data.effects.definitions[m.hayafuri].label,data.effects.definitions[m.tamafuri].label,data.effects.definitions[m.tamafuri].cost],22)
 	label("人物名以外の能力・属性は新規の仮値です。原作の個別能力を再現したものではありません。",21)
 	button("里に戻る",show_home)
 
 func show_settings() -> void:
 	screen = "settings"
 	clear_page("設定・セーブ情報")
-	label("完全オフライン / 広告・課金なし\nPhase 1は行動力を消費しません。",25)
-	label("任務報酬は帰還前に自動保存されます。\n保存先：user://save.json\n世代バックアップ：save.json.bak\n手動入出力・音量設定は後続フェーズです。",23)
+	label("完全オフライン / 広告・課金なし\n開発版は行動力を消費しません。",25)
+	label("任務報酬は帰還前に自動保存されます。\n保存先：user://save.json\n世代バックアップ：save.json.bak\n手動入出力・細かな音量設定は後続フェーズです。",23)
+	button("効果音："+("OFF" if save.settings.get("muted",false) else "ON"),func():
+		var updated: Dictionary = save.duplicate(true)
+		updated.settings["muted"] = not updated.settings.get("muted",false)
+		if store.persist(updated):
+			save = updated
+			show_settings()
+		else: label(store.error,24,Color("8a332d")))
 	button("現在の進行を保存",func():
 		if store.persist(save): label("保存しました。",24)
 		else: label(store.error,24,Color("8a332d")))
@@ -204,9 +243,11 @@ func show_settings() -> void:
 
 func start_battle() -> void:
 	var party: Array = data.mitama.slice(0,4)
-	model.setup(party,mission,data.oni,data.balance,Time.get_ticks_msec())
+	model.setup(party,mission,data.oni,data.balance,Time.get_ticks_msec(),data.effects.definitions)
+	event_history.clear()
 	receipt = "%s-%s-%s" % [mission.id,Time.get_unix_time_from_system(),Time.get_ticks_usec()]
 	question_serial = 0
+	active_clock.reset()
 	battle_clock = 0.0
 	notice = "巻物を選んでください。"
 	show_battle()
@@ -215,23 +256,41 @@ func show_battle() -> void:
 	screen = "battle"
 	clear_page("%s  %d/%d" % [mission.label,mini(model.wave_index+1,model.waves.size()),model.waves.size()])
 	var art = StageArt.new()
+	stage_art = art
+	art.enemy_data = model.enemies.duplicate(true)
 	art.count = model.enemies.size()
 	art.selected = model.target_index
 	for e in model.enemies: art.dead.append(e.hp <= 0)
-	art.custom_minimum_size.y = 300
+	art.custom_minimum_size.y = 220
 	content.add_child(art)
 	var targets := HBoxContainer.new()
 	content.add_child(targets)
 	for i in range(model.enemies.size()):
 		var enemy: Dictionary = model.enemies[i]
 		var b := Button.new()
-		b.text = "%s 鬼%d\nHP %d" % ["◎" if i==model.target_index else "",i+1,enemy.hp]
-		b.custom_minimum_size.y = 62
+		b.text = "%s %s  HP %d" % ["◎" if i==model.target_index else "", "大鬼" if enemy.get("large",false) else "鬼%d" % (i+1),enemy.hp]
+		b.custom_minimum_size.y = 50
+		b.add_theme_font_size_override("font_size",21)
 		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		b.disabled = enemy.hp <= 0 or model.status != "scrolls" or busy
 		b.pressed.connect(func():
 			if model.choose_target(i): show_battle())
 		targets.add_child(b)
+	if model.status == "scrolls" and not busy and model.enemies[model.target_index].get("large",false):
+		var parts_row := HBoxContainer.new()
+		content.add_child(parts_row)
+		var part_options: Array = [{"id":"body","label":"本体","hp":model.enemies[model.target_index].hp}]
+		part_options.append_array(model.enemies[model.target_index].parts)
+		for part in part_options:
+			var p := Button.new()
+			p.text = ("◎" if model.target_part==part.id else "")+part.label+"\n"+(str(int(part.hp)) if part.hp>0 else "破壊済")
+			p.custom_minimum_size.y = 60
+			p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			p.add_theme_font_size_override("font_size",20)
+			p.disabled = part.hp<=0
+			p.pressed.connect(func():
+				if model.choose_target(model.target_index,part.id): show_battle())
+			parts_row.add_child(p)
 	var order_text := ""
 	for j in range(model.party.size()):
 		var m: Dictionary = model.party[(model.actor_index+j)%model.party.size()]
@@ -245,7 +304,29 @@ func show_battle() -> void:
 	hp_bar.add_theme_stylebox_override("fill",style(Color("468780"),palette.gold))
 	content.add_child(hp_bar)
 	label("体力 %d / %d" % [model.hp,model.max_hp],20)
-	label(notice,21)
+	label(notice,20)
+	if model.status == "scrolls" and not busy:
+		label("ムスヒ %d/%d　連続正解 %d　※相性・技は暫定" % [model.gauge,data.balance.musuhi.gauge_required,model.streak],19)
+		var skills := HBoxContainer.new()
+		content.add_child(skills)
+		for index in range(model.party.size()):
+			var m: Dictionary = model.party[index]
+			var cost: int = int(data.effects.definitions[m.tamafuri].cost)
+			var skill_button := Button.new()
+			skill_button.text = "%s\n%d/%d pt" % [m.name,model.points[index],cost]
+			skill_button.add_theme_font_size_override("font_size",18)
+			skill_button.custom_minimum_size.y = 56
+			skill_button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			skill_button.disabled = not model.can_tamafuri(index)
+			skill_button.pressed.connect(func(): use_tamafuri(index))
+			skills.add_child(skill_button)
+		var musuhi_button := Button.new()
+		musuhi_button.text = "ムスヒ\n発動"
+		musuhi_button.custom_minimum_size.y = 56
+		musuhi_button.add_theme_font_size_override("font_size",18)
+		musuhi_button.disabled = not model.can_musuhi()
+		musuhi_button.pressed.connect(begin_musuhi)
+		skills.add_child(musuhi_button)
 	if busy: return
 	if model.status == "scrolls":
 		var available: Array = data.questions.duplicate()
@@ -254,7 +335,8 @@ func show_battle() -> void:
 			var pos: int = model.rng.randi_range(0,available.size()-1)
 			var q: Dictionary = available.pop_at(pos)
 			var rank: String = ["初級","中級","上級"][int(q.difficulty)-1]
-			button("┃  %s　　%s  ┃" % [rank,q.genre],func(): choose_question(q))
+			var scroll_button := button("┃  %s　　%s  ┃" % [rank,q.genre],func(): choose_question(q))
+			scroll_button.add_theme_stylebox_override("normal",style(Color("f2e3bc"),palette.gold,2))
 		button("撤退して里へ（報酬なし）",show_home)
 	elif model.status == "question":
 		var q: Dictionary = model.current_question
@@ -264,27 +346,159 @@ func show_battle() -> void:
 			button("%d．%s" % [i+1,q.options[i]],func(): answer(i))
 
 func choose_question(q: Dictionary) -> void:
-	if busy: return
+	if busy or model.status != "scrolls": return
+	busy = true
+	await animate_events([{"type":"scroll_open","text":"%s の問いをひらく" % q.genre}])
+	busy = false
+	sync_clock()
 	if model.begin_question(q,int(battle_clock)):
 		notice = "落ち着いて問いを解こう。"
 		show_battle()
+		update_clock_state()
 
 func answer(selection: int) -> void:
 	if busy: return
+	sync_clock()
 	var outcome: Dictionary = model.resolve_answer(selection,int(battle_clock))
 	if not outcome.accepted: return
+	update_clock_state()
 	busy = true
-	notice = ("正解！ %sの攻撃 %d" % [outcome.actor,outcome.damage]) if outcome.correct else ("不正解・時間切れ　正答：%s" % outcome.answer)
-	if outcome.retaliation > 0: notice += " / 鬼の反撃 %d" % outcome.retaliation
+	notice = "正解！" if outcome.correct else "不正解・時間切れ　正答：%s" % outcome.answer
 	show_battle()
-	var flash := label("正 解" if outcome.correct else "不 正 解",46,Color("8b382c"))
 	label(outcome.explanation,22)
-	flash.modulate.a = 0.0
-	create_tween().tween_property(flash,"modulate:a",1.0,.18)
-	await get_tree().create_timer(1.2).timeout
+	await animate_events(outcome.events)
+	await get_tree().create_timer(float(data.balance.presentation.answer_seconds)).timeout
 	busy = false
+	resume_battle()
+
+func animate_events(events: Array) -> void:
+	for event in events:
+		event_history.append(event.duplicate(true))
+		if not save.get("settings",{}).get("muted",false): sound.play_event(event.type)
+		var overlay := PanelContainer.new()
+		overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+		overlay.mouse_filter = Control.MOUSE_FILTER_STOP
+		overlay.add_theme_stylebox_override("panel",style(Color(0.07,0.12,0.13,0.78),palette.gold,0))
+		add_child(overlay)
+		var center := CenterContainer.new()
+		overlay.add_child(center)
+		var strip := VBoxContainer.new()
+		strip.custom_minimum_size.x = 600
+		center.add_child(strip)
+		var headline := Label.new()
+		var headings := {"scroll_open":"巻物開封", "hayafuri":"ハヤフリ", "tamafuri":"タマフリ", "musuhi":"ムスヒノ刻", "part_break":"部位破壊", "followup":"追撃", "attack":"一閃", "enemy_attack":"鬼の反撃", "stun":"気絶", "kill":"討伐", "heal":"回復", "guard":"守護", "rally":"奮起", "part_hit":"部位攻撃", "skill_attack":"霊技", "musuhi_attack":"四魂の一撃"}
+		headline.text = headings.get(event.type,"霊技")
+		headline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		headline.add_theme_font_size_override("font_size",52)
+		headline.add_theme_color_override("font_color",Color("efd28d") if event.type != "enemy_attack" else Color("ed8972"))
+		strip.add_child(headline)
+		var detail := Label.new()
+		detail.text = event.get("actor","")+"\n"+event.text
+		detail.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		detail.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		detail.add_theme_font_size_override("font_size",25)
+		detail.add_theme_color_override("font_color",Color("fff3d5"))
+		strip.add_child(detail)
+		if event.has("damage"):
+			var number := Label.new()
+			number.text = "−%d" % int(event.damage)
+			number.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			number.add_theme_font_size_override("font_size",64)
+			number.add_theme_color_override("font_color",Color("ffe6a9"))
+			strip.add_child(number)
+		if event.type=="scroll_open":
+			strip.scale.x=0.15
+			create_tween().tween_property(strip,"scale:x",1.0,0.25)
+		strip.modulate.a = 0.0
+		var tween := create_tween()
+		tween.tween_property(strip,"modulate:a",1.0,0.1)
+		tween.parallel().tween_property(headline,"scale",Vector2(1.06,1.06),0.16)
+		await get_tree().create_timer(float(data.balance.presentation.event_seconds)).timeout
+		overlay.queue_free()
+
+func resume_battle() -> void:
 	if model.status in ["won","lost"]: show_result()
 	else: show_battle()
+
+func use_tamafuri(index: int) -> void:
+	if busy: return
+	var result: Dictionary = model.use_tamafuri(index)
+	if not result.accepted: return
+	busy = true
+	notice = "タマフリ発動"
+	show_battle()
+	await animate_events(result.events)
+	busy = false
+	resume_battle()
+
+func begin_musuhi() -> void:
+	if busy: return
+	if not model.start_musuhi(data.boolean_questions,int(battle_clock)): return
+	busy = true
+	screen = "musuhi_intro"
+	await animate_events([{"type":"musuhi","text":"○×の連問に挑め！"}])
+	# 発動カットインは回答時間に含めない。
+	busy = false
+	show_musuhi()
+
+func show_musuhi() -> void:
+	screen = "musuhi"
+	update_clock_state()
+	clear_page("ムスヒノ刻")
+	label("四魂を結び、知恵を刃に",34,palette.dark)
+	clock_label = label("残り %.1f 秒" % (model.musuhi_remaining_ms(int(battle_clock))/1000.0),32)
+	label("正解 %d問　誤答 %d/%d" % [model.musuhi_correct,model.musuhi_mistakes,data.balance.musuhi.max_mistakes],26)
+	label("仮ルール：制限20秒／2回目の誤答で終了",21)
+	space(50)
+	label(model.current_question.text,32)
+	space(50)
+	var circles := HBoxContainer.new()
+	content.add_child(circles)
+	for i in range(2):
+		var b := Button.new()
+		b.text = ["○","×"][i]
+		b.custom_minimum_size = Vector2(0,180)
+		b.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		b.add_theme_font_size_override("font_size",80)
+		b.add_theme_stylebox_override("normal",style(Color("f2e8cc"),palette.gold,40))
+		b.add_theme_color_override("font_color",palette.dark)
+		b.pressed.connect(func(): answer_musuhi(i))
+		circles.add_child(b)
+	label("正解数に応じて追加攻撃。終了後は通常戦闘へ戻ります。",22)
+
+func answer_musuhi(selection: int) -> void:
+	if busy: return
+	sync_clock()
+	var outcome: Dictionary = model.answer_musuhi(selection,int(battle_clock))
+	if not outcome.accepted: return
+	update_clock_state()
+	busy = true
+	if outcome.get("finished",false):
+		await complete_musuhi(outcome)
+		return
+	label("正解！" if outcome.correct else "不正解",38)
+	await get_tree().create_timer(float(data.balance.presentation.musuhi_feedback_seconds)).timeout
+	busy = false
+	if model.musuhi_remaining_ms(int(battle_clock)) == 0:
+		end_musuhi()
+	elif model.next_musuhi(int(battle_clock)): show_musuhi()
+
+func end_musuhi() -> void:
+	if busy: return
+	sync_clock()
+	var outcome: Dictionary = model.finish_musuhi(int(battle_clock))
+	if not outcome.accepted: return
+	update_clock_state()
+	busy = true
+	await complete_musuhi(outcome)
+
+func complete_musuhi(outcome: Dictionary) -> void:
+	screen = "musuhi_result"
+	update_clock_state()
+	await animate_events(outcome.events)
+	busy = false
+	notice = "ムスヒノ刻 %d問正解 / 追加ダメージ %d" % [model.musuhi_correct,outcome.damage]
+	resume_battle()
 
 func show_result() -> void:
 	screen = "result"

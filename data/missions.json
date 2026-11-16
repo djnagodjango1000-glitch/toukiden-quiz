@@ -35,6 +35,24 @@
       "haku": 180,
       "xp": 20
     },
+    "unlocks": [
+      "trial03"
+    ]
+  },
+  {
+    "id": "trial03",
+    "label": "仮任務三・山門の角砕き",
+    "provisional": true,
+    "energy": 0,
+    "waves": [
+      [
+        "boss"
+      ]
+    ],
+    "rewards": {
+      "haku": 300,
+      "xp": 40
+    },
     "unlocks": []
   }
 ]

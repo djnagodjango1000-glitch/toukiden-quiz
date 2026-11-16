@@ -14,5 +14,34 @@
     "attack": 55,
     "attribute": "突",
     "provenance": "C"
+  },
+  {
+    "id": "boss",
+    "name": "山門の大鬼（独自仮鬼）",
+    "hp": 3800,
+    "attack": 190,
+    "attribute": "砕",
+    "large": true,
+    "provenance": "C: 独自の鬼・部位効果・能力。",
+    "parts": [
+      {
+        "id": "horn",
+        "label": "角",
+        "hp": 260,
+        "stun_turns": 2
+      },
+      {
+        "id": "left_arm",
+        "label": "左腕",
+        "hp": 400,
+        "attack_multiplier": 0.65
+      },
+      {
+        "id": "right_arm",
+        "label": "右腕",
+        "hp": 400,
+        "attack_multiplier": 0.65
+      }
+    ]
   }
 ]

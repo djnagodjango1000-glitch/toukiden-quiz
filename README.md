@@ -2,7 +2,7 @@
 
 『クイズバトル討鬼伝』の機能的なゲーム体験を調査し、独自素材で構築する非公式Android向けクイズRPG。原作の画像・音源・ロゴ・問題文は含めません。
 
-**現在：Phase 0初回調査＋Phase 1基本戦闘試作。完成版ではありません。APKは未生成です。**
+**現在：Phase 2の主要戦闘機能を実装した0.2.0試作。完成版ではありません。APKは未生成です。**
 
 ## 実行
 Godot **4.6.3**で`project.godot`をインポートしてF6ではなくF5で起動。コマンドラインでは：
@@ -12,12 +12,15 @@ godot --editor --path .
 godot --path .
 ```
 
-タイトル→里→任務→仮の領域→初陣→出陣。巻物を選択し20秒以内に四択へ解答。複数敵の対象はHP欄をタップして変更。初陣達成で連続戦闘任務が解放されます。
+タイトル→里→任務→仮の領域→初陣→出陣。巻物を選択し20秒以内に四択へ解答。複数敵の対象はHP欄をタップして変更。初陣達成で連戦、連戦達成で大型鬼任務が解放されます。
+
+4秒以内の正解でハヤフリ。正解を重ねると各ミタマのタマフリとムスヒを使えます。大型鬼は角・左右腕を選んで破壊可能。能力・閾値・倍率は原作未確認の仮値です。
 
 ## 資料
 - [原作調査・仕様の確度](RESEARCH.md)
 - [画面比較と実装前設計](UI_COMPARISON.md)
 - [開発構成](ARCHITECTURE.md)
+- [Phase 2の動作・仮値](PHASE2_SPEC.md)
 - [実装状況・相違点・残課題](STATUS.md)
 - [テスト結果](TEST_RESULTS.md)
 - [更新履歴](CHANGELOG.md)
@@ -26,8 +29,10 @@ godot --path .
 ## テスト
 ```sh
 godot --headless --path . --script tests/test_runner.gd
+godot --headless --path . --script tests/test_phase2.gd
 # X11画面があるLinux環境。音声装置のない環境ではDummyを指定。
 godot --audio-driver Dummy --path . --script tests/ui_flow.gd
+godot --audio-driver Dummy --path . --script tests/ui_phase2.gd
 ```
 UIテストは`build/`にPNGを出力します。実セーブと別名のテスト用ファイルを使い、そのファイルのみ後片付けします。
 

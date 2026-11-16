@@ -13,6 +13,7 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func capture(filename: String) -> void:
+	DirAccess.make_dir_recursive_absolute("res://build")
 	await process_frame
 	await RenderingServer.frame_post_draw
 	root.get_texture().get_image().save_png("res://build/"+filename+".png")
@@ -37,13 +38,13 @@ func run() -> void:
 	app.start_battle()
 	check(app.screen=="battle" and app.model.enemies.size()==1,"出陣")
 	await capture("battle")
-	app.choose_question(app.data.questions[0])
+	await app.choose_question(app.data.questions[0])
 	check(app.model.status=="question","巻物から四択へ")
 	await capture("question")
 	# UI回答経路を使い、アニメーションを経て討伐・報酬まで通す。
 	var guard := 0
 	while app.screen=="battle" and guard<20:
-		if app.model.status=="scrolls": app.choose_question(app.data.questions[0])
+		if app.model.status=="scrolls": await app.choose_question(app.data.questions[0])
 		await app.answer(int(app.model.current_question.answer))
 		guard+=1
 	check(app.screen=="result" and app.model.status=="won","UIで討伐")
