@@ -1,0 +1,18 @@
+[
+  {
+    "id": "small",
+    "name": "野の小鬼（独自仮鬼）",
+    "hp": 390,
+    "attack": 45,
+    "attribute": "砕",
+    "provenance": "C"
+  },
+  {
+    "id": "swift",
+    "name": "疾き小鬼（独自仮鬼）",
+    "hp": 300,
+    "attack": 55,
+    "attribute": "突",
+    "provenance": "C"
+  }
+]

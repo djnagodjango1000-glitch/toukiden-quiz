@@ -1,0 +1,40 @@
+[
+  {
+    "id": "trial01",
+    "label": "仮任務一・初陣の問い",
+    "provisional": true,
+    "energy": 0,
+    "waves": [
+      [
+        "small"
+      ]
+    ],
+    "rewards": {
+      "haku": 100,
+      "xp": 10
+    },
+    "unlocks": [
+      "trial02"
+    ]
+  },
+  {
+    "id": "trial02",
+    "label": "仮任務二・群れを退けよ",
+    "provisional": true,
+    "energy": 0,
+    "waves": [
+      [
+        "small",
+        "swift"
+      ],
+      [
+        "small"
+      ]
+    ],
+    "rewards": {
+      "haku": 180,
+      "xp": 20
+    },
+    "unlocks": []
+  }
+]

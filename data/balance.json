@@ -1,0 +1,41 @@
+{
+  "provenance": "C: Phase 1用の仮値。原作確定値ではない。",
+  "question_time_ms": 20000,
+  "difficulty_multipliers": {
+    "1": 1.0,
+    "2": 1.4,
+    "3": 1.8
+  },
+  "attributes": {
+    "斬": {
+      "斬": 1.0,
+      "砕": 1.0,
+      "突": 1.0
+    },
+    "砕": {
+      "斬": 1.0,
+      "砕": 1.0,
+      "突": 1.0
+    },
+    "突": {
+      "斬": 1.0,
+      "砕": 1.0,
+      "突": 1.0
+    }
+  },
+  "hayafuri": {
+    "enabled": false,
+    "threshold_ms": 4000
+  },
+  "musuhi": {
+    "enabled": false,
+    "gauge_required": 10,
+    "time_ms": 20000,
+    "max_mistakes": 2,
+    "damage_per_correct": 2.0
+  },
+  "tamafuri": {
+    "enabled": false,
+    "points_per_correct": 1
+  }
+}
