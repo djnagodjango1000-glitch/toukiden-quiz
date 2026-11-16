@@ -4,6 +4,8 @@ const Battle = preload("res://scripts/battle.gd")
 const SaveStore = preload("res://scripts/save_store.gd")
 const StageArt = preload("res://scripts/stage_art.gd")
 const Sound = preload("res://scripts/sound.gd")
+const Progression = preload("res://scripts/progression.gd")
+var progression
 var sound = Sound.new()
 var store = SaveStore.new()
 var save: Dictionary
@@ -39,6 +41,7 @@ func _ready() -> void:
 	theme = theme_data
 	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions", "progression"]:
 		data[filename] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + filename + ".json"))
+	progression = Progression.new(data.progression,data.mitama)
 	add_child(sound)
 	save = store.load_save()
 	notice = store.error
@@ -147,7 +150,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("Phase 3 開発版  0.3.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("Phase 3 開発版  0.4.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -171,6 +174,8 @@ func show_home() -> void:
 	button("任務 ── 領域を選ぶ",show_regions)
 	button("ミタマ ── 編成・強化",show_party)
 	button("召喚 ── ミタマを迎える",show_gacha)
+	button("ミタマ事典",show_encyclopedia)
+	button("修練 ── 問いの稽古",show_training,not "trial01" in save.cleared)
 	button("設定・セーブ情報",show_settings)
 	button("タイトルに戻る",show_title)
 	label("編成・強化・召喚は開発中の仮仕様です。",20)
@@ -196,24 +201,33 @@ func show_missions() -> void:
 	clear_page("任務選択 ── 仮の領域")
 	for item in data.missions:
 		var m: Dictionary = item
+		if m.get("training",false): continue
 		var suffix := "  達成" if m.id in save.cleared else ""
 		button(m.label+suffix,func(): show_details(m),not unlocked(m))
 		label("報酬 %dハク / %d経験値" % [m.rewards.haku,m.rewards.xp],21)
 	label("初陣で連戦、連戦で大型鬼任務が解放されます。",22)
 	button("領域選択に戻る",show_regions)
 
+func show_training() -> void:
+	for item in data.missions:
+		if item.get("training",false):
+			show_details(item)
+			return
+
 func show_details(m: Dictionary) -> void:
 	screen = "detail"
 	mission = m
 	clear_page(m.label)
-	label("独自の仮任務 / 消費行動力 0",24)
+	var energy: Dictionary = progression.energy_state(save,int(Time.get_unix_time_from_system()))
+	var free: bool = save.settings.get("free_play",false)
+	label("独自の仮任務 / 行動力 %d（所持 %d）%s" % [m.energy,energy.amount," 自由プレイ" if free else ""],24)
 	label("戦闘数 %d / 最大出現数 %d" % [m.waves.size(),m.waves[0].size()],26)
 	label("報酬 %dハク / %d経験値" % [m.rewards.haku,m.rewards.xp],26)
 	space(20)
-	label("4体のミタマを速さ順で使用します。\n巻物を選び、20秒以内に四択へ解答。正解で攻撃し、残った鬼が反撃します。\n敵をタップして攻撃対象を変更できます。",24)
+	label("編成したミタマを速さ順で使用します。\n巻物を選び、20秒以内に四択へ解答。正解で攻撃し、残った鬼が反撃します。\n敵をタップして攻撃対象を変更できます。",24)
 	label("仮仕様：4秒以内の正解で固有効果と後続1体の追撃。\n正解でタマフリとムスヒを蓄積。角を壊すと気絶、腕を壊すと攻撃低下。",22)
 	space(30)
-	button("出陣",start_battle)
+	button("出陣",start_battle,not free and int(energy.amount)<int(m.energy))
 	button("任務一覧へ",show_missions)
 
 func portrait(id: String, width: float = 112.0) -> TextureRect:
@@ -244,6 +258,10 @@ func members_for_deck() -> Array:
 				member.level = level
 				member.hp += (level-1)*int(data.progression.health_per_level)
 				member.attack += (level-1)*int(data.progression.attack_per_level)
+				var evolution: int = int(save.get("evolutions",{}).get(id,0))
+				member.evolution = evolution
+				member.hp += evolution*int(data.progression.evolve_health)
+				member.attack += evolution*int(data.progression.evolve_attack)
 				members.append(member)
 	return members
 
@@ -257,7 +275,7 @@ func save_change(updated: Dictionary) -> bool:
 func show_party() -> void:
 	screen = "party"
 	clear_page("ミタマ ── 編成と強化")
-	label("編成 %d/4　ハク %d　※能力・強化費用は仮値" % [deck_ids().size(),save.haku],22)
+	label("編成 %d/4　コスト %d/%d　ハク %d　素材 %d" % [deck_ids().size(),progression.team_cost(deck_ids()),data.progression.team_cost_limit,save.haku,save.get("material",0)],22)
 	for original in data.mitama:
 		var m: Dictionary = original
 		if not m.id in save.owned: continue
@@ -270,7 +288,8 @@ func show_party() -> void:
 		row.add_child(panel)
 		var level: int = int(save.get("levels",{}).get(m.id,1))
 		var info := Label.new()
-		info.text = "%s  [%s]  Lv.%d\n体力 %d / 攻撃 %d" % [m.name,m.attribute,level,int(m.hp)+(level-1)*int(data.progression.health_per_level),int(m.attack)+(level-1)*int(data.progression.attack_per_level)]
+		var stage: int = int(save.get("evolutions",{}).get(m.id,0))
+		info.text = "%s  [%s]  Lv.%d　進化%d\n体力 %d / 攻撃 %d" % [m.name,m.attribute,level,stage,int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health),int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)]
 		info.add_theme_color_override("font_color",palette.ink)
 		info.add_theme_font_size_override("font_size",21)
 		panel.add_child(info)
@@ -280,12 +299,8 @@ func show_party() -> void:
 		toggle.text = "編成中" if m.id in deck_ids() else "編成する"
 		toggle.disabled = m.id in deck_ids() and deck_ids().size()<=1
 		toggle.pressed.connect(func():
-			var updated: Dictionary = save.duplicate(true)
-			var deck: Array = deck_ids().duplicate()
-			if m.id in deck: deck.erase(m.id)
-			elif deck.size()<int(data.progression.team_limit): deck.append(m.id)
-			else: return
-			updated["deck"] = deck
+			var updated: Dictionary = progression.change_deck(save,m.id)
+			if updated.is_empty(): return
 			if save_change(updated): show_party())
 		controls.add_child(toggle)
 		var upgrade := Button.new()
@@ -298,14 +313,78 @@ func show_party() -> void:
 			updated.levels[m.id] = level+1
 			if save_change(updated): show_party())
 		controls.add_child(upgrade)
+		var fusion := Button.new()
+		fusion.text = "素材合成"
+		fusion.disabled = int(save.get("material",0))<int(data.progression.fusion_material) or int(save.haku)<int(data.progression.fusion_haku) or level>=int(data.progression.upgrade_max_level)
+		fusion.pressed.connect(func(): show_fusion(m))
+		panel.add_child(fusion)
+		var evolve_button := Button.new()
+		evolve_button.text = "進化 %d→%d" % [stage,stage+1]
+		evolve_button.disabled = progression.evolve(save,m.id).is_empty()
+		evolve_button.pressed.connect(func(): show_evolve(m))
+		panel.add_child(evolve_button)
 	label("編成は最大4体。満員の場合は先に1体外してください。\n強化：%dハクで体力+%d・攻撃+%d（仮値、最大Lv.%d）。" % [data.progression.upgrade_cost_haku,data.progression.health_per_level,data.progression.attack_per_level,data.progression.upgrade_max_level],20)
 	label("肖像は新規の象徴画です。史実や原作の容姿を再現したものではありません。",19)
+	button("里に戻る",show_home)
+
+func show_fusion(m: Dictionary) -> void:
+	screen = "fusion"
+	clear_page("素材合成による強化")
+	content.add_child(portrait(m.id,180))
+	var level: int = int(save.get("levels",{}).get(m.id,1))
+	var stage: int = int(save.get("evolutions",{}).get(m.id,0))
+	var hp: int = int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health)
+	var attack: int = int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)
+	label("%s　Lv.%d → %d" % [m.name,level,level+1],30)
+	label("体力 %d → %d　攻撃 %d → %d" % [hp,hp+int(data.progression.health_per_level),attack,attack+int(data.progression.attack_per_level)],23)
+	label("必要：%dハク・素材%d / 現在：%dハク・素材%d（仮仕様）" % [data.progression.fusion_haku,data.progression.fusion_material,save.haku,save.get("material",0)],22)
+	var unavailable: bool = level>=int(data.progression.upgrade_max_level) or save.haku<int(data.progression.fusion_haku) or int(save.get("material",0))<int(data.progression.fusion_material)
+	button("合成を確定",func():
+		var updated: Dictionary = save.duplicate(true)
+		if int(updated.haku)<int(data.progression.fusion_haku) or int(updated.get("material",0))<int(data.progression.fusion_material): return
+		updated.haku -= int(data.progression.fusion_haku)
+		updated["material"] = int(updated.get("material",0))-int(data.progression.fusion_material)
+		if not updated.has("levels"): updated["levels"] = {}
+		updated.levels[m.id] = level+1
+		if save_change(updated): show_party(),unavailable)
+	button("戻る",show_party)
+
+func show_evolve(m: Dictionary) -> void:
+	screen = "evolve"
+	clear_page("ミタマ進化")
+	content.add_child(portrait(m.id,180))
+	var stage: int = int(save.get("evolutions",{}).get(m.id,0))
+	var level: int = int(save.get("levels",{}).get(m.id,1))
+	var before_hp: int = int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health)
+	var before_attack: int = int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)
+	label("%s　進化 %d → %d" % [m.name,stage,stage+1],30)
+	label("体力 %d → %d　攻撃 %d → %d" % [before_hp,before_hp+int(data.progression.evolve_health),before_attack,before_attack+int(data.progression.evolve_attack)],23)
+	label("必要：%dハク・素材%d / 現在：%dハク・素材%d\n条件：Lv.%d以上。すべて仮仕様。" % [data.progression.evolve_haku,data.progression.evolve_material,save.haku,save.get("material",0),data.progression.evolve_level],22)
+	button("進化を確定",func():
+		var updated: Dictionary = progression.evolve(save,m.id)
+		if not updated.is_empty() and save_change(updated): show_party(),progression.evolve(save,m.id).is_empty())
+	button("戻る",show_party)
+
+func show_encyclopedia() -> void:
+	screen = "encyclopedia"
+	clear_page("ミタマ事典")
+	label("登録 %d / %d" % [save.owned.size(),data.mitama.size()],27)
+	for m in data.mitama:
+		if m.id in save.owned:
+			label("◆ %s　%s" % [m.name,m.attribute],23)
+		else: label("◇ 未取得",23)
+	for key in data.progression.encyclopedia_rewards:
+		var threshold := int(key)
+		var claimed: bool = key in save.get("collection_claimed",[])
+		button("登録%d体報酬：%dハク%s" % [threshold,data.progression.encyclopedia_rewards[key],"（受取済）" if claimed else ""],func():
+			var updated: Dictionary = progression.claim_collection(save,threshold)
+			if not updated.is_empty() and save_change(updated): show_encyclopedia(),claimed or save.owned.size()<threshold)
 	button("里に戻る",show_home)
 
 func show_gacha() -> void:
 	screen = "gacha"
 	clear_page("召喚 ── ミタマを迎える")
-	label("所持ハク %d" % save.haku,28)
+	label("所持ハク %d　宝玉 %d" % [save.haku,save.get("orbs",0)],28)
 	label("%dハクで未所持のミタマから等確率で1体を迎えます。\n確率と費用はオフライン用の仮仕様です。" % data.progression.summon_cost_haku,23)
 	var missing: Array = []
 	for m in data.mitama:
@@ -323,13 +402,31 @@ func show_gacha() -> void:
 			show_gacha()
 			content.add_child(portrait(selected.id,180))
 			label("%s を迎えました！" % selected.name,30),save.haku<int(data.progression.summon_cost_haku) or missing.is_empty())
+	button("宝玉で召喚（%d個）" % data.progression.orb_summon_cost,func():
+		var cost: int = int(data.progression.orb_summon_cost)
+		if int(save.get("orbs",0))<cost or missing.is_empty(): return
+		var rng := RandomNumberGenerator.new()
+		rng.randomize()
+		var selected: Dictionary = missing[rng.randi_range(0,missing.size()-1)]
+		var updated: Dictionary = save.duplicate(true)
+		updated["orbs"] = int(updated.get("orbs",0))-cost
+		updated.owned.append(selected.id)
+		if save_change(updated):
+			show_gacha()
+			content.add_child(portrait(selected.id,180))
+			label("%s を迎えました！" % selected.name,30),int(save.get("orbs",0))<int(data.progression.orb_summon_cost) or missing.is_empty())
+	label("宝玉は任務の初回達成で無料入手。召喚対象はハクと共通で、未所持から等確率。",20)
 	button("里に戻る",show_home)
 
 func show_settings() -> void:
 	screen = "settings"
 	clear_page("設定・セーブ情報")
-	label("完全オフライン / 広告・課金なし\n開発版は行動力を消費しません。",25)
-	label("任務報酬は帰還前に自動保存されます。\n保存先：user://save.json\n世代バックアップ：save.json.bak\n手動入出力・細かな音量設定は後続フェーズです。",23)
+	label("完全オフライン / 広告・課金なし",25)
+	button("行動力："+("自由プレイ" if save.settings.get("free_play",false) else "通常"),func():
+		var updated: Dictionary = save.duplicate(true)
+		updated.settings["free_play"] = not updated.settings.get("free_play",false)
+		if save_change(updated): show_settings())
+	label("任務報酬は帰還前に自動保存されます。\n保存先：user://save.json\n世代バックアップ：save.json.bak\n読み込み時は現在の進行を上書きする前に確認します。",23)
 	button("効果音："+("OFF" if save.settings.get("muted",false) else "ON"),func():
 		var updated: Dictionary = save.duplicate(true)
 		updated.settings["muted"] = not updated.settings.get("muted",false)
@@ -337,12 +434,64 @@ func show_settings() -> void:
 			save = updated
 			show_settings()
 		else: label(store.error,24,Color("8a332d")))
+	button("バックアップを書き出す",func(): backup_dialog(false))
+	button("バックアップを読み込む",func(): backup_dialog(true))
 	button("現在の進行を保存",func():
 		if store.persist(save): label("保存しました。",24)
 		else: label(store.error,24,Color("8a332d")))
 	button("里に戻る",show_home)
 
+func backup_dialog(importing: bool) -> void:
+	var picker := FileDialog.new()
+	picker.access = FileDialog.ACCESS_FILESYSTEM
+	picker.file_mode = FileDialog.FILE_MODE_OPEN_FILE if importing else FileDialog.FILE_MODE_SAVE_FILE
+	picker.filters = PackedStringArray(["*.json ; 鬼問戦記セーブ"])
+	picker.current_file = "kimon-backup.json"
+	add_child(picker)
+	picker.file_selected.connect(func(path: String):
+		picker.hide()
+		if importing:
+			var file := FileAccess.open(path,FileAccess.READ)
+			if file == null or file.get_length()>2*1024*1024:
+				label("ファイルを読み込めません。",22,Color("8a332d"))
+				return
+			var parser := JSON.new()
+			if parser.parse(file.get_as_text()) != OK or not store.valid(parser.data) or not progression.valid_backup(parser.data):
+				label("対応していないか、破損したバックアップです。",22,Color("8a332d"))
+				return
+			var incoming: Dictionary = parser.data
+			var confirm := ConfirmationDialog.new()
+			confirm.title = "バックアップの読み込み"
+			confirm.dialog_text = "現在の進行を読み込んだ内容で上書きします。\nハク：%d → %d / 所持ミタマ：%d → %d\n現在のデータは前世代のバックアップにも保存します。" % [save.haku,incoming.haku,save.owned.size(),incoming.owned.size()]
+			confirm.ok_button_text = "上書きして読み込む"
+			add_child(confirm)
+			confirm.confirmed.connect(func():
+				if save_change(incoming):
+					show_settings()
+					label("バックアップを読み込みました。",22))
+			confirm.popup_centered()
+		else:
+			var file := FileAccess.open(path,FileAccess.WRITE)
+			if file == null:
+				label("書き出せませんでした。",22,Color("8a332d"))
+				return
+			file.store_string(JSON.stringify(save,"  "))
+			file.flush()
+			if file.get_error() != OK:
+				label("書き出し中にエラーが発生しました。",22,Color("8a332d"))
+				file.close()
+				return
+			file.close()
+			label("バックアップを書き出しました。",22))
+	picker.popup_centered_ratio(0.9)
+
 func start_battle() -> void:
+	var updated: Dictionary = progression.enter_mission(save,mission,int(Time.get_unix_time_from_system()))
+	if updated.is_empty():
+		show_details(mission)
+		label("行動力が不足しています。",23,Color("8a332d"))
+		return
+	if not save_change(updated): return
 	var party: Array = members_for_deck()
 	model.setup(party,mission,data.oni,data.balance,Time.get_ticks_msec(),data.effects.definitions)
 	event_history.clear()
@@ -612,13 +761,13 @@ func show_result() -> void:
 	clear_page("任務達成" if model.status == "won" else "敗北")
 	label("%s\n正解 %d / %d問" % [mission.label,model.correct,model.answered],30)
 	if model.status == "won":
-		var updated: Dictionary = store.reward(save,mission,receipt)
+		var updated: Dictionary = store.reward(save,mission,receipt,int(data.progression.orb_first_clear))
 		if not store.persist(updated):
 			label("保存できませんでした。報酬は未確定です。\n"+store.error,24,Color("8a332d"))
 			button("保存を再試行",show_result)
 			return
 		save = updated
-		label("%dハク / %d経験値を獲得\n進行を保存しました。" % [mission.rewards.haku,mission.rewards.xp],28)
+		label("%dハク / %d経験値 / 素材%dを獲得\n進行を保存しました。" % [mission.rewards.haku,mission.rewards.xp,mission.rewards.get("material",0)],28)
 	else: label("報酬はありません。里で準備を整えましょう。",26)
 	space(30)
 	button("里へ帰還",show_home)

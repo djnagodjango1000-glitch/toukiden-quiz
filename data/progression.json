@@ -5,5 +5,22 @@
   "upgrade_max_level": 10,
   "health_per_level": 30,
   "attack_per_level": 8,
-  "summon_cost_haku": 200
+  "summon_cost_haku": 200,
+  "team_cost_limit": 10,
+  "evolve_level": 5,
+  "evolve_max": 2,
+  "evolve_haku": 250,
+  "evolve_material": 2,
+  "evolve_health": 150,
+  "evolve_attack": 40,
+  "energy_max": 30,
+  "energy_recovery_seconds": 300,
+  "encyclopedia_rewards": {
+    "4": 100,
+    "6": 300
+  },
+  "orb_first_clear": 1,
+  "orb_summon_cost": 1,
+  "fusion_haku": 50,
+  "fusion_material": 1
 }

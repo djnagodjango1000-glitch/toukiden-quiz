@@ -3,7 +3,7 @@
     "id": "trial01",
     "label": "仮任務一・初陣の問い",
     "provisional": true,
-    "energy": 0,
+    "energy": 3,
     "waves": [
       [
         "small"
@@ -11,7 +11,8 @@
     ],
     "rewards": {
       "haku": 100,
-      "xp": 10
+      "xp": 10,
+      "material": 1
     },
     "unlocks": [
       "trial02"
@@ -21,7 +22,7 @@
     "id": "trial02",
     "label": "仮任務二・群れを退けよ",
     "provisional": true,
-    "energy": 0,
+    "energy": 5,
     "waves": [
       [
         "small",
@@ -33,7 +34,8 @@
     ],
     "rewards": {
       "haku": 180,
-      "xp": 20
+      "xp": 20,
+      "material": 1
     },
     "unlocks": [
       "trial03"
@@ -43,7 +45,7 @@
     "id": "trial03",
     "label": "仮任務三・山門の角砕き",
     "provisional": true,
-    "energy": 0,
+    "energy": 8,
     "waves": [
       [
         "boss"
@@ -51,7 +53,26 @@
     ],
     "rewards": {
       "haku": 300,
-      "xp": 40
+      "xp": 40,
+      "material": 1
+    },
+    "unlocks": []
+  },
+  {
+    "id": "training01",
+    "label": "修練・問いの稽古（仮）",
+    "training": true,
+    "provisional": true,
+    "energy": 2,
+    "waves": [
+      [
+        "small"
+      ]
+    ],
+    "rewards": {
+      "haku": 50,
+      "xp": 5,
+      "material": 1
     },
     "unlocks": []
   }

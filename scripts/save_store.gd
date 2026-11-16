@@ -5,7 +5,7 @@ var blocked := false
 var error := ""
 
 func initial() -> Dictionary:
-	return {"schema_version": 1, "haku": 0, "xp": 0, "cleared": [], "reward_ids": [], "settings": {"free_play": true}, "owned": ["m01", "m02", "m03", "m04"]}
+	return {"schema_version": 1, "haku": 0, "xp": 0, "cleared": [], "reward_ids": [], "settings": {"free_play": false}, "owned": ["m01", "m02", "m03", "m04"]}
 
 func valid(data: Variant) -> bool:
 	if not data is Dictionary: return false
@@ -72,11 +72,14 @@ func persist(data: Dictionary) -> bool:
 	error = ""
 	return true
 
-func reward(data: Dictionary, mission: Dictionary, receipt: String) -> Dictionary:
+func reward(data: Dictionary, mission: Dictionary, receipt: String, orb_per_first_clear: int = 1) -> Dictionary:
 	var updated := data.duplicate(true)
 	if receipt in updated.reward_ids: return updated
 	updated.haku += int(mission.rewards.haku)
 	updated.xp += int(mission.rewards.xp)
-	if not mission.id in updated.cleared: updated.cleared.append(mission.id)
+	updated["material"] = int(updated.get("material",0))+int(mission.rewards.get("material",0))
+	if not mission.id in updated.cleared:
+		updated.cleared.append(mission.id)
+		if not mission.get("training",false): updated["orbs"] = int(updated.get("orbs",0))+orb_per_first_clear
 	updated.reward_ids.append(receipt)
 	return updated

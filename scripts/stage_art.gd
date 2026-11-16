@@ -1,6 +1,7 @@
 extends Control
 ## 新規制作の仮背景と鬼。原作の画像を使わない。
 const ONI_TEXTURE = preload("res://assets/art/oni.png")
+const SMALL_ONI_TEXTURE = preload("res://assets/art/small_oni.png")
 var count := 1
 var dead: Array = []
 var selected := 0
@@ -25,6 +26,16 @@ func _draw() -> void:
 		if not marks.is_empty():
 			draw_rect(Rect2(0,size.y-34,size.x,34),Color(0.10,0.07,0.06,0.8))
 			draw_string(ThemeDB.fallback_font,Vector2(12,size.y-10),marks,HORIZONTAL_ALIGNMENT_LEFT,-1,18,Color("f5d596"))
+		return
+	if not enemy_data.is_empty():
+		draw_rect(Rect2(Vector2.ZERO,size),Color("252d32"))
+		var cell_width := minf(size.x/float(count),size.y*0.95)
+		for i in range(count):
+			var cell_x := size.x*float(i+1)/float(count+1)-cell_width/2.0
+			var src_index := 0 if enemy_data[i].id=="small" else 2
+			draw_texture_rect_region(SMALL_ONI_TEXTURE,Rect2(cell_x,0,cell_width,size.y),Rect2(src_index*512,300,512,600))
+			if i < dead.size() and dead[i]: draw_rect(Rect2(cell_x,0,cell_width,size.y),Color(0.05,0.05,0.08,0.78))
+			if i == selected: draw_rect(Rect2(cell_x+2,2,cell_width-4,size.y-4),Color("e4bf70"),false,3)
 		return
 	var w := size.x
 	var h := size.y
