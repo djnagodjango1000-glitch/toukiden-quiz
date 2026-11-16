@@ -23,7 +23,7 @@ var question_serial := 0
 var notice := ""
 var event_history: Array = []
 var stage_art: Control
-var palette := {"paper": Color("e4d8b8"), "ink": Color("302c27"), "gold": Color("9c763c"), "dark": Color("253e3b")}
+var palette := {"paper": Color("dfd0ad"), "ink": Color("30251e"), "gold": Color("95713d"), "dark": Color("263f3c")}
 
 func _ready() -> void:
 	var theme_data := Theme.new()
@@ -37,7 +37,7 @@ func _ready() -> void:
 		theme_data.set_color(state,"Button",palette.ink)
 	theme_data.set_color("font_disabled_color","Button",Color("77705f"))
 	theme = theme_data
-	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions"]:
+	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions", "progression"]:
 		data[filename] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + filename + ".json"))
 	add_child(sound)
 	save = store.load_save()
@@ -147,7 +147,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("Phase 2 開発版  0.2.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("Phase 3 開発版  0.3.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -159,15 +159,21 @@ func show_home() -> void:
 	screen = "home"
 	clear_page("里 ── 鬼問戦記")
 	label("ハク  %d    経験値  %d" % [save.haku,save.xp],26)
-	space(30)
+	var hero_banner := HBoxContainer.new()
+	hero_banner.alignment = BoxContainer.ALIGNMENT_CENTER
+	hero_banner.add_theme_constant_override("separation",8)
+	content.add_child(hero_banner)
+	for id in deck_ids(): hero_banner.add_child(portrait(id,92))
+	space(12)
 	label("試作の里",44,palette.dark)
 	label("山の向こうで鬼が動き始めた。\n巻物の問いを解き、ミタマとともに出陣しよう。",25)
 	space(40)
 	button("任務 ── 領域を選ぶ",show_regions)
-	button("ミタマ ── 編成を確認",show_party)
+	button("ミタマ ── 編成・強化",show_party)
+	button("召喚 ── ミタマを迎える",show_gacha)
 	button("設定・セーブ情報",show_settings)
 	button("タイトルに戻る",show_title)
-	label("大型鬼・特殊技を追加しました。育成・ガチャは後続フェーズです。",20)
+	label("編成・強化・召喚は開発中の仮仕様です。",20)
 
 func show_regions() -> void:
 	screen = "regions"
@@ -210,18 +216,113 @@ func show_details(m: Dictionary) -> void:
 	button("出陣",start_battle)
 	button("任務一覧へ",show_missions)
 
+func portrait(id: String, width: float = 112.0) -> TextureRect:
+	var positions := {"m01":4,"m02":0,"m03":2,"m04":3,"m05":1,"m06":5}
+	var index: int = positions.get(id,0)
+	var sheet: Texture2D = load("res://assets/art/portraits.png")
+	var atlas := AtlasTexture.new()
+	atlas.atlas = sheet
+	atlas.region = Rect2((index%3)*512,(index/3)*512,512,512)
+	var image := TextureRect.new()
+	image.texture = atlas
+	image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
+	image.custom_minimum_size = Vector2(width,width)
+	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	return image
+
+func deck_ids() -> Array:
+	return save.get("deck",save.owned.slice(0,4))
+
+func members_for_deck() -> Array:
+	var members: Array = []
+	for id in deck_ids():
+		for original in data.mitama:
+			if original.id == id:
+				var member: Dictionary = original.duplicate(true)
+				var level: int = int(save.get("levels",{}).get(id,1))
+				member.level = level
+				member.hp += (level-1)*int(data.progression.health_per_level)
+				member.attack += (level-1)*int(data.progression.attack_per_level)
+				members.append(member)
+	return members
+
+func save_change(updated: Dictionary) -> bool:
+	if not store.persist(updated):
+		label("保存に失敗しました："+store.error,22,Color("8a332d"))
+		return false
+	save = updated
+	return true
+
 func show_party() -> void:
 	screen = "party"
-	clear_page("ミタマ編成 ── 固定4体")
-	var total_hp := 0
-	for i in range(4): total_hp += int(data.mitama[i].hp)
-	label("合計コスト 8 / 仮上限 10　合計体力 %d" % total_hp,23)
-	for i in range(4):
-		var m: Dictionary = data.mitama[i]
-		label("%d  %s  [%s]  Lv.%d" % [i+1,m.name,m.attribute,m.level],29,palette.dark)
-		label("体力 %d / 攻撃 %d / 速さ %d" % [m.hp,m.attack,m.speed],23)
-		label("ハヤフリ：%s\nタマフリ：%s（%d pt）" % [data.effects.definitions[m.hayafuri].label,data.effects.definitions[m.tamafuri].label,data.effects.definitions[m.tamafuri].cost],22)
-	label("人物名以外の能力・属性は新規の仮値です。原作の個別能力を再現したものではありません。",21)
+	clear_page("ミタマ ── 編成と強化")
+	label("編成 %d/4　ハク %d　※能力・強化費用は仮値" % [deck_ids().size(),save.haku],22)
+	for original in data.mitama:
+		var m: Dictionary = original
+		if not m.id in save.owned: continue
+		var row := HBoxContainer.new()
+		row.add_theme_constant_override("separation",14)
+		content.add_child(row)
+		row.add_child(portrait(m.id,108))
+		var panel := VBoxContainer.new()
+		panel.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(panel)
+		var level: int = int(save.get("levels",{}).get(m.id,1))
+		var info := Label.new()
+		info.text = "%s  [%s]  Lv.%d\n体力 %d / 攻撃 %d" % [m.name,m.attribute,level,int(m.hp)+(level-1)*int(data.progression.health_per_level),int(m.attack)+(level-1)*int(data.progression.attack_per_level)]
+		info.add_theme_color_override("font_color",palette.ink)
+		info.add_theme_font_size_override("font_size",21)
+		panel.add_child(info)
+		var controls := HBoxContainer.new()
+		panel.add_child(controls)
+		var toggle := Button.new()
+		toggle.text = "編成中" if m.id in deck_ids() else "編成する"
+		toggle.disabled = m.id in deck_ids() and deck_ids().size()<=1
+		toggle.pressed.connect(func():
+			var updated: Dictionary = save.duplicate(true)
+			var deck: Array = deck_ids().duplicate()
+			if m.id in deck: deck.erase(m.id)
+			elif deck.size()<int(data.progression.team_limit): deck.append(m.id)
+			else: return
+			updated["deck"] = deck
+			if save_change(updated): show_party())
+		controls.add_child(toggle)
+		var upgrade := Button.new()
+		upgrade.text = "強化 %dハク" % data.progression.upgrade_cost_haku
+		upgrade.disabled = save.haku<int(data.progression.upgrade_cost_haku) or level>=int(data.progression.upgrade_max_level)
+		upgrade.pressed.connect(func():
+			var updated: Dictionary = save.duplicate(true)
+			updated.haku -= int(data.progression.upgrade_cost_haku)
+			if not updated.has("levels"): updated["levels"] = {}
+			updated.levels[m.id] = level+1
+			if save_change(updated): show_party())
+		controls.add_child(upgrade)
+	label("編成は最大4体。満員の場合は先に1体外してください。\n強化：%dハクで体力+%d・攻撃+%d（仮値、最大Lv.%d）。" % [data.progression.upgrade_cost_haku,data.progression.health_per_level,data.progression.attack_per_level,data.progression.upgrade_max_level],20)
+	label("肖像は新規の象徴画です。史実や原作の容姿を再現したものではありません。",19)
+	button("里に戻る",show_home)
+
+func show_gacha() -> void:
+	screen = "gacha"
+	clear_page("召喚 ── ミタマを迎える")
+	label("所持ハク %d" % save.haku,28)
+	label("%dハクで未所持のミタマから等確率で1体を迎えます。\n確率と費用はオフライン用の仮仕様です。" % data.progression.summon_cost_haku,23)
+	var missing: Array = []
+	for m in data.mitama:
+		if not m.id in save.owned: missing.append(m)
+	label("未所持 %d体" % missing.size(),24)
+	button("召喚する（%dハク）" % data.progression.summon_cost_haku,func():
+		if save.haku<int(data.progression.summon_cost_haku) or missing.is_empty(): return
+		var rng := RandomNumberGenerator.new()
+		rng.randomize()
+		var selected: Dictionary = missing[rng.randi_range(0,missing.size()-1)]
+		var updated: Dictionary = save.duplicate(true)
+		updated.haku -= int(data.progression.summon_cost_haku)
+		updated.owned.append(selected.id)
+		if save_change(updated):
+			show_gacha()
+			content.add_child(portrait(selected.id,180))
+			label("%s を迎えました！" % selected.name,30),save.haku<int(data.progression.summon_cost_haku) or missing.is_empty())
 	button("里に戻る",show_home)
 
 func show_settings() -> void:
@@ -242,7 +343,7 @@ func show_settings() -> void:
 	button("里に戻る",show_home)
 
 func start_battle() -> void:
-	var party: Array = data.mitama.slice(0,4)
+	var party: Array = members_for_deck()
 	model.setup(party,mission,data.oni,data.balance,Time.get_ticks_msec(),data.effects.definitions)
 	event_history.clear()
 	receipt = "%s-%s-%s" % [mission.id,Time.get_unix_time_from_system(),Time.get_ticks_usec()]
@@ -261,7 +362,7 @@ func show_battle() -> void:
 	art.count = model.enemies.size()
 	art.selected = model.target_index
 	for e in model.enemies: art.dead.append(e.hp <= 0)
-	art.custom_minimum_size.y = 220
+	art.custom_minimum_size.y = 190
 	content.add_child(art)
 	var targets := HBoxContainer.new()
 	content.add_child(targets)
@@ -296,6 +397,12 @@ func show_battle() -> void:
 		var m: Dictionary = model.party[(model.actor_index+j)%model.party.size()]
 		order_text += ("▶ " if j==0 else " → ")+m.name
 	label(order_text,20,palette.dark)
+	var portraits_row := HBoxContainer.new()
+	portraits_row.add_theme_constant_override("separation",4)
+	content.add_child(portraits_row)
+	for j in range(model.party.size()):
+		var member: Dictionary = model.party[(model.actor_index+j)%model.party.size()]
+		portraits_row.add_child(portrait(member.id,58))
 	var hp_bar := ProgressBar.new()
 	hp_bar.max_value = model.max_hp
 	hp_bar.value = model.hp

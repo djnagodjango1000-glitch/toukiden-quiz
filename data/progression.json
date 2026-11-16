@@ -1,0 +1,9 @@
+{
+  "provenance": "C: オフライン用の新規暫定仕様。原作の確定値ではない。",
+  "team_limit": 4,
+  "upgrade_cost_haku": 100,
+  "upgrade_max_level": 10,
+  "health_per_level": 30,
+  "attack_per_level": 8,
+  "summon_cost_haku": 200
+}

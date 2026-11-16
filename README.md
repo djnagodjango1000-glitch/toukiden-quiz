@@ -2,7 +2,7 @@
 
 『クイズバトル討鬼伝』の機能的なゲーム体験を調査し、独自素材で構築する非公式Android向けクイズRPG。原作の画像・音源・ロゴ・問題文は含めません。
 
-**現在：Phase 2の主要戦闘機能を実装した0.2.0試作。完成版ではありません。APKは未生成です。**
+**現在：Phase 3の編成・強化・召喚に着手した0.3.0試作。完成版ではありません。APKは未生成です。**
 
 ## 実行
 Godot **4.6.3**で`project.godot`をインポートしてF6ではなくF5で起動。コマンドラインでは：
@@ -33,6 +33,7 @@ godot --headless --path . --script tests/test_phase2.gd
 # X11画面があるLinux環境。音声装置のない環境ではDummyを指定。
 godot --audio-driver Dummy --path . --script tests/ui_flow.gd
 godot --audio-driver Dummy --path . --script tests/ui_phase2.gd
+godot --audio-driver Dummy --path . --script tests/ui_phase3.gd
 ```
 UIテストは`build/`にPNGを出力します。実セーブと別名のテスト用ファイルを使い、そのファイルのみ後片付けします。
 
