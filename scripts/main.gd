@@ -203,7 +203,7 @@ func show_how_to_play() -> void:
 	label("三、力を使い分ける",30,palette.dark)
 	label("正解でタマフリのポイントが貯まります。攻撃・回復・守りなど、ミタマごとに異なる力を使えます。",23)
 	label("四、大型鬼を狙う",30,palette.dark)
-	label("角を壊すと気絶、腕や脚を壊すと反撃が弱まります。狙う場所を選んでから巻物を選びましょう。",23)
+	label("角を壊すと気絶、腕や脚を壊すと反撃が弱まります。部位にはそれぞれ仮の属性があります。狙う場所を選び、巻物の通常攻撃予想を参考にしましょう。",23)
 	label("五、ムスヒノ刻",30,palette.dark)
 	label("正解を重ねてゲージを満たし、発動。○×に続けて答えると追加攻撃できます。",23)
 	label("技の値や相性は調査中の暫定仕様です。行動力を使わない自由プレイも設定で選べます。",20)
@@ -594,11 +594,11 @@ func show_battle() -> void:
 	if model.status == "scrolls" and not busy and model.enemies[model.target_index].get("large",false):
 		var parts_row := HBoxContainer.new()
 		content.add_child(parts_row)
-		var part_options: Array = [{"id":"body","label":"本体","hp":model.enemies[model.target_index].hp}]
+		var part_options: Array = [{"id":"body","label":"本体","hp":model.enemies[model.target_index].hp,"attribute":model.enemies[model.target_index].attribute}]
 		part_options.append_array(model.enemies[model.target_index].parts)
 		for part in part_options:
 			var p := Button.new()
-			p.text = ("◎" if model.target_part==part.id else "")+part.label+"\n"+(str(int(part.hp)) if part.hp>0 else "破壊済")
+			p.text = ("◎" if model.target_part==part.id else "")+part.label+"・"+str(part.get("attribute",model.enemies[model.target_index].attribute))+"\n"+(str(int(part.hp)) if part.hp>0 else "破壊済")
 			p.custom_minimum_size.y = 60
 			p.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 			p.add_theme_font_size_override("font_size",20)
@@ -634,10 +634,10 @@ func show_battle() -> void:
 	label(display_notice,20)
 	if model.status == "scrolls" and not busy:
 		var actor: Dictionary = model.party[model.actor_index]
-		var enemy: Dictionary = model.enemies[model.target_index]
-		var multiplier: float = float(data.balance.attributes[actor.attribute][enemy.attribute])
+		var target_attr: String = model.target_attribute()
+		var multiplier: float = float(data.balance.attributes[actor.attribute][target_attr])
 		var matchup := "有利" if multiplier>1.0 else ("不利" if multiplier<1.0 else "互角")
-		label("ムスヒ %d/%d　連続%d　%s→%s %s×%.2f" % [model.gauge,data.balance.musuhi.gauge_required,model.streak,actor.attribute,enemy.attribute,matchup,multiplier],18)
+		label("ムスヒ %d/%d　連続%d　%s→%s %s×%.2f" % [model.gauge,data.balance.musuhi.gauge_required,model.streak,actor.attribute,target_attr,matchup,multiplier],18)
 		var skills := HBoxContainer.new()
 		content.add_child(skills)
 		for index in range(model.party.size()):
@@ -664,9 +664,13 @@ func show_battle() -> void:
 	if model.status == "scrolls":
 		if offered_scrolls.is_empty():
 			offered_scrolls = QuizPool.scrolls(data.questions,4,model.rng,recent_question_ids)
+		label("正解時の通常攻撃予想（追撃・技は含まず）",16)
 		for q in offered_scrolls:
 			var rank: String = ["初級","中級","上級"][int(q.difficulty)-1]
-			var scroll_button := button("%s　　%s" % [rank,q.genre],func(): choose_question(q))
+			var estimate: Dictionary = model.preview_strike(model.party[model.actor_index],float(data.balance.difficulty_multipliers[str(int(q.difficulty))]))
+			var estimate_text := "本体%d" % int(estimate.body_damage)
+			if model.target_part != "body": estimate_text = "部位%d / 本体%d" % [int(estimate.part_damage),int(estimate.body_damage)]
+			var scroll_button := button("%s　%s　予想 %s" % [rank,q.genre,estimate_text],func(): choose_question(q))
 			var parchment := style(Color("f2e3bc"),Color("694626"),5)
 			parchment.shadow_color = Color(0.17,0.11,0.05,0.55)
 			parchment.shadow_size = 3

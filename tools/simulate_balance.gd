@@ -7,7 +7,7 @@ func _initialize() -> void:
 		data[name]=JSON.parse_string(FileAccess.get_file_as_string("res://data/"+name+".json"))
 	var rng := RandomNumberGenerator.new()
 	rng.seed=991122
-	for mission_index in [0,1,2,4]:
+	for mission_index in [0,1,2,4,5]:
 		for accuracy in [0.65,0.85]:
 			var won:=0
 			var total_turns:=0

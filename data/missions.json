@@ -96,7 +96,31 @@
       "xp": 55,
       "material": 2
     },
-    "unlocks": [],
+    "unlocks": [
+      "trial05"
+    ],
     "perfect_bonus_haku": 150
+  },
+  {
+    "id": "trial05",
+    "label": "仮任務五・山道の連戦",
+    "provisional": true,
+    "energy": 10,
+    "waves": [
+      [
+        "small",
+        "swift"
+      ],
+      [
+        "boss"
+      ]
+    ],
+    "rewards": {
+      "haku": 500,
+      "xp": 70,
+      "material": 2
+    },
+    "unlocks": [],
+    "perfect_bonus_haku": 180
   }
 ]

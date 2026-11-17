@@ -113,16 +113,40 @@ func begin_question(question: Dictionary, now_ms: int) -> bool:
 func remaining_ms(now_ms: int) -> int:
 	return maxi(0, int(config.question_time_ms) - maxi(0, now_ms - question_started_ms))
 
+func target_attribute() -> String:
+	var enemy: Dictionary = enemies[target_index]
+	if target_part != "body":
+		for part in enemy.get("parts", []):
+			if part.id == target_part and int(part.hp) > 0:
+				return str(part.get("attribute", enemy.attribute))
+	return str(enemy.attribute)
+
+# 巻物選択前に最初の通常攻撃だけを予測。追撃・技・敵の反撃は含めない。
+func preview_strike(member: Dictionary, power: float, source: String = "attack") -> Dictionary:
+	if enemies.is_empty() or target_index < 0 or target_index >= enemies.size(): return {}
+	var enemy: Dictionary = enemies[target_index]
+	if int(enemy.hp) <= 0: return {}
+	var attribute := target_attribute()
+	var affinity := float(config.attributes[member.attribute][attribute])
+	var multiplier := rally_multiplier if source in ["attack", "followup"] and rally_hits > 0 else 1.0
+	var damage := maxi(1, int(floor(float(member.attack) * power * affinity * multiplier)))
+	var part_damage := 0
+	var body_damage := damage
+	if target_part != "body":
+		for part in enemy.get("parts", []):
+			if part.id == target_part and int(part.hp) > 0:
+				part_damage = mini(int(part.hp), damage)
+				body_damage = int(floor(damage * float(config.get("parts", {}).get("body_transfer", 0.25))))
+				break
+	return {"attribute": attribute, "affinity": affinity, "damage": damage,
+		"part_damage": part_damage, "body_damage": mini(int(enemy.hp), body_damage)}
+
 func _strike(member: Dictionary, power: float, events: Array, source: String) -> int:
 	if not _ensure_target(): return 0
-	var enemy: Dictionary = enemies[target_index]
-	var affinity := float(config.attributes[member.attribute][enemy.attribute])
-	var multiplier := 1.0
+	var prediction := preview_strike(member, power, source)
 	if source in ["attack", "followup"] and rally_hits > 0:
-		multiplier = rally_multiplier
 		rally_hits -= 1
-	var damage := maxi(1, int(floor(float(member.attack) * power * affinity * multiplier)))
-	return _apply_damage(damage, events, source, member.name)
+	return _apply_damage(int(prediction.damage), events, source, member.name)
 
 func _apply_damage(damage: int, events: Array, source: String, actor: String) -> int:
 	if not _ensure_target(): return 0

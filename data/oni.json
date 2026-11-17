@@ -28,19 +28,25 @@
         "id": "horn",
         "label": "角",
         "hp": 260,
-        "stun_turns": 2
+        "stun_turns": 2,
+        "attribute": "砕",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
       },
       {
         "id": "left_arm",
         "label": "左腕",
         "hp": 400,
-        "attack_multiplier": 0.65
+        "attack_multiplier": 0.65,
+        "attribute": "突",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
       },
       {
         "id": "right_arm",
         "label": "右腕",
         "hp": 400,
-        "attack_multiplier": 0.65
+        "attack_multiplier": 0.65,
+        "attribute": "斬",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
       }
     ]
   },
@@ -57,19 +63,25 @@
         "id": "horn",
         "label": "角",
         "hp": 340,
-        "stun_turns": 2
+        "stun_turns": 2,
+        "attribute": "突",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
       },
       {
         "id": "foreleg",
         "label": "前脚",
         "hp": 480,
-        "attack_multiplier": 0.7
+        "attack_multiplier": 0.7,
+        "attribute": "砕",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
       },
       {
         "id": "tail",
         "label": "尾",
         "hp": 420,
-        "attack_multiplier": 0.8
+        "attack_multiplier": 0.8,
+        "attribute": "斬",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
       }
     ]
   }
