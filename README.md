@@ -4,6 +4,10 @@
 
 **現在：四択101問・○×51問とAndroidデバッグAPKを用意した0.6.0試作。完成版ではありません。**
 
+[AndroidテストAPKをダウンロード（約84 MiB）](https://github.com/djnagodjango1000-glitch/toukiden-quiz/raw/refs/heads/codex/apk-0.6.0/android/kimon-senki-debug.apk)
+
+このAPKはデバッグ署名付きの開発版です。Android実機・エミュレーターでのインストールと起動はまだ確認できていません。
+
 ## 実行
 Godot **4.6.3**で`project.godot`をインポートしてF6ではなくF5で起動。コマンドラインでは：
 

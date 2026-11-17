@@ -73,4 +73,6 @@ GUIのバックアップ試験はLinux上でFileDialogの選択シグナルを�
 - `tests/test_offline_policy.gd`：購入・主要通信API静的検査で違反なし。
 - Godot 4.6.3によりAndroidデバッグAPKを書き出し。`apksigner verify`でv2/v3署名を検証、`aapt`でAPI 24以上・arm64-v8a/x86_64・追加権限なしを確認。APKの詳細は[ANDROID_TEST_BUILD.md](docs/ANDROID_TEST_BUILD.md)。
 
-Pixel 6a実機は接続されていない。実機でのインストール、タッチ、音声、バックアップ、更新・署名互換性は未検証。エミュレーターはソフトウェア実行で起動を試行中。
+Pixel 6a実機は接続されていない。実機でのインストール、タッチ、音声、バックアップ、更新・署名互換性は未検証。Android 35エミュレーターはハードウェア仮想化なしで起動を試みたが、約6分間ADBがofflineのままでインストール・起動の確認に至らなかった。
+
+公開したAPKダウンロード先を再取得し、87,975,735 bytesとSHA-256 `ea4f5cf460d4326745f90ff953de3d5dd956c90df15d22a3a4e5dfc518e0d13f`が生成物と一致することを確認した。

@@ -1,6 +1,8 @@
 # Androidテスト用APK 0.6.0
 
 ## 内容と制限
+[APKをダウンロード（約84 MiB）](https://github.com/djnagodjango1000-glitch/toukiden-quiz/raw/refs/heads/codex/apk-0.6.0/android/kimon-senki-debug.apk)
+
 これは開発途中の**デバッグ署名付きテスト版**。広告・課金は実装していない。Godot 4.6.3、縦画面、アプリID `jp.kimonsenki.offline`、versionCode 6、バージョン0.6.0。Android 7.0（API 24）以上を対象に、arm64-v8a（Pixel 6a対応のCPU形式）とx86_64を含む。
 
 生成APKのSHA-256：`ea4f5cf460d4326745f90ff953de3d5dd956c90df15d22a3a4e5dfc518e0d13f`。
@@ -23,3 +25,6 @@ aapt dump permissions build/kimon-senki-debug.apk
 ```
 
 鍵・SDK・ローカルのエディター設定はリポジトリに含めない。正式リリースでは署名鍵の安全な保管、OS実機検証、バックアップ復元、Android更新互換性、問題校閲が必要。
+
+## 今回の起動検証
+Android 35のエミュレーターをソフトウェア仮想化で起動したが、約6分間ADBがofflineのままで、APKのインストール・起動まで進めなかった。Pixel 6a実機も未接続。署名や権限の検証は、端末での動作確認を意味しない。
