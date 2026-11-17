@@ -97,7 +97,7 @@ func _initialize() -> void:
 	check(s.persist(rewarded),"復元後の保存")
 	check(s._read(s.base_path+".bak").haku==0,"有効バックアップを破損主で上書きしない")
 	f=FileAccess.open(s.base_path,FileAccess.WRITE)
-	f.store_string('{"schema_version":2}')
+	f.store_string('{"schema_version":3}')
 	f.close()
 	check(s.load_save().is_empty() and s.blocked,"将来版を上書きしない")
 	check(not s.persist(initial),"書込保護")

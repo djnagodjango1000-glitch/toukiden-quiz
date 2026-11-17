@@ -20,3 +20,5 @@ japanese.ttc: Noto Sans CJK Regular, Google / Adobe, SIL Open Font License 1.1�
 0.12.0の `art/mitama_asuka.jpg`・`art/mitama_heian.jpg`・`art/mitama_medieval.jpg`・`art/mitama_sengoku.jpg`・`art/mitama_bushi.jpg`・`art/mitama_modern.jpg` は歴史上の人物に着想を得た23人分の新規生成イラスト。象徴的な創作であり、実際の顔・服装や原作の姿を再現したものではない。
 
 0.13.0の `art/mitama_shinsengumi.jpg`・`art/mitama_warlords.jpg`・`art/mitama_scholars.jpg` は歴史上の人物に着想を得た10人分の新規生成イラスト。象徴的な創作であり、実際の容姿・服装や原作の図像を再現したものではない。
+
+0.14.0の `art/rarity_gold.png` は新規生成の金色装飾、`art/portraits_rare7.jpg` は本作向け既存肖像を基に新規生成した豪華衣装差分。史実や原作の肖像を再現したものではない。`music/*.ogg` は `tools/generate_bgm.py` で本作用に新規作曲・合成したBGMで、原作の音源・旋律は使用していない。

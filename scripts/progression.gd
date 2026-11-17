@@ -34,15 +34,28 @@ func change_deck(state: Dictionary, id: String) -> Dictionary:
 	updated["deck"] = deck
 	return updated
 
+func rarity(id: String, stage: int) -> int:
+	var member:=find_member(id)
+	if member.is_empty(): return 0
+	return clampi(int(member.rarity)+maxi(0,stage),1,7)
+
+func evolution_requirements(id: String, stage: int) -> Dictionary:
+	var member:=find_member(id)
+	if member.is_empty() or stage<0 or stage>=int(rules.evolve_max) or rarity(id,stage)>=7: return {}
+	var steps: Array=rules.get("evolve_steps",[])
+	if stage>=steps.size(): return {}
+	return steps[stage].duplicate(true)
+
 func evolve(state: Dictionary, id: String) -> Dictionary:
 	if not id in state.owned or find_member(id).is_empty(): return {}
 	var levels: Dictionary = state.get("levels",{})
 	var stages: Dictionary = state.get("evolutions",{})
-	if int(levels.get(id,1)) < int(rules.evolve_level) or int(stages.get(id,0)) >= int(rules.evolve_max): return {}
-	if int(state.haku)<int(rules.evolve_haku) or int(state.get("material",0))<int(rules.evolve_material): return {}
+	var needed:=evolution_requirements(id,int(stages.get(id,0)))
+	if needed.is_empty() or int(levels.get(id,1)) < int(needed.level): return {}
+	if int(state.haku)<int(needed.haku) or int(state.get("material",0))<int(needed.material): return {}
 	var updated := state.duplicate(true)
-	updated.haku -= int(rules.evolve_haku)
-	updated["material"] = int(updated.get("material",0))-int(rules.evolve_material)
+	updated.haku -= int(needed.haku)
+	updated["material"] = int(updated.get("material",0))-int(needed.material)
 	if not updated.has("evolutions"): updated["evolutions"] = {}
 	updated.evolutions[id] = int(stages.get(id,0))+1
 	return updated
@@ -79,8 +92,11 @@ func enter_mission(state: Dictionary, mission: Dictionary, now: int) -> Dictiona
 
 func valid_backup(state: Variant) -> bool:
 	if not state is Dictionary or not state.get("owned") is Array or not state.get("settings") is Dictionary: return false
-	for key in ["free_play","muted","relaxed_effects"]:
+	for key in ["free_play","muted","relaxed_effects","bgm_muted"]:
 		if state.settings.has(key) and not state.settings[key] is bool: return false
+	if state.settings.has("bgm_volume"):
+		var volume: Variant=state.settings.bgm_volume
+		if not (volume is int or volume is float) or volume != int(volume) or int(volume)<1 or int(volume)>100: return false
 	var owned: Array = state.owned
 	if owned.is_empty() or owned.size()>catalog.size(): return false
 	var seen: Array = []
@@ -102,7 +118,7 @@ func valid_backup(state: Variant) -> bool:
 			var value := int(values[id])
 			if value != values[id]: return false
 			if field=="levels" and (value<1 or value>int(rules.upgrade_max_level)): return false
-			if field=="evolutions" and (value<0 or value>int(rules.evolve_max)): return false
+			if field=="evolutions" and (value<0 or value>mini(int(rules.evolve_max),7-int(find_member(id).rarity))): return false
 	for field in ["material","energy","energy_updated","orbs","training_wins","training_best"]:
 		if state.has(field) and (not (state[field] is int or state[field] is float) or state[field]<0): return false
 	if state.has("collection_claimed"):

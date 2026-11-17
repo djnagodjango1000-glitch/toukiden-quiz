@@ -49,6 +49,9 @@ func run() -> void:
 		for i in range(q.options.size()):
 			if find_text(app,"%d．%s" % [i+1,q.options[i]])!=null: visible+=1
 		check(visible==2 and int(q.answer) in app.model.visible_answer_indices,"正答を含む2択の画面")
+	app.music.configure({"bgm_muted":true})
 	app.queue_free()
+	await process_frame
+	await create_timer(0.2).timeout
 	print("ENCYCLOPEDIA AND ASSIST UI: %d checks, %d failures" % [checks,failures])
 	quit(1 if failures else 0)

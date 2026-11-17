@@ -32,6 +32,9 @@ func run() -> void:
 	check(contains_text(app,"登録 60 / 60") and contains_text(app,"登録50体報酬") and contains_text(app,"登録60体報酬"),"60体図鑑と報酬")
 	app.show_gacha()
 	check(contains_text(app,"未所持 0体"),"全員入手後の召喚")
+	app.music.configure({"bgm_muted":true})
 	app.queue_free()
+	await process_frame
+	await create_timer(0.2).timeout
 	print("50 MITAMA UI: %d checks, %d failures" % [checks,failures])
 	quit(1 if failures else 0)

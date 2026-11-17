@@ -6,9 +6,13 @@ const SaveStore = preload("res://scripts/save_store.gd")
 const StageArt = preload("res://scripts/stage_art.gd")
 const ScrollOrnament = preload("res://scripts/scroll_ornament.gd")
 const Sound = preload("res://scripts/sound.gd")
+const Music = preload("res://scripts/music.gd")
 const Progression = preload("res://scripts/progression.gd")
+const RarityFrame = preload("res://scripts/rarity_frame.gd")
+const RarityTint = preload("res://scripts/rarity_tint.gdshader")
 var progression
 var sound = Sound.new()
+var music = Music.new()
 var store = SaveStore.new()
 var save: Dictionary
 var model = Battle.new()
@@ -51,7 +55,9 @@ func _ready() -> void:
 		data[filename] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + filename + ".json"))
 	progression = Progression.new(data.progression,data.mitama)
 	add_child(sound)
+	add_child(music)
 	save = store.load_save()
+	if not save.is_empty(): music.configure(save.get("settings",{}))
 	notice = store.error
 	show_title()
 
@@ -67,8 +73,10 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_APPLICATION_PAUSED:
 		active_clock.set_running(false)
 		paused = true
+		music.set_paused(true)
 	if what == NOTIFICATION_APPLICATION_RESUMED:
 		paused = false
+		music.set_paused(false)
 		update_clock_state()
 
 func _process(_delta: float) -> void:
@@ -101,8 +109,14 @@ func style(bg: Color, border: Color, radius: int = 4) -> StyleBoxFlat:
 	return box
 
 func clear_page(title: String) -> void:
+	if screen in ["musuhi","musuhi_intro","musuhi_result"]: music.play_track("musuhi")
+	elif screen == "battle":
+		var is_boss: bool = model.enemies.any(func(enemy): return enemy.get("large",false))
+		music.play_track("boss" if is_boss else "battle")
+	elif screen in ["result","review"]: music.play_track("result" if model.status=="won" else "defeat")
+	else: music.play_track("village")
 	for child in get_children():
-		if child == sound: continue
+		if child == sound or child == music: continue
 		remove_child(child)
 		child.queue_free()
 	var margin := MarginContainer.new()
@@ -158,7 +172,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("開発版  0.7.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("開発版  0.14.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -265,16 +279,22 @@ func show_details(m: Dictionary) -> void:
 	button("出陣",start_battle,not free and int(energy.amount)<int(m.energy))
 	button("任務一覧へ",show_missions)
 
-func portrait(id: String, width: float = 112.0) -> TextureRect:
+func portrait(id: String, width: float = 112.0, preview_stage: int = -1) -> TextureRect:
 	var positions := {"m01":4,"m02":0,"m03":2,"m04":3,"m05":1,"m06":5}
 	var index: int = positions.get(id,0)
+	var stage: int = preview_stage if preview_stage>=0 else int(save.get("evolutions",{}).get(id,0))
+	var stars: int = maxi(1,progression.rarity(id,stage))
 	var atlas := AtlasTexture.new()
 	var entry: Dictionary = {}
 	for member in data.mitama:
 		if member.id == id:
 			entry = member
 			break
-	if entry.has("portrait_sheet"):
+	if stars>=7 and id in ["m01","m03","m04","m05","m06"]:
+		atlas.atlas=load("res://assets/art/portraits_rare7.jpg")
+		var cell:=Vector2(atlas.atlas.get_width()/3.0,atlas.atlas.get_height()/2.0)
+		atlas.region=Rect2(Vector2((index%3)*cell.x,(index/3)*cell.y),cell)
+	elif entry.has("portrait_sheet"):
 		var sheet_index: int = int(entry.portrait_index)
 		atlas.atlas = load("res://assets/art/"+str(entry.portrait_sheet)+".jpg")
 		var half := atlas.atlas.get_size() / 2.0
@@ -304,6 +324,15 @@ func portrait(id: String, width: float = 112.0) -> TextureRect:
 	image.custom_minimum_size = Vector2(width,width)
 	image.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	if stars>=5:
+		var tint:=ShaderMaterial.new()
+		tint.shader=RarityTint
+		tint.set_shader_parameter("richness",[0.16,0.28,0.45][stars-5])
+		image.material=tint
+	var frame=RarityFrame.new()
+	frame.rarity=stars
+	image.add_child(frame)
+	frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	return image
 
 func deck_ids() -> Array:
@@ -330,7 +359,7 @@ func save_change(updated: Dictionary) -> bool:
 	if not store.persist(updated):
 		label("保存に失敗しました："+store.error,22,Color("8a332d"))
 		return false
-	save = updated
+	save = store.upgraded(updated)
 	return true
 
 func skill_description(effect: Dictionary) -> String:
@@ -364,7 +393,7 @@ func show_party() -> void:
 		var level: int = int(save.get("levels",{}).get(m.id,1))
 		var info := Label.new()
 		var stage: int = int(save.get("evolutions",{}).get(m.id,0))
-		info.text = "%s%s  [%s]  Lv.%d　進化%d\n体力 %d / 攻撃 %d" % [m.name,"（仮絵）" if m.art=="generic_placeholder" else "",m.attribute,level,stage,int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health),int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)]
+		info.text = "%s%s  [%s] ★%d Lv.%d\n体力 %d / 攻撃 %d" % [m.name,"（仮絵）" if m.art=="generic_placeholder" else "",m.attribute,progression.rarity(m.id,stage),level,int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health),int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)]
 		info.add_theme_color_override("font_color",palette.ink)
 		info.add_theme_font_size_override("font_size",21)
 		panel.add_child(info)
@@ -408,7 +437,8 @@ func show_party() -> void:
 		fusion.pressed.connect(func(): show_fusion(m))
 		panel.add_child(fusion)
 		var evolve_button := Button.new()
-		evolve_button.text = "進化 %d→%d" % [stage,stage+1]
+		var stars: int = progression.rarity(m.id,stage)
+		evolve_button.text = "進化 %d→%d　★%d→★%d" % [stage,stage+1,stars,stars+1] if stars<7 else "★7 最高レアリティ"
 		evolve_button.disabled = progression.evolve(save,m.id).is_empty()
 		evolve_button.pressed.connect(func(): show_evolve(m))
 		panel.add_child(evolve_button)
@@ -441,14 +471,25 @@ func show_fusion(m: Dictionary) -> void:
 func show_evolve(m: Dictionary) -> void:
 	screen = "evolve"
 	clear_page("ミタマ進化")
-	content.add_child(portrait(m.id,180))
 	var stage: int = int(save.get("evolutions",{}).get(m.id,0))
+	var stars: int = progression.rarity(m.id,stage)
+	var needed: Dictionary = progression.evolution_requirements(m.id,stage)
+	if needed.is_empty():
+		content.add_child(portrait(m.id,180))
+		label("★7に到達しています。",26)
+		button("戻る",show_party)
+		return
+	var preview:=HBoxContainer.new()
+	preview.add_theme_constant_override("separation",24)
+	content.add_child(preview)
+	preview.add_child(portrait(m.id,180,stage))
+	preview.add_child(portrait(m.id,180,stage+1))
 	var level: int = int(save.get("levels",{}).get(m.id,1))
 	var before_hp: int = int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health)
 	var before_attack: int = int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)
-	label("%s　進化 %d → %d" % [m.name,stage,stage+1],30)
+	label("%s　★%d → ★%d" % [m.name,stars,stars+1],30)
 	label("体力 %d → %d　攻撃 %d → %d" % [before_hp,before_hp+int(data.progression.evolve_health),before_attack,before_attack+int(data.progression.evolve_attack)],23)
-	label("必要：%dハク・素材%d / 現在：%dハク・素材%d\n条件：Lv.%d以上。すべて仮仕様。" % [data.progression.evolve_haku,data.progression.evolve_material,save.haku,save.get("material",0),data.progression.evolve_level],22)
+	label("必要：%dハク・素材%d / 現在：%dハク・素材%d\n条件：Lv.%d以上。すべて仮仕様。" % [int(needed.haku),int(needed.material),save.haku,save.get("material",0),int(needed.level)],22)
 	button("進化を確定",func():
 		var updated: Dictionary = progression.evolve(save,m.id)
 		if not updated.is_empty() and save_change(updated): show_party(),progression.evolve(save,m.id).is_empty())
@@ -473,7 +514,8 @@ func show_encyclopedia() -> void:
 		if encyclopedia_attribute_filter>0 and m.attribute!=attribute_labels[encyclopedia_attribute_filter]: continue
 		if owned:
 			var member: Dictionary=m
-			button("◆ %s　%s　★%d" % [member.name,member.attribute,int(member.rarity)],func(): show_mitama_detail(member))
+			var stage: int=int(save.get("evolutions",{}).get(member.id,0))
+			button("◆ %s　%s　★%d" % [member.name,member.attribute,progression.rarity(member.id,stage)],func(): show_mitama_detail(member))
 		else: label("◇ 未取得",23)
 	for key in data.progression.encyclopedia_rewards:
 		var threshold := int(key)
@@ -492,7 +534,7 @@ func show_mitama_detail(m: Dictionary) -> void:
 	var stage: int=int(save.get("evolutions",{}).get(m.id,0))
 	var hp: int=int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health)
 	var attack: int=int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)
-	label("%s　★%d　%s　Lv.%d　進化%d" % [m.name,int(m.rarity),m.attribute,level,stage],25)
+	label("%s　★%d　%s　Lv.%d　進化%d" % [m.name,progression.rarity(m.id,stage),m.attribute,level,stage],25)
 	label("体力 %d　攻撃 %d　速さ %d　コスト %d" % [hp,attack,int(m.speed),int(m.cost)],21)
 	label(str(m.get("historical_fact","")),21)
 	var hay: Dictionary=data.effects.definitions[m.hayafuri]
@@ -563,6 +605,20 @@ func show_settings() -> void:
 			save = updated
 			show_settings()
 		else: label(store.error,24,Color("8a332d")))
+	button("BGM："+("OFF" if save.settings.get("bgm_muted",false) else "ON"),func():
+		var updated: Dictionary=save.duplicate(true)
+		updated.settings["bgm_muted"]=not updated.settings.get("bgm_muted",false)
+		if save_change(updated):
+			music.configure(save.settings)
+			show_settings())
+	button("BGM音量：%d%%" % int(save.settings.get("bgm_volume",60)),func():
+		var levels: Array=[20,40,60,80,100]
+		var current: int=levels.find(int(save.settings.get("bgm_volume",60)))
+		var updated: Dictionary=save.duplicate(true)
+		updated.settings["bgm_volume"]=levels[(current+1)%levels.size()]
+		if save_change(updated):
+			music.configure(save.settings)
+			show_settings())
 	button("バックアップを書き出す",func(): backup_dialog(false))
 	button("バックアップを読み込む",func(): backup_dialog(true))
 	button("現在の進行を保存",func():
@@ -887,6 +943,7 @@ func begin_musuhi() -> void:
 	if not model.start_musuhi(data.boolean_questions,int(battle_clock)): return
 	busy = true
 	screen = "musuhi_intro"
+	music.play_track("musuhi")
 	await animate_events([{"type":"musuhi","text":"○×の連問に挑め！"}])
 	# 発動カットインは回答時間に含めない。
 	busy = false

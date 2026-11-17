@@ -32,6 +32,9 @@ func run() -> void:
 	if left != null: left.pressed.emit()
 	check(app.model.target_part=="left_arm" and app.offered_scrolls==offered,"部位を変えても巻物を維持")
 	check(find_text(app,"斬→突 不利") != null and find_text(app,"予想 部位") != null,"部位選択後の相性と予想")
+	app.music.configure({"bgm_muted":true})
 	app.queue_free()
+	await process_frame
+	await create_timer(0.2).timeout
 	print("TARGET UI: %d checks, %d failures" % [checks,failures])
 	quit(1 if failures else 0)

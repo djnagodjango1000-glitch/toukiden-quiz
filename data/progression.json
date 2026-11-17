@@ -8,7 +8,7 @@
   "summon_cost_haku": 200,
   "team_cost_limit": 10,
   "evolve_level": 5,
-  "evolve_max": 2,
+  "evolve_max": 6,
   "evolve_haku": 250,
   "evolve_material": 2,
   "evolve_health": 150,
@@ -31,5 +31,38 @@
   "orb_summon_cost": 1,
   "fusion_haku": 50,
   "fusion_material": 1,
-  "training_orb_interval": 3
+  "training_orb_interval": 3,
+  "evolve_steps": [
+    {
+      "level": 5,
+      "haku": 250,
+      "material": 2
+    },
+    {
+      "level": 5,
+      "haku": 250,
+      "material": 2
+    },
+    {
+      "level": 6,
+      "haku": 350,
+      "material": 3
+    },
+    {
+      "level": 7,
+      "haku": 450,
+      "material": 4
+    },
+    {
+      "level": 8,
+      "haku": 550,
+      "material": 5
+    },
+    {
+      "level": 9,
+      "haku": 700,
+      "material": 6
+    }
+  ],
+  "rarity_provenance": "C: ★7までの進化条件・装飾は独自の暫定仕様。原作の個別版とは異なる。"
 }

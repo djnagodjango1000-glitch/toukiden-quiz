@@ -82,5 +82,9 @@ func run() -> void:
 	check(app.screen=="battle" and app.model.enemies.size()==1,"修練に出陣")
 	for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(app.store.base_path+suffix)
 	DirAccess.remove_absolute(target)
+	app.music.configure({"bgm_muted":true})
+	app.queue_free()
+	await process_frame
+	await create_timer(0.2).timeout
 	print("PHASE 3 EXTRA UI: %d checks, %d failures" % [checks,failures])
 	quit(1 if failures else 0)

@@ -25,5 +25,8 @@ func run() -> void:
 	app.show_gacha()
 	check(app.screen=="gacha","追加ミタマの召喚画面")
 	print("NEW MITAMA UI: %d failures" % failures)
+	app.music.configure({"bgm_muted":true})
 	app.queue_free()
+	await process_frame
+	await create_timer(0.2).timeout
 	quit(1 if failures else 0)

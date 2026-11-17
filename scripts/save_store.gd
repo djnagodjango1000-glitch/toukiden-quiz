@@ -3,18 +3,25 @@ extends RefCounted
 var base_path := "user://save.json"
 var blocked := false
 var error := ""
+const CURRENT_SCHEMA := 2
 
 func initial() -> Dictionary:
-	return {"schema_version": 1, "haku": 0, "xp": 0, "cleared": [], "reward_ids": [], "settings": {"free_play": false}, "owned": ["m01", "m02", "m03", "m04"]}
+	return {"schema_version": CURRENT_SCHEMA, "haku": 0, "xp": 0, "cleared": [], "reward_ids": [], "settings": {"free_play": false}, "owned": ["m01", "m02", "m03", "m04"]}
 
 func valid(data: Variant) -> bool:
 	if not data is Dictionary: return false
-	if data.get("schema_version") != 1: return false
+	var version: Variant=data.get("schema_version")
+	if not (version is int or version is float) or (version != 1 and version != CURRENT_SCHEMA): return false
 	for field in ["haku", "xp"]:
 		if not (data.get(field) is float or data.get(field) is int) or data[field] < 0: return false
 	for field in ["cleared", "reward_ids", "owned"]:
 		if not data.get(field) is Array: return false
 	return data.get("settings") is Dictionary
+
+func upgraded(data: Dictionary) -> Dictionary:
+	var result := data.duplicate(true)
+	result["schema_version"] = CURRENT_SCHEMA
+	return result
 
 func _read(path: String) -> Variant:
 	if not FileAccess.file_exists(path): return null
@@ -29,16 +36,17 @@ func load_save() -> Dictionary:
 	error = ""
 	var data: Variant = _read(base_path)
 	# 新しいschemaの主セーブは旧backupで巻き戻さない。
-	if data is Dictionary and data.get("schema_version", 0) > 1:
+	var version: Variant = data.get("schema_version",0) if data is Dictionary else 0
+	if (version is int or version is float) and version > CURRENT_SCHEMA:
 		blocked = true
 		error = "新しい版のセーブです。上書きを停止しました。"
 		return {}
-	if valid(data): return data
+	if valid(data): return upgraded(data)
 	var backup: Variant = _read(base_path + ".bak")
 	if valid(backup):
 		# 復元元は残す。次の保存でも破損主ファイルをbackupへ移さない。
 		error = "主セーブを読めないため、前回のバックアップから復元しました。"
-		return backup
+		return upgraded(backup)
 	if FileAccess.file_exists(base_path) or FileAccess.file_exists(base_path + ".bak"):
 		blocked = true
 		error = "セーブが破損しています。元ファイルを保護し、自動初期化を停止しました。"
@@ -54,7 +62,7 @@ func persist(data: Dictionary) -> bool:
 	if file == null:
 		error = "一時セーブを作成できません。"
 		return false
-	file.store_string(JSON.stringify(data))
+	file.store_string(JSON.stringify(upgraded(data)))
 	file.flush()
 	file.close()
 	if not valid(_read(temp)):
