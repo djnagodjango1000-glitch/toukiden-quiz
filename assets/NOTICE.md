@@ -12,3 +12,5 @@ japanese.ttc: Noto Sans CJK Regular, Google / Adobe, SIL Open Font License 1.1�
 0.5.0の `art/village.png`、`art/wolf.png`、`art/mitama_extra.png` は本プロジェクト向けの新規生成画像。原作公式画像は調査のみに用い、同梱していない。歴史人物の創作肖像は史実や原作の姿の再現ではない。
 
 0.7.0の `art/slash.png` は本作向けに新規生成した透明背景の攻撃演出画像。原作の画面・エフェクトをコピーしていない。
+
+0.8.0の `art/mitama_more.png` と0.10.0の `art/mitama_historical.png` は新規生成の象徴的肖像。原作画像を含まず、史実上の姿を保証しない。`art/mitama_placeholder.svg` は人物画が未制作のミタマ用の共通仮絵。

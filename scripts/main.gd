@@ -267,7 +267,12 @@ func portrait(id: String, width: float = 112.0) -> TextureRect:
 	var positions := {"m01":4,"m02":0,"m03":2,"m04":3,"m05":1,"m06":5}
 	var index: int = positions.get(id,0)
 	var atlas := AtlasTexture.new()
-	if id in ["m09","m10","m11","m12"]:
+	if id in ["m13","m14","m02","m16"]:
+		var historical_index: int = ["m13","m14","m02","m16"].find(id)
+		atlas.atlas = load("res://assets/art/mitama_historical.png")
+		var half := atlas.atlas.get_size() / 2.0
+		atlas.region = Rect2(Vector2((historical_index%2)*half.x,(historical_index/2)*half.y),half)
+	elif id in ["m09","m10","m11","m12"]:
 		var extra_index: int = ["m09","m10","m11","m12"].find(id)
 		atlas.atlas = load("res://assets/art/mitama_more.png")
 		var half := atlas.atlas.get_size() / 2.0
@@ -275,9 +280,12 @@ func portrait(id: String, width: float = 112.0) -> TextureRect:
 	elif id in ["m07","m08"]:
 		atlas.atlas = load("res://assets/art/mitama_extra.png")
 		atlas.region = Rect2(0 if id=="m07" else 887,0,887,887)
-	else:
+	elif positions.has(id):
 		atlas.atlas = load("res://assets/art/portraits.png")
 		atlas.region = Rect2((index%3)*512,(index/3)*512,512,512)
+	else:
+		atlas.atlas = load("res://assets/art/mitama_placeholder.svg")
+		atlas.region = Rect2(0,0,512,512)
 	var image := TextureRect.new()
 	image.texture = atlas
 	image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -339,7 +347,7 @@ func show_party() -> void:
 		var level: int = int(save.get("levels",{}).get(m.id,1))
 		var info := Label.new()
 		var stage: int = int(save.get("evolutions",{}).get(m.id,0))
-		info.text = "%s  [%s]  Lv.%d　進化%d\n体力 %d / 攻撃 %d" % [m.name,m.attribute,level,stage,int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health),int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)]
+		info.text = "%s%s  [%s]  Lv.%d　進化%d\n体力 %d / 攻撃 %d" % [m.name,"（仮絵）" if m.art=="generic_placeholder" else "",m.attribute,level,stage,int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health),int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)]
 		info.add_theme_color_override("font_color",palette.ink)
 		info.add_theme_font_size_override("font_size",21)
 		panel.add_child(info)
@@ -459,7 +467,7 @@ func show_gacha() -> void:
 		if save_change(updated):
 			show_gacha()
 			content.add_child(portrait(selected.id,180))
-			label("%s を迎えました！" % selected.name,30),save.haku<int(data.progression.summon_cost_haku) or missing.is_empty())
+			label("%s を迎えました！%s" % [selected.name,"（仮絵）" if selected.art=="generic_placeholder" else ""],30),save.haku<int(data.progression.summon_cost_haku) or missing.is_empty())
 	button("宝玉で召喚（%d個）" % data.progression.orb_summon_cost,func():
 		var cost: int = int(data.progression.orb_summon_cost)
 		if int(save.get("orbs",0))<cost or missing.is_empty(): return
@@ -472,7 +480,7 @@ func show_gacha() -> void:
 		if save_change(updated):
 			show_gacha()
 			content.add_child(portrait(selected.id,180))
-			label("%s を迎えました！" % selected.name,30),int(save.get("orbs",0))<int(data.progression.orb_summon_cost) or missing.is_empty())
+			label("%s を迎えました！%s" % [selected.name,"（仮絵）" if selected.art=="generic_placeholder" else ""],30),int(save.get("orbs",0))<int(data.progression.orb_summon_cost) or missing.is_empty())
 	label("宝玉は任務の初回達成、または修練%d回で無料入手。課金・広告なし。召喚対象は未所持から等確率。" % data.progression.training_orb_interval,20)
 	button("里に戻る",show_home)
 
