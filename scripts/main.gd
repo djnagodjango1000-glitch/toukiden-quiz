@@ -1,6 +1,7 @@
 extends Control
 
 const Battle = preload("res://scripts/battle.gd")
+const Challenges = preload("res://scripts/challenges.gd")
 const QuizPool = preload("res://scripts/quiz_pool.gd")
 const SaveStore = preload("res://scripts/save_store.gd")
 const StageArt = preload("res://scripts/stage_art.gd")
@@ -51,7 +52,7 @@ func _ready() -> void:
 		theme_data.set_color(state,"Button",palette.ink)
 	theme_data.set_color("font_disabled_color","Button",Color("77705f"))
 	theme = theme_data
-	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions", "progression", "story"]:
+	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions", "progression", "story", "challenges"]:
 		data[filename] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + filename + ".json"))
 	progression = Progression.new(data.progression,data.mitama)
 	add_child(sound)
@@ -172,7 +173,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("開発版  0.15.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("開発版  0.16.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -312,6 +313,10 @@ func show_details(m: Dictionary) -> void:
 		label("挑戦：通常クイズ全問正解で追加 %dハク" % int(m.perfect_bonus_haku),22)
 	if m.get("training",false):
 		label("自己ベスト：正解率 %d%%　%d回達成ごとに宝玉1個（無料）" % [save.get("training_best",0),data.progression.training_orb_interval],22)
+	var objectives: Array = data.challenges.get(m.id,[])
+	if not objectives.is_empty():
+		label("挑戦目標（本作の仮条件・達成ごとにハク）",23,palette.dark)
+		for objective in objectives: label("・%s　%dハク" % [objective.label,objective.reward_haku],21)
 	space(20)
 	label("編成したミタマを速さ順で使用します。\n巻物を選び、20秒以内に四択へ解答。正解で攻撃し、残った鬼が反撃します。\n敵をタップして攻撃対象を変更できます。",24)
 	label("仮仕様：4秒以内の正解で固有効果と後続1体の追撃。\n正解でタマフリとムスヒを蓄積。角を壊すと気絶、腕を壊すと攻撃低下。",22)
@@ -1056,7 +1061,9 @@ func show_result() -> void:
 	label("%s\n正解 %d / %d問" % [mission.label,model.correct,model.answered],30)
 	if model.status == "won":
 		var perfect: bool = model.answered>0 and model.correct==model.answered
-		var updated: Dictionary = store.reward(save,mission,receipt,int(data.progression.orb_first_clear),int(data.progression.training_orb_interval),perfect)
+		var results: Array = Challenges.evaluate(data.challenges.get(mission.id,[]),model.correct,model.answered,model.total_answer_ms,model.max_streak)
+		var bonus: int = Challenges.reward(results)
+		var updated: Dictionary = store.reward(save,mission,receipt,int(data.progression.orb_first_clear),int(data.progression.training_orb_interval),perfect,bonus)
 		if mission.get("training",false) and model.answered>0:
 			var score := int(floor(100.0*model.correct/model.answered))
 			updated["training_best"] = maxi(int(updated.get("training_best",0)),score)
@@ -1066,6 +1073,10 @@ func show_result() -> void:
 			return
 		save = updated
 		label("%dハク / %d経験値 / 素材%dを獲得\n進行を保存しました。" % [mission.rewards.haku,mission.rewards.xp,mission.rewards.get("material",0)],28)
+		if not results.is_empty():
+			label("挑戦目標（仮）",25,palette.dark)
+			for result in results:
+				label("%s　%s%s" % ["達成" if result.met else "未達成",result.label,"　+%dハク" % result.reward_haku if result.met else ""],21)
 		if perfect and int(mission.get("perfect_bonus_haku",0))>0:
 			label("通常クイズ全問正解！ 追加 %dハク" % int(mission.perfect_bonus_haku),26,palette.dark)
 	else: label("報酬はありません。里で準備を整えましょう。",26)

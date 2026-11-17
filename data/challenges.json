@@ -1,0 +1,7 @@
+{
+  "trial01": [{"id":"accuracy", "type":"accuracy", "label":"正答率80%以上", "threshold":80, "reward_haku":20}],
+  "trial02": [{"id":"streak", "type":"streak", "label":"2問連続正解", "threshold":2, "reward_haku":30}, {"id":"speed", "type":"average_ms", "label":"平均回答10秒以内", "threshold":10000, "reward_haku":20}],
+  "trial03": [{"id":"accuracy", "type":"accuracy", "label":"正答率80%以上", "threshold":80, "reward_haku":40}, {"id":"speed", "type":"average_ms", "label":"平均回答10秒以内", "threshold":10000, "reward_haku":30}],
+  "trial04": [{"id":"accuracy", "type":"accuracy", "label":"正答率80%以上", "threshold":80, "reward_haku":40}, {"id":"streak", "type":"streak", "label":"3問連続正解", "threshold":3, "reward_haku":40}],
+  "trial05": [{"id":"accuracy", "type":"accuracy", "label":"正答率80%以上", "threshold":80, "reward_haku":50}, {"id":"speed", "type":"average_ms", "label":"平均回答10秒以内", "threshold":10000, "reward_haku":40}, {"id":"streak", "type":"streak", "label":"3問連続正解", "threshold":3, "reward_haku":40}]
+}

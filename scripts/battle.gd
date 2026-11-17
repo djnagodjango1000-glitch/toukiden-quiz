@@ -11,6 +11,8 @@ var hp := 0
 var max_hp := 0
 var correct := 0
 var answered := 0
+var total_answer_ms := 0
+var max_streak := 0
 var status := "idle"
 var target_index := 0
 var target_part := "body"
@@ -56,6 +58,8 @@ func setup(members: Array, mission: Dictionary, oni: Array, balance: Dictionary,
 	actor_index = 0
 	correct = 0
 	answered = 0
+	total_answer_ms = 0
+	max_streak = 0
 	gauge = 0
 	streak = 0
 	pending_choice_reduction = 0
@@ -265,6 +269,7 @@ func resolve_answer(selection: int, now_ms: int) -> Dictionary:
 	var elapsed := maxi(0, now_ms - question_started_ms)
 	var success: bool = elapsed < int(config.question_time_ms) and selection == int(current_question.answer)
 	answered += 1
+	total_answer_ms += mini(elapsed,int(config.question_time_ms))
 	var damage := 0
 	var events: Array = []
 	var actor: Dictionary = party[actor_index]
@@ -273,6 +278,7 @@ func resolve_answer(selection: int, now_ms: int) -> Dictionary:
 	if success:
 		correct += 1
 		streak += 1
+		max_streak = maxi(max_streak,streak)
 		gauge = mini(int(config.musuhi.gauge_required), gauge+1)
 		if config.tamafuri.enabled:
 			for i in range(points.size()): points[i] = mini(int(config.tamafuri.get("max_points",15)), int(points[i])+int(config.tamafuri.points_per_correct))
