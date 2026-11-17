@@ -1,0 +1,55 @@
+{
+  "provenance": "C: Phase 2用の暫定値。原作の確定値ではない。",
+  "question_time_ms": 20000,
+  "difficulty_multipliers": {
+    "1": 1.0,
+    "2": 1.4,
+    "3": 1.8
+  },
+  "attributes": {
+    "斬": {
+      "斬": 1.0,
+      "砕": 1.5,
+      "突": 0.75
+    },
+    "砕": {
+      "斬": 0.75,
+      "砕": 1.0,
+      "突": 1.5
+    },
+    "突": {
+      "斬": 1.5,
+      "砕": 0.75,
+      "突": 1.0
+    }
+  },
+  "hayafuri": {
+    "enabled": true,
+    "threshold_ms": 4000,
+    "followup_count": 1
+  },
+  "musuhi": {
+    "enabled": true,
+    "gauge_required": 5,
+    "time_ms": 20000,
+    "max_mistakes": 2,
+    "damage_per_correct": 0.65
+  },
+  "tamafuri": {
+    "enabled": true,
+    "points_per_correct": 1,
+    "max_points": 15
+  },
+  "attribute_note": "暫定の相性方向:斬→砕→突→斬。有利1.5/不利0.75。原作方向は未確定。",
+  "parts": {
+    "body_transfer": 0.25
+  },
+  "presentation": {
+    "event_seconds": 0.35,
+    "answer_seconds": 0.55,
+    "musuhi_feedback_seconds": 0.18,
+    "event_seconds_fast": 0.18,
+    "answer_seconds_fast": 0.3
+  },
+  "quiz_recent_limit": 30
+}

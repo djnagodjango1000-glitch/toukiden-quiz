@@ -1,0 +1,88 @@
+[
+  {
+    "id": "small",
+    "name": "野の小鬼（独自仮鬼）",
+    "hp": 390,
+    "attack": 45,
+    "attribute": "砕",
+    "provenance": "C"
+  },
+  {
+    "id": "swift",
+    "name": "疾き小鬼（独自仮鬼）",
+    "hp": 300,
+    "attack": 55,
+    "attribute": "突",
+    "provenance": "C"
+  },
+  {
+    "id": "boss",
+    "name": "山門の大鬼（独自仮鬼）",
+    "hp": 2600,
+    "attack": 150,
+    "attribute": "砕",
+    "large": true,
+    "provenance": "C: 独自の鬼・部位効果・能力。",
+    "parts": [
+      {
+        "id": "horn",
+        "label": "角",
+        "hp": 260,
+        "stun_turns": 2,
+        "attribute": "砕",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
+      },
+      {
+        "id": "left_arm",
+        "label": "左腕",
+        "hp": 400,
+        "attack_multiplier": 0.65,
+        "attribute": "突",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
+      },
+      {
+        "id": "right_arm",
+        "label": "右腕",
+        "hp": 400,
+        "attack_multiplier": 0.65,
+        "attribute": "斬",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
+      }
+    ]
+  },
+  {
+    "id": "wolf_boss",
+    "name": "苔岩の牙獣（独自仮鬼）",
+    "hp": 2800,
+    "attack": 160,
+    "attribute": "斬",
+    "large": true,
+    "provenance": "C: 独自の鬼・部位効果・能力。",
+    "parts": [
+      {
+        "id": "horn",
+        "label": "角",
+        "hp": 340,
+        "stun_turns": 2,
+        "attribute": "突",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
+      },
+      {
+        "id": "foreleg",
+        "label": "前脚",
+        "hp": 480,
+        "attack_multiplier": 0.7,
+        "attribute": "砕",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
+      },
+      {
+        "id": "tail",
+        "label": "尾",
+        "hp": 420,
+        "attack_multiplier": 0.8,
+        "attribute": "斬",
+        "attribute_provenance": "C: 独自の暫定属性。原作未確認。"
+      }
+    ]
+  }
+]

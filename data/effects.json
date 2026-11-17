@@ -1,0 +1,790 @@
+{
+  "provenance": "C: 史実の要約に着想を得た本作独自の仮スキル。効果・数値は原作の個別能力ではない。",
+  "definitions": {
+    "hay_pursuit": {
+      "label": "速答・追の一閃",
+      "kind": "attack",
+      "power": 0.45
+    },
+    "hay_heal": {
+      "label": "速答・癒しの詞",
+      "kind": "heal",
+      "fraction": 0.08
+    },
+    "hay_guard": {
+      "label": "速答・守りの舞",
+      "kind": "guard",
+      "multiplier": 0.6
+    },
+    "hay_rally": {
+      "label": "速答・奮起",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2
+    },
+    "tama_strike": {
+      "label": "穿つ霊光",
+      "kind": "attack",
+      "power": 2.5,
+      "cost": 3
+    },
+    "tama_heal": {
+      "label": "命の泉",
+      "kind": "heal",
+      "fraction": 0.35,
+      "cost": 3
+    },
+    "tama_guard": {
+      "label": "鎮めの幕",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3
+    },
+    "tama_rally": {
+      "label": "四魂の鼓動",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4
+    },
+    "hay_poem": {
+      "label": "速答・月のことのは",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3
+    },
+    "tama_moon": {
+      "label": "月影の詩",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4
+    },
+    "hay_swift": {
+      "label": "速答・疾風",
+      "kind": "attack",
+      "power": 0.65
+    },
+    "tama_blade": {
+      "label": "飛燕の刃",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4
+    },
+    "hay_starlight": {
+      "label": "速答・星守り",
+      "kind": "guard",
+      "multiplier": 0.5
+    },
+    "tama_stars": {
+      "label": "星めぐり",
+      "kind": "rally",
+      "multiplier": 1.4,
+      "hits": 5,
+      "cost": 3
+    },
+    "hay_medicine": {
+      "label": "速答・薬草",
+      "kind": "heal",
+      "fraction": 0.11
+    },
+    "tama_medicine": {
+      "label": "旅路の妙薬",
+      "kind": "heal",
+      "fraction": 0.5,
+      "cost": 4
+    },
+    "hay_person_01": {
+      "label": "速答・会津の銃",
+      "kind": "attack",
+      "power": 0.45,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_01": {
+      "label": "会津の守り火",
+      "kind": "attack",
+      "power": 2.5,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_02": {
+      "label": "速答・枕草子の詞",
+      "kind": "heal",
+      "fraction": 0.08,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_02": {
+      "label": "四季の随想",
+      "kind": "heal",
+      "fraction": 0.35,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_03": {
+      "label": "速答・幽玄の舞",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_03": {
+      "label": "花伝の守り",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_04": {
+      "label": "速答・和の教え",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_04": {
+      "label": "十七条の和",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_05": {
+      "label": "速答・室町の号令",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_05": {
+      "label": "幕府の礎",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_06": {
+      "label": "速答・副長の気迫",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_06": {
+      "label": "新選組の剣",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_07": {
+      "label": "速答・尼御台の守り",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_07": {
+      "label": "鎌倉の支え",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_08": {
+      "label": "速答・学びの詩",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_08": {
+      "label": "文章の守り",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_09": {
+      "label": "速答・物語の詞",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_09": {
+      "label": "紫の物語",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_10": {
+      "label": "速答・九郎の迅き足",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_10": {
+      "label": "源氏の一閃",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_11": {
+      "label": "速答・飛鳥の祈り",
+      "kind": "guard",
+      "multiplier": 0.5,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_11": {
+      "label": "推古の守り",
+      "kind": "rally",
+      "multiplier": 1.4,
+      "hits": 5,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_12": {
+      "label": "速答・蘭学の手当",
+      "kind": "heal",
+      "fraction": 0.11,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_12": {
+      "label": "解体新書の知恵",
+      "kind": "heal",
+      "fraction": 0.5,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_13": {
+      "label": "速答・尾張の先駆け",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_13": {
+      "label": "桶狭間の一手",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_14": {
+      "label": "速答・仙台の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_14": {
+      "label": "伊達の采配",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_15": {
+      "label": "速答・和歌のしらべ",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_15": {
+      "label": "和泉の恋歌",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_16": {
+      "label": "速答・海援の志",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_16": {
+      "label": "亀山社中の絆",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_17": {
+      "label": "速答・女王の祈り",
+      "kind": "guard",
+      "multiplier": 0.5,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_17": {
+      "label": "邪馬台の祈り",
+      "kind": "rally",
+      "multiplier": 1.4,
+      "hits": 5,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_18": {
+      "label": "速答・漏刻の刻み",
+      "kind": "guard",
+      "multiplier": 0.5,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_18": {
+      "label": "水時計の守り",
+      "kind": "rally",
+      "multiplier": 1.4,
+      "hits": 5,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_19": {
+      "label": "速答・壬申の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_19": {
+      "label": "天武の号令",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_20": {
+      "label": "速答・統べる心",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_20": {
+      "label": "持統の守り",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_21": {
+      "label": "速答・隋への道",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_21": {
+      "label": "遣隋の使い",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_22": {
+      "label": "速答・歌聖の詞",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_22": {
+      "label": "人麻呂の長歌",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_23": {
+      "label": "速答・宮廷の支え",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_23": {
+      "label": "道長の采配",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_24": {
+      "label": "速答・百首のひらめき",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_24": {
+      "label": "小倉百人の詞",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_25": {
+      "label": "速答・海路の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_25": {
+      "label": "日宋の交易",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_26": {
+      "label": "速答・鎌倉の号令",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_26": {
+      "label": "武家の礎",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_27": {
+      "label": "速答・朝日の突撃",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_27": {
+      "label": "木曽の旭",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_28": {
+      "label": "速答・北山の煌めき",
+      "kind": "guard",
+      "multiplier": 0.5,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_28": {
+      "label": "金閣の光",
+      "kind": "rally",
+      "multiplier": 1.4,
+      "hits": 5,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_29": {
+      "label": "速答・墨のひと筆",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_29": {
+      "label": "水墨の景",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_30": {
+      "label": "速答・太閤の采配",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_30": {
+      "label": "天下統一の陣",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_31": {
+      "label": "速答・泰平の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_31": {
+      "label": "江戸の礎",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_32": {
+      "label": "速答・真田の猛攻",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_32": {
+      "label": "大坂の陣",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_33": {
+      "label": "速答・越後の進軍",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_33": {
+      "label": "越後の陣",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_34": {
+      "label": "速答・甲斐の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_34": {
+      "label": "甲斐の軍配",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_35": {
+      "label": "速答・安芸の策",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_35": {
+      "label": "元就の采配",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_36": {
+      "label": "速答・光秀の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_36": {
+      "label": "明智の一手",
+      "kind": "attack",
+      "power": 2.5,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_37": {
+      "label": "速答・奉行の計",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_37": {
+      "label": "三成の采配",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_38": {
+      "label": "速答・又左の槍",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_38": {
+      "label": "槍の又左",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_39": {
+      "label": "速答・愛の兜",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_39": {
+      "label": "兼続の守り",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_40": {
+      "label": "速答・肥後の礎",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_40": {
+      "label": "清正の治水",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_41": {
+      "label": "速答・小谷の祈り",
+      "kind": "heal",
+      "fraction": 0.08,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_41": {
+      "label": "お市の願い",
+      "kind": "heal",
+      "fraction": 0.35,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_42": {
+      "label": "速答・一服の間",
+      "kind": "heal",
+      "fraction": 0.11,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_42": {
+      "label": "利休の茶",
+      "kind": "heal",
+      "fraction": 0.5,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_43": {
+      "label": "速答・二天の構え",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_43": {
+      "label": "二天一流",
+      "kind": "multi_attack",
+      "power": 1.55,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。",
+      "hits": 2
+    },
+    "hay_person_44": {
+      "label": "速答・北斎の筆",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_44": {
+      "label": "浮世の波",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_45": {
+      "label": "速答・測量の足",
+      "kind": "guard",
+      "multiplier": 0.5,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_45": {
+      "label": "日本測量の道",
+      "kind": "rally",
+      "multiplier": 1.4,
+      "hits": 5,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_46": {
+      "label": "速答・旅の一句",
+      "kind": "heal",
+      "fraction": 0.08,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_46": {
+      "label": "おくのほそ道",
+      "kind": "heal",
+      "fraction": 0.35,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_47": {
+      "label": "速答・薩摩の志",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_47": {
+      "label": "西郷の号令",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_48": {
+      "label": "速答・松下の教え",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_48": {
+      "label": "村塾の志",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_49": {
+      "label": "速答・海舟の航路",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_49": {
+      "label": "海軍の備え",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_50": {
+      "label": "速答・研究の手当",
+      "kind": "heal",
+      "fraction": 0.11,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "tama_person_50": {
+      "label": "北里の研究",
+      "kind": "heal",
+      "fraction": 0.5,
+      "cost": 4,
+      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    }
+  }
+}

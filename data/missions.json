@@ -1,0 +1,126 @@
+[
+  {
+    "id": "trial01",
+    "label": "仮任務一・初陣の問い",
+    "provisional": true,
+    "energy": 3,
+    "waves": [
+      [
+        "small"
+      ]
+    ],
+    "rewards": {
+      "haku": 100,
+      "xp": 10,
+      "material": 1
+    },
+    "unlocks": [
+      "trial02"
+    ],
+    "perfect_bonus_haku": 50
+  },
+  {
+    "id": "trial02",
+    "label": "仮任務二・群れを退けよ",
+    "provisional": true,
+    "energy": 5,
+    "waves": [
+      [
+        "small",
+        "swift"
+      ],
+      [
+        "small"
+      ]
+    ],
+    "rewards": {
+      "haku": 180,
+      "xp": 20,
+      "material": 1
+    },
+    "unlocks": [
+      "trial03"
+    ],
+    "perfect_bonus_haku": 80
+  },
+  {
+    "id": "trial03",
+    "label": "仮任務三・山門の角砕き",
+    "provisional": true,
+    "energy": 8,
+    "waves": [
+      [
+        "boss"
+      ]
+    ],
+    "rewards": {
+      "haku": 300,
+      "xp": 40,
+      "material": 1
+    },
+    "unlocks": [
+      "trial04"
+    ],
+    "perfect_bonus_haku": 120
+  },
+  {
+    "id": "training01",
+    "label": "修練・問いの稽古（仮）",
+    "training": true,
+    "provisional": true,
+    "energy": 2,
+    "waves": [
+      [
+        "small"
+      ]
+    ],
+    "rewards": {
+      "haku": 50,
+      "xp": 5,
+      "material": 1
+    },
+    "unlocks": []
+  },
+  {
+    "id": "trial04",
+    "label": "仮任務四・苔岩の牙獣",
+    "provisional": true,
+    "energy": 9,
+    "waves": [
+      [
+        "wolf_boss"
+      ]
+    ],
+    "rewards": {
+      "haku": 380,
+      "xp": 55,
+      "material": 2
+    },
+    "unlocks": [
+      "trial05"
+    ],
+    "perfect_bonus_haku": 150
+  },
+  {
+    "id": "trial05",
+    "label": "仮任務五・山道の連戦",
+    "provisional": true,
+    "energy": 10,
+    "waves": [
+      [
+        "small",
+        "swift"
+      ],
+      [
+        "boss"
+      ]
+    ],
+    "rewards": {
+      "haku": 500,
+      "xp": 70,
+      "material": 2
+    },
+    "unlocks": [],
+    "perfect_bonus_haku": 180
+  }
+]
