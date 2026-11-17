@@ -101,10 +101,11 @@
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
     },
     "tama_person_01": {
-      "label": "会津の守り火",
-      "kind": "attack",
-      "power": 2.5,
+      "kind": "attack_guard",
+      "power": 1.8,
+      "multiplier": 0.6,
       "cost": 3,
+      "label": "会津の守り火",
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
     },
     "hay_person_02": {
@@ -507,11 +508,12 @@
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
     },
     "tama_person_30": {
-      "label": "天下統一の陣",
-      "kind": "rally",
-      "multiplier": 1.6,
-      "hits": 4,
+      "kind": "attack_rally",
+      "power": 1.5,
+      "multiplier": 1.4,
+      "hits": 3,
       "cost": 4,
+      "label": "天下統一の陣",
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
     },
     "hay_person_31": {
@@ -780,10 +782,11 @@
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
     },
     "tama_person_50": {
-      "label": "北里の研究",
-      "kind": "heal",
-      "fraction": 0.5,
+      "kind": "heal_guard",
+      "fraction": 0.28,
+      "multiplier": 0.65,
       "cost": 4,
+      "label": "北里の研究",
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
     }
   }

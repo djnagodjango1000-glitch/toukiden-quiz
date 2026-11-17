@@ -28,7 +28,7 @@ func _initialize() -> void:
 		trial.points[0]=cost
 		var used: Dictionary=trial.use_tamafuri(0)
 		check(used.accepted and trial.points[0]==0 and trial.hp<=trial.max_hp,"人物別タマフリが発動: "+m.name)
-	check(drawn==27,"27体に創作肖像")
+	check(drawn==50,"50体に創作肖像")
 	var musashi: Dictionary=d.mitama[42]
 	check(musashi.name=="宮本武蔵" and "二刀" in musashi.historical_fact,"二天一流の紹介")
 	check(d.effects.definitions[musashi.tamafuri].kind=="multi_attack","武蔵の二回攻撃")
@@ -43,6 +43,24 @@ func _initialize() -> void:
 	check(result.accepted and battle.points[0]==0 and hits==2,"二回攻撃の発動・消費・表示")
 	check(before-battle.enemies[0].hp==result.damage and result.damage>0,"二回攻撃の合計ダメージ")
 	check(d.effects.definitions[d.mitama[11].tamafuri].kind=="heal","蘭学医は回復技")
-	check(d.effects.definitions[d.mitama[49].tamafuri].kind=="heal","微生物学者は回復技")
+	check(d.effects.definitions[d.mitama[49].tamafuri].kind=="heal_guard","微生物学者は回復と防御")
+	for index in [0,29,49]:
+		var member: Dictionary=d.mitama[index]
+		battle.setup([member],d.missions[2],d.oni,d.balance,44,d.effects.definitions)
+		battle.hp=int(battle.max_hp/2)
+		var original_hp: int=battle.hp
+		var original_enemy: int=battle.enemies[0].hp
+		var cost: int=int(d.effects.definitions[member.tamafuri].cost)
+		battle.points[0]=cost-1
+		check(not battle.use_tamafuri(0).accepted and battle.points[0]==cost-1,"複合技のポイント不足: "+member.name)
+		battle.points[0]=cost
+		var used: Dictionary=battle.use_tamafuri(0)
+		check(used.accepted and battle.points[0]==0,"複合技の消費: "+member.name)
+		if index==0:
+			check(battle.enemies[0].hp<original_enemy and is_equal_approx(battle.guard_multiplier,0.6),"八重の攻撃と守り")
+		elif index==29:
+			check(battle.enemies[0].hp<original_enemy and battle.rally_hits==3 and is_equal_approx(battle.rally_multiplier,1.4),"秀吉の攻撃と支援")
+		else:
+			check(battle.hp>original_hp and is_equal_approx(battle.guard_multiplier,0.65),"北里の回復と守り")
 	print("HISTORY SKILLS: %d checks, %d failures" % [checks,failures])
 	quit(1 if failures else 0)

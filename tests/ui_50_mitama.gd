@@ -21,10 +21,13 @@ func run() -> void:
 	for m in app.data.mitama:
 		var image=app.portrait(m.id)
 		check(image.texture!=null and image.texture.atlas!=null,"肖像または仮絵: "+m.id)
+		check(m.art!="generic_placeholder", "仮絵ではない肖像: "+m.id)
+		if m.has("portrait_sheet"):
+			check(image.texture.atlas.resource_path.ends_with(m.portrait_sheet+".jpg"),"人物に対応する画像シート: "+m.id)
 		image.free()
 		app.save.owned.append(m.id)
 	app.show_party()
-	check(contains_text(app,"北里柴三郎（仮絵）"),"編成画面に50体目と仮絵表示")
+	check(contains_text(app,"北里柴三郎") and not contains_text(app,"（仮絵）"),"編成画面に50体の創作肖像")
 	app.show_encyclopedia()
 	check(contains_text(app,"登録 50 / 50") and contains_text(app,"登録50体報酬"),"50体図鑑と報酬")
 	app.show_gacha()

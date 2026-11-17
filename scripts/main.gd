@@ -336,6 +336,9 @@ func skill_description(effect: Dictionary) -> String:
 		"attack": return "攻撃力の%d%%で攻撃" % roundi(float(effect.power)*100)
 		"multi_attack": return "攻撃力の%d%%で%d回攻撃" % [roundi(float(effect.power)*100),int(effect.hits)]
 		"attack_heal": return "攻撃%d%%＋最大体力の%d%%回復" % [roundi(float(effect.power)*100),roundi(float(effect.fraction)*100)]
+		"attack_guard": return "攻撃%d%%＋次の敵行動の被害を%d%%に" % [roundi(float(effect.power)*100),roundi(float(effect.multiplier)*100)]
+		"heal_guard": return "最大体力%d%%回復＋次の敵行動の被害を%d%%に" % [roundi(float(effect.fraction)*100),roundi(float(effect.multiplier)*100)]
+		"attack_rally": return "攻撃%d%%＋次の%d撃を%d%%に強化" % [roundi(float(effect.power)*100),int(effect.hits),roundi(float(effect.multiplier)*100)]
 		"heal": return "最大体力の%d%%回復" % roundi(float(effect.fraction)*100)
 		"guard": return "次の敵行動の被害を%d%%に" % roundi(float(effect.multiplier)*100)
 		"rally": return "次の%d撃を%d%%に強化" % [int(effect.hits),roundi(float(effect.multiplier)*100)]
@@ -670,7 +673,7 @@ func show_battle() -> void:
 			var cost: int = int(data.effects.definitions[m.tamafuri].cost)
 			var skill_button := Button.new()
 			var kind: String = data.effects.definitions[m.tamafuri].kind
-			var role: String = {"attack":"攻","multi_attack":"連","attack_heal":"攻癒","heal":"癒","guard":"守","rally":"援"}.get(kind,"技")
+			var role: String = {"attack":"攻","multi_attack":"連","attack_heal":"攻癒","attack_guard":"攻守","heal_guard":"癒守","attack_rally":"攻援","heal":"癒","guard":"守","rally":"援"}.get(kind,"技")
 			skill_button.text = "%s・%s\n%d/%d pt" % [m.name,role,model.points[index],cost]
 			skill_button.add_theme_font_size_override("font_size",18)
 			skill_button.custom_minimum_size.y = 56

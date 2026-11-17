@@ -188,6 +188,23 @@ func _effect(skill_id: Variant, member: Dictionary, events: Array) -> int:
 			hp += amount
 			events.append({"type": "heal", "text": "体力 +%d" % amount, "amount": amount})
 			return damage
+		"attack_guard":
+			var damage := _strike(member, float(effect.power), events, "skill_attack")
+			guard_multiplier = minf(guard_multiplier, float(effect.multiplier))
+			events.append({"type": "guard", "text": "次の敵行動で被ダメージ軽減"})
+			return damage
+		"heal_guard":
+			var amount := mini(max_hp-hp, roundi(max_hp*float(effect.fraction)))
+			hp += amount
+			guard_multiplier = minf(guard_multiplier, float(effect.multiplier))
+			events.append({"type": "heal", "text": "体力 +%d" % amount, "amount": amount})
+			events.append({"type": "guard", "text": "次の敵行動で被ダメージ軽減"})
+		"attack_rally":
+			var damage := _strike(member, float(effect.power), events, "skill_attack")
+			rally_multiplier = float(effect.multiplier)
+			rally_hits = int(effect.hits)
+			events.append({"type": "rally", "text": "攻撃強化 残り%d撃" % rally_hits})
+			return damage
 		"heal":
 			var amount := mini(max_hp-hp, roundi(max_hp*float(effect.fraction)))
 			hp += amount
