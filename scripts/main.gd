@@ -267,7 +267,17 @@ func portrait(id: String, width: float = 112.0) -> TextureRect:
 	var positions := {"m01":4,"m02":0,"m03":2,"m04":3,"m05":1,"m06":5}
 	var index: int = positions.get(id,0)
 	var atlas := AtlasTexture.new()
-	if id in ["m13","m14","m02","m16"]:
+	var entry: Dictionary = {}
+	for member in data.mitama:
+		if member.id == id:
+			entry = member
+			break
+	if entry.has("portrait_sheet"):
+		var sheet_index: int = int(entry.portrait_index)
+		atlas.atlas = load("res://assets/art/"+str(entry.portrait_sheet)+".jpg")
+		var half := atlas.atlas.get_size() / 2.0
+		atlas.region = Rect2(Vector2((sheet_index%2)*half.x,(sheet_index/2)*half.y),half)
+	elif id in ["m13","m14","m02","m16"]:
 		var historical_index: int = ["m13","m14","m02","m16"].find(id)
 		atlas.atlas = load("res://assets/art/mitama_historical.png")
 		var half := atlas.atlas.get_size() / 2.0
@@ -324,6 +334,7 @@ func save_change(updated: Dictionary) -> bool:
 func skill_description(effect: Dictionary) -> String:
 	match effect.kind:
 		"attack": return "攻撃力の%d%%で攻撃" % roundi(float(effect.power)*100)
+		"multi_attack": return "攻撃力の%d%%で%d回攻撃" % [roundi(float(effect.power)*100),int(effect.hits)]
 		"attack_heal": return "攻撃%d%%＋最大体力の%d%%回復" % [roundi(float(effect.power)*100),roundi(float(effect.fraction)*100)]
 		"heal": return "最大体力の%d%%回復" % roundi(float(effect.fraction)*100)
 		"guard": return "次の敵行動の被害を%d%%に" % roundi(float(effect.multiplier)*100)
@@ -351,6 +362,12 @@ func show_party() -> void:
 		info.add_theme_color_override("font_color",palette.ink)
 		info.add_theme_font_size_override("font_size",21)
 		panel.add_child(info)
+		var history := Label.new()
+		history.text = m.get("historical_fact","")
+		history.add_theme_color_override("font_color",palette.ink)
+		history.add_theme_font_size_override("font_size",17)
+		history.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		panel.add_child(history)
 		var skills_info := Label.new()
 		var hay: Dictionary = data.effects.definitions[m.hayafuri]
 		var tama: Dictionary = data.effects.definitions[m.tamafuri]
@@ -653,7 +670,7 @@ func show_battle() -> void:
 			var cost: int = int(data.effects.definitions[m.tamafuri].cost)
 			var skill_button := Button.new()
 			var kind: String = data.effects.definitions[m.tamafuri].kind
-			var role: String = {"attack":"攻","attack_heal":"攻癒","heal":"癒","guard":"守","rally":"援"}.get(kind,"技")
+			var role: String = {"attack":"攻","multi_attack":"連","attack_heal":"攻癒","heal":"癒","guard":"守","rally":"援"}.get(kind,"技")
 			skill_button.text = "%s・%s\n%d/%d pt" % [m.name,role,model.points[index],cost]
 			skill_button.add_theme_font_size_override("font_size",18)
 			skill_button.custom_minimum_size.y = 56

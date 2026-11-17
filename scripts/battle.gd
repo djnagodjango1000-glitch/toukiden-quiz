@@ -176,6 +176,12 @@ func _effect(skill_id: Variant, member: Dictionary, events: Array) -> int:
 	match effect.kind:
 		"attack":
 			return _strike(member, float(effect.power), events, "skill_attack")
+		"multi_attack":
+			var total := 0
+			for _i in range(int(effect.hits)):
+				if not _has_alive(): break
+				total += _strike(member, float(effect.power), events, "skill_attack")
+			return total
 		"attack_heal":
 			var damage := _strike(member, float(effect.power), events, "skill_attack")
 			var amount := mini(max_hp-hp, roundi(max_hp*float(effect.fraction)))
