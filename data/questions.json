@@ -376,5 +376,1445 @@
     "source": "https://ja.wikipedia.org/wiki/アニメーション",
     "checked_at": null,
     "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "geo001",
+    "type": "choice",
+    "text": "北海道の都道府県庁所在地はどこですか？",
+    "options": [
+      "神戸市",
+      "札幌市",
+      "水戸市",
+      "名古屋市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "北海道の都道府県庁所在地は札幌市です。",
+    "source": "https://www.wikidata.org/wiki/Q1037393",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo002",
+    "type": "choice",
+    "text": "青森県の都道府県庁所在地はどこですか？",
+    "options": [
+      "岡山市",
+      "新潟市",
+      "大分市",
+      "青森市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "青森県の都道府県庁所在地は青森市です。",
+    "source": "https://www.wikidata.org/wiki/Q71699",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo003",
+    "type": "choice",
+    "text": "岩手県の都道府県庁所在地はどこですか？",
+    "options": [
+      "新潟市",
+      "大阪市",
+      "盛岡市",
+      "静岡市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "岩手県の都道府県庁所在地は盛岡市です。",
+    "source": "https://www.wikidata.org/wiki/Q48326",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo004",
+    "type": "choice",
+    "text": "宮城県の都道府県庁所在地はどこですか？",
+    "options": [
+      "静岡市",
+      "仙台市",
+      "横浜市",
+      "那覇市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "宮城県の都道府県庁所在地は仙台市です。",
+    "source": "https://www.wikidata.org/wiki/Q47896",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo005",
+    "type": "choice",
+    "text": "秋田県の都道府県庁所在地はどこですか？",
+    "options": [
+      "徳島市",
+      "秋田市",
+      "佐賀市",
+      "名古屋市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "秋田県の都道府県庁所在地は秋田市です。",
+    "source": "https://www.wikidata.org/wiki/Q81863",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo006",
+    "type": "choice",
+    "text": "山形県の都道府県庁所在地はどこですか？",
+    "options": [
+      "福井市",
+      "仙台市",
+      "山形市",
+      "新潟市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "山形県の都道府県庁所在地は山形市です。",
+    "source": "https://www.wikidata.org/wiki/Q125863",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo007",
+    "type": "choice",
+    "text": "福島県の都道府県庁所在地はどこですか？",
+    "options": [
+      "福島市",
+      "鳥取市",
+      "大阪市",
+      "広島市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "福島県の都道府県庁所在地は福島市です。",
+    "source": "https://www.wikidata.org/wiki/Q71707",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo008",
+    "type": "choice",
+    "text": "茨城県の都道府県庁所在地はどこですか？",
+    "options": [
+      "佐賀市",
+      "高知市",
+      "京都市",
+      "水戸市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "茨城県の都道府県庁所在地は水戸市です。",
+    "source": "https://www.wikidata.org/wiki/Q83273",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo009",
+    "type": "choice",
+    "text": "栃木県の都道府県庁所在地はどこですか？",
+    "options": [
+      "佐賀市",
+      "宇都宮市",
+      "松山市",
+      "鹿児島市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "栃木県の都道府県庁所在地は宇都宮市です。",
+    "source": "https://www.wikidata.org/wiki/Q44843",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo010",
+    "type": "choice",
+    "text": "群馬県の都道府県庁所在地はどこですか？",
+    "options": [
+      "水戸市",
+      "さいたま市",
+      "千葉市",
+      "前橋市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "群馬県の都道府県庁所在地は前橋市です。",
+    "source": "https://www.wikidata.org/wiki/Q129499",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo011",
+    "type": "choice",
+    "text": "埼玉県の都道府県庁所在地はどこですか？",
+    "options": [
+      "岡山市",
+      "宮崎市",
+      "福井市",
+      "さいたま市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "埼玉県の都道府県庁所在地はさいたま市です。",
+    "source": "https://www.wikidata.org/wiki/Q128186",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo012",
+    "type": "choice",
+    "text": "千葉県の都道府県庁所在地はどこですか？",
+    "options": [
+      "徳島市",
+      "千葉市",
+      "大分市",
+      "京都市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "千葉県の都道府県庁所在地は千葉市です。",
+    "source": "https://www.wikidata.org/wiki/Q80011",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo013",
+    "type": "choice",
+    "text": "神奈川県の都道府県庁所在地はどこですか？",
+    "options": [
+      "横浜市",
+      "甲府市",
+      "秋田市",
+      "千葉市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "神奈川県の都道府県庁所在地は横浜市です。",
+    "source": "https://www.wikidata.org/wiki/Q127513",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo014",
+    "type": "choice",
+    "text": "新潟県の都道府県庁所在地はどこですか？",
+    "options": [
+      "長崎市",
+      "千葉市",
+      "新潟市",
+      "仙台市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "新潟県の都道府県庁所在地は新潟市です。",
+    "source": "https://www.wikidata.org/wiki/Q132705",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo015",
+    "type": "choice",
+    "text": "富山県の都道府県庁所在地はどこですか？",
+    "options": [
+      "富山市",
+      "高知市",
+      "千葉市",
+      "仙台市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "富山県の都道府県庁所在地は富山市です。",
+    "source": "https://www.wikidata.org/wiki/Q132929",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo016",
+    "type": "choice",
+    "text": "石川県の都道府県庁所在地はどこですか？",
+    "options": [
+      "青森市",
+      "金沢市",
+      "山口市",
+      "宇都宮市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "石川県の都道府県庁所在地は金沢市です。",
+    "source": "https://www.wikidata.org/wiki/Q131281",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo017",
+    "type": "choice",
+    "text": "福井県の都道府県庁所在地はどこですか？",
+    "options": [
+      "福井市",
+      "大分市",
+      "神戸市",
+      "広島市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "福井県の都道府県庁所在地は福井市です。",
+    "source": "https://www.wikidata.org/wiki/Q133879",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo018",
+    "type": "choice",
+    "text": "山梨県の都道府県庁所在地はどこですか？",
+    "options": [
+      "秋田市",
+      "甲府市",
+      "さいたま市",
+      "横浜市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "山梨県の都道府県庁所在地は甲府市です。",
+    "source": "https://www.wikidata.org/wiki/Q132720",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo019",
+    "type": "choice",
+    "text": "長野県の都道府県庁所在地はどこですか？",
+    "options": [
+      "長野市",
+      "宮崎市",
+      "大阪市",
+      "鳥取市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "長野県の都道府県庁所在地は長野市です。",
+    "source": "https://www.wikidata.org/wiki/Q127877",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo020",
+    "type": "choice",
+    "text": "岐阜県の都道府県庁所在地はどこですか？",
+    "options": [
+      "和歌山市",
+      "福岡市",
+      "岐阜市",
+      "京都市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "岐阜県の都道府県庁所在地は岐阜市です。",
+    "source": "https://www.wikidata.org/wiki/Q131277",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo021",
+    "type": "choice",
+    "text": "静岡県の都道府県庁所在地はどこですか？",
+    "options": [
+      "広島市",
+      "宮崎市",
+      "静岡市",
+      "新潟市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "静岡県の都道府県庁所在地は静岡市です。",
+    "source": "https://www.wikidata.org/wiki/Q131320",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo022",
+    "type": "choice",
+    "text": "愛知県の都道府県庁所在地はどこですか？",
+    "options": [
+      "静岡市",
+      "奈良市",
+      "名古屋市",
+      "福島市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "愛知県の都道府県庁所在地は名古屋市です。",
+    "source": "https://www.wikidata.org/wiki/Q80434",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo023",
+    "type": "choice",
+    "text": "三重県の都道府県庁所在地はどこですか？",
+    "options": [
+      "津市",
+      "長野市",
+      "金沢市",
+      "千葉市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "三重県の都道府県庁所在地は津市です。",
+    "source": "https://www.wikidata.org/wiki/Q128196",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo024",
+    "type": "choice",
+    "text": "滋賀県の都道府県庁所在地はどこですか？",
+    "options": [
+      "大津市",
+      "松山市",
+      "広島市",
+      "和歌山市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "滋賀県の都道府県庁所在地は大津市です。",
+    "source": "https://www.wikidata.org/wiki/Q131358",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo025",
+    "type": "choice",
+    "text": "京都府の都道府県庁所在地はどこですか？",
+    "options": [
+      "さいたま市",
+      "京都市",
+      "静岡市",
+      "津市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "京都府の都道府県庁所在地は京都市です。",
+    "source": "https://www.wikidata.org/wiki/Q120730",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo026",
+    "type": "choice",
+    "text": "大阪府の都道府県庁所在地はどこですか？",
+    "options": [
+      "さいたま市",
+      "大阪市",
+      "長野市",
+      "青森市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "大阪府の都道府県庁所在地は大阪市です。",
+    "source": "https://www.wikidata.org/wiki/Q122723",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo027",
+    "type": "choice",
+    "text": "兵庫県の都道府県庁所在地はどこですか？",
+    "options": [
+      "岡山市",
+      "前橋市",
+      "神戸市",
+      "岐阜市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "兵庫県の都道府県庁所在地は神戸市です。",
+    "source": "https://www.wikidata.org/wiki/Q130290",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo028",
+    "type": "choice",
+    "text": "奈良県の都道府県庁所在地はどこですか？",
+    "options": [
+      "鹿児島市",
+      "福井市",
+      "奈良市",
+      "熊本市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "奈良県の都道府県庁所在地は奈良市です。",
+    "source": "https://www.wikidata.org/wiki/Q131287",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo029",
+    "type": "choice",
+    "text": "和歌山県の都道府県庁所在地はどこですか？",
+    "options": [
+      "和歌山市",
+      "広島市",
+      "金沢市",
+      "津市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "和歌山県の都道府県庁所在地は和歌山市です。",
+    "source": "https://www.wikidata.org/wiki/Q131314",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo030",
+    "type": "choice",
+    "text": "鳥取県の都道府県庁所在地はどこですか？",
+    "options": [
+      "福島市",
+      "静岡市",
+      "鳥取市",
+      "神戸市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "鳥取県の都道府県庁所在地は鳥取市です。",
+    "source": "https://www.wikidata.org/wiki/Q133935",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo031",
+    "type": "choice",
+    "text": "島根県の都道府県庁所在地はどこですか？",
+    "options": [
+      "津市",
+      "松江市",
+      "甲府市",
+      "広島市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "島根県の都道府県庁所在地は松江市です。",
+    "source": "https://www.wikidata.org/wiki/Q132751",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo032",
+    "type": "choice",
+    "text": "岡山県の都道府県庁所在地はどこですか？",
+    "options": [
+      "岡山市",
+      "札幌市",
+      "横浜市",
+      "金沢市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "岡山県の都道府県庁所在地は岡山市です。",
+    "source": "https://www.wikidata.org/wiki/Q132936",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo033",
+    "type": "choice",
+    "text": "広島県の都道府県庁所在地はどこですか？",
+    "options": [
+      "長崎市",
+      "青森市",
+      "広島市",
+      "高松市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "広島県の都道府県庁所在地は広島市です。",
+    "source": "https://www.wikidata.org/wiki/Q617375",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo034",
+    "type": "choice",
+    "text": "山口県の都道府県庁所在地はどこですか？",
+    "options": [
+      "長崎市",
+      "山口市",
+      "鹿児島市",
+      "金沢市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "山口県の都道府県庁所在地は山口市です。",
+    "source": "https://www.wikidata.org/wiki/Q127264",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo035",
+    "type": "choice",
+    "text": "徳島県の都道府県庁所在地はどこですか？",
+    "options": [
+      "松山市",
+      "大阪市",
+      "山形市",
+      "徳島市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "徳島県の都道府県庁所在地は徳島市です。",
+    "source": "https://www.wikidata.org/wiki/Q160734",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo036",
+    "type": "choice",
+    "text": "香川県の都道府県庁所在地はどこですか？",
+    "options": [
+      "青森市",
+      "秋田市",
+      "盛岡市",
+      "高松市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "香川県の都道府県庁所在地は高松市です。",
+    "source": "https://www.wikidata.org/wiki/Q161454",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo037",
+    "type": "choice",
+    "text": "愛媛県の都道府県庁所在地はどこですか？",
+    "options": [
+      "松山市",
+      "岡山市",
+      "仙台市",
+      "横浜市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "愛媛県の都道府県庁所在地は松山市です。",
+    "source": "https://www.wikidata.org/wiki/Q123376",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo038",
+    "type": "choice",
+    "text": "高知県の都道府県庁所在地はどこですか？",
+    "options": [
+      "盛岡市",
+      "宇都宮市",
+      "札幌市",
+      "高知市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "高知県の都道府県庁所在地は高知市です。",
+    "source": "https://www.wikidata.org/wiki/Q134093",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo039",
+    "type": "choice",
+    "text": "福岡県の都道府県庁所在地はどこですか？",
+    "options": [
+      "甲府市",
+      "岐阜市",
+      "福岡市",
+      "松江市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "福岡県の都道府県庁所在地は福岡市です。",
+    "source": "https://www.wikidata.org/wiki/Q123258",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo040",
+    "type": "choice",
+    "text": "佐賀県の都道府県庁所在地はどこですか？",
+    "options": [
+      "松江市",
+      "佐賀市",
+      "岡山市",
+      "熊本市"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "佐賀県の都道府県庁所在地は佐賀市です。",
+    "source": "https://www.wikidata.org/wiki/Q160420",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo041",
+    "type": "choice",
+    "text": "長崎県の都道府県庁所在地はどこですか？",
+    "options": [
+      "山形市",
+      "甲府市",
+      "長崎市",
+      "岐阜市"
+    ],
+    "answer": 2,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "長崎県の都道府県庁所在地は長崎市です。",
+    "source": "https://www.wikidata.org/wiki/Q169376",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo042",
+    "type": "choice",
+    "text": "熊本県の都道府県庁所在地はどこですか？",
+    "options": [
+      "熊本市",
+      "津市",
+      "福島市",
+      "鹿児島市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "熊本県の都道府県庁所在地は熊本市です。",
+    "source": "https://www.wikidata.org/wiki/Q130308",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo043",
+    "type": "choice",
+    "text": "大分県の都道府県庁所在地はどこですか？",
+    "options": [
+      "大分市",
+      "青森市",
+      "神戸市",
+      "山形市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "大分県の都道府県庁所在地は大分市です。",
+    "source": "https://www.wikidata.org/wiki/Q133924",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo044",
+    "type": "choice",
+    "text": "宮崎県の都道府県庁所在地はどこですか？",
+    "options": [
+      "宮崎市",
+      "熊本市",
+      "さいたま市",
+      "富山市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "宮崎県の都道府県庁所在地は宮崎市です。",
+    "source": "https://www.wikidata.org/wiki/Q130300",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo045",
+    "type": "choice",
+    "text": "鹿児島県の都道府県庁所在地はどこですか？",
+    "options": [
+      "山口市",
+      "福井市",
+      "大分市",
+      "鹿児島市"
+    ],
+    "answer": 3,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "鹿児島県の都道府県庁所在地は鹿児島市です。",
+    "source": "https://www.wikidata.org/wiki/Q15701",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo046",
+    "type": "choice",
+    "text": "沖縄県の都道府県庁所在地はどこですか？",
+    "options": [
+      "那覇市",
+      "長崎市",
+      "宮崎市",
+      "熊本市"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 2,
+    "explanation": "沖縄県の都道府県庁所在地は那覇市です。",
+    "source": "https://www.wikidata.org/wiki/Q766445",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element001",
+    "type": "choice",
+    "text": "水素の元素記号はどれですか？",
+    "options": [
+      "N",
+      "Ti",
+      "H",
+      "Si"
+    ],
+    "answer": 2,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "水素の元素記号はHです。",
+    "source": "https://www.wikidata.org/wiki/Q556",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element002",
+    "type": "choice",
+    "text": "ヘリウムの元素記号はどれですか？",
+    "options": [
+      "Cr",
+      "He",
+      "Cu",
+      "Ti"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "ヘリウムの元素記号はHeです。",
+    "source": "https://www.wikidata.org/wiki/Q560",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element003",
+    "type": "choice",
+    "text": "リチウムの元素記号はどれですか？",
+    "options": [
+      "Ni",
+      "Li",
+      "He",
+      "Ca"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "リチウムの元素記号はLiです。",
+    "source": "https://www.wikidata.org/wiki/Q568",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element004",
+    "type": "choice",
+    "text": "ベリリウムの元素記号はどれですか？",
+    "options": [
+      "Ni",
+      "Be",
+      "B",
+      "Na"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "ベリリウムの元素記号はBeです。",
+    "source": "https://www.wikidata.org/wiki/Q569",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element005",
+    "type": "choice",
+    "text": "ホウ素の元素記号はどれですか？",
+    "options": [
+      "B",
+      "Ca",
+      "H",
+      "Si"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "ホウ素の元素記号はBです。",
+    "source": "https://www.wikidata.org/wiki/Q618",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element006",
+    "type": "choice",
+    "text": "炭素の元素記号はどれですか？",
+    "options": [
+      "B",
+      "S",
+      "C",
+      "V"
+    ],
+    "answer": 2,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "炭素の元素記号はCです。",
+    "source": "https://www.wikidata.org/wiki/Q623",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element007",
+    "type": "choice",
+    "text": "窒素の元素記号はどれですか？",
+    "options": [
+      "V",
+      "N",
+      "Zn",
+      "Cl"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "窒素の元素記号はNです。",
+    "source": "https://www.wikidata.org/wiki/Q627",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element008",
+    "type": "choice",
+    "text": "酸素の元素記号はどれですか？",
+    "options": [
+      "Ti",
+      "He",
+      "O",
+      "Al"
+    ],
+    "answer": 2,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "酸素の元素記号はOです。",
+    "source": "https://www.wikidata.org/wiki/Q629",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element009",
+    "type": "choice",
+    "text": "フッ素の元素記号はどれですか？",
+    "options": [
+      "He",
+      "F",
+      "V",
+      "Ti"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "フッ素の元素記号はFです。",
+    "source": "https://www.wikidata.org/wiki/Q650",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element010",
+    "type": "choice",
+    "text": "ネオンの元素記号はどれですか？",
+    "options": [
+      "Ti",
+      "Al",
+      "Zn",
+      "Ne"
+    ],
+    "answer": 3,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "ネオンの元素記号はNeです。",
+    "source": "https://www.wikidata.org/wiki/Q654",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element011",
+    "type": "choice",
+    "text": "ナトリウムの元素記号はどれですか？",
+    "options": [
+      "Ar",
+      "Na",
+      "Sc",
+      "Mn"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "ナトリウムの元素記号はNaです。",
+    "source": "https://www.wikidata.org/wiki/Q658",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element012",
+    "type": "choice",
+    "text": "マグネシウムの元素記号はどれですか？",
+    "options": [
+      "Li",
+      "Mg",
+      "Ti",
+      "Cr"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "マグネシウムの元素記号はMgです。",
+    "source": "https://www.wikidata.org/wiki/Q660",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element013",
+    "type": "choice",
+    "text": "アルミニウムの元素記号はどれですか？",
+    "options": [
+      "He",
+      "N",
+      "B",
+      "Al"
+    ],
+    "answer": 3,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "アルミニウムの元素記号はAlです。",
+    "source": "https://www.wikidata.org/wiki/Q663",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element014",
+    "type": "choice",
+    "text": "ケイ素の元素記号はどれですか？",
+    "options": [
+      "Cu",
+      "H",
+      "Ar",
+      "Si"
+    ],
+    "answer": 3,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "ケイ素の元素記号はSiです。",
+    "source": "https://www.wikidata.org/wiki/Q670",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element015",
+    "type": "choice",
+    "text": "リンの元素記号はどれですか？",
+    "options": [
+      "He",
+      "Sc",
+      "P",
+      "H"
+    ],
+    "answer": 2,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "リンの元素記号はPです。",
+    "source": "https://www.wikidata.org/wiki/Q674",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element016",
+    "type": "choice",
+    "text": "硫黄の元素記号はどれですか？",
+    "options": [
+      "S",
+      "Zn",
+      "Ti",
+      "Si"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "硫黄の元素記号はSです。",
+    "source": "https://www.wikidata.org/wiki/Q682",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element017",
+    "type": "choice",
+    "text": "塩素の元素記号はどれですか？",
+    "options": [
+      "Na",
+      "Fe",
+      "Sc",
+      "Cl"
+    ],
+    "answer": 3,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "塩素の元素記号はClです。",
+    "source": "https://www.wikidata.org/wiki/Q688",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element018",
+    "type": "choice",
+    "text": "アルゴンの元素記号はどれですか？",
+    "options": [
+      "He",
+      "Ti",
+      "Ar",
+      "Mg"
+    ],
+    "answer": 2,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "アルゴンの元素記号はArです。",
+    "source": "https://www.wikidata.org/wiki/Q696",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element019",
+    "type": "choice",
+    "text": "カリウムの元素記号はどれですか？",
+    "options": [
+      "Mn",
+      "K",
+      "F",
+      "Ni"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "カリウムの元素記号はKです。",
+    "source": "https://www.wikidata.org/wiki/Q703",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element020",
+    "type": "choice",
+    "text": "カルシウムの元素記号はどれですか？",
+    "options": [
+      "Mn",
+      "Ar",
+      "Ca",
+      "Cr"
+    ],
+    "answer": 2,
+    "genre": "自然科学",
+    "difficulty": 1,
+    "explanation": "カルシウムの元素記号はCaです。",
+    "source": "https://www.wikidata.org/wiki/Q706",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element021",
+    "type": "choice",
+    "text": "スカンジウムの元素記号はどれですか？",
+    "options": [
+      "Sc",
+      "Cr",
+      "Ti",
+      "Ni"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "スカンジウムの元素記号はScです。",
+    "source": "https://www.wikidata.org/wiki/Q713",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element022",
+    "type": "choice",
+    "text": "チタンの元素記号はどれですか？",
+    "options": [
+      "Ti",
+      "Zn",
+      "B",
+      "N"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "チタンの元素記号はTiです。",
+    "source": "https://www.wikidata.org/wiki/Q716",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element023",
+    "type": "choice",
+    "text": "バナジウムの元素記号はどれですか？",
+    "options": [
+      "V",
+      "Cu",
+      "Ar",
+      "F"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "バナジウムの元素記号はVです。",
+    "source": "https://www.wikidata.org/wiki/Q722",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element024",
+    "type": "choice",
+    "text": "クロムの元素記号はどれですか？",
+    "options": [
+      "Cl",
+      "Si",
+      "Na",
+      "Cr"
+    ],
+    "answer": 3,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "クロムの元素記号はCrです。",
+    "source": "https://www.wikidata.org/wiki/Q725",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element025",
+    "type": "choice",
+    "text": "マンガンの元素記号はどれですか？",
+    "options": [
+      "Mn",
+      "Fe",
+      "C",
+      "F"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "マンガンの元素記号はMnです。",
+    "source": "https://www.wikidata.org/wiki/Q731",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element026",
+    "type": "choice",
+    "text": "鉄の元素記号はどれですか？",
+    "options": [
+      "Fe",
+      "K",
+      "B",
+      "O"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "鉄の元素記号はFeです。",
+    "source": "https://www.wikidata.org/wiki/Q677",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element027",
+    "type": "choice",
+    "text": "コバルトの元素記号はどれですか？",
+    "options": [
+      "Co",
+      "Fe",
+      "Li",
+      "Si"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "コバルトの元素記号はCoです。",
+    "source": "https://www.wikidata.org/wiki/Q740",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element028",
+    "type": "choice",
+    "text": "ニッケルの元素記号はどれですか？",
+    "options": [
+      "Al",
+      "Ni",
+      "Co",
+      "Be"
+    ],
+    "answer": 1,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "ニッケルの元素記号はNiです。",
+    "source": "https://www.wikidata.org/wiki/Q744",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element029",
+    "type": "choice",
+    "text": "銅の元素記号はどれですか？",
+    "options": [
+      "Co",
+      "Mg",
+      "Ne",
+      "Cu"
+    ],
+    "answer": 3,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "銅の元素記号はCuです。",
+    "source": "https://www.wikidata.org/wiki/Q753",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "element030",
+    "type": "choice",
+    "text": "亜鉛の元素記号はどれですか？",
+    "options": [
+      "Zn",
+      "B",
+      "C",
+      "S"
+    ],
+    "answer": 0,
+    "genre": "自然科学",
+    "difficulty": 2,
+    "explanation": "亜鉛の元素記号はZnです。",
+    "source": "https://www.wikidata.org/wiki/Q758",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの元素記号を機械照合・人手確認待ち"
+  },
+  {
+    "id": "unit001",
+    "type": "choice",
+    "text": "1キロメートルは何メートルですか？",
+    "options": [
+      "10000",
+      "100",
+      "1000",
+      "10"
+    ],
+    "answer": 2,
+    "genre": "生活",
+    "difficulty": 1,
+    "explanation": "1 km = 1000 mです。",
+    "source": "https://www.bipm.org/en/publications/si-brochure",
+    "checked_at": null,
+    "review_status": "基本単位の自作問題・出典本文照合待ち"
+  },
+  {
+    "id": "unit002",
+    "type": "choice",
+    "text": "1キログラムは何グラムですか？",
+    "options": [
+      "10",
+      "100",
+      "1000",
+      "10000"
+    ],
+    "answer": 2,
+    "genre": "生活",
+    "difficulty": 1,
+    "explanation": "1 kg = 1000 gです。",
+    "source": "https://www.bipm.org/en/publications/si-brochure",
+    "checked_at": null,
+    "review_status": "基本単位の自作問題・出典本文照合待ち"
+  },
+  {
+    "id": "unit003",
+    "type": "choice",
+    "text": "1メートルは何センチメートルですか？",
+    "options": [
+      "10",
+      "1000",
+      "10000",
+      "100"
+    ],
+    "answer": 3,
+    "genre": "生活",
+    "difficulty": 1,
+    "explanation": "1 m = 100 cmです。",
+    "source": "https://www.bipm.org/en/publications/si-brochure",
+    "checked_at": null,
+    "review_status": "基本単位の自作問題・出典本文照合待ち"
+  },
+  {
+    "id": "unit004",
+    "type": "choice",
+    "text": "1時間は何分ですか？",
+    "options": [
+      "120",
+      "100",
+      "60",
+      "30"
+    ],
+    "answer": 2,
+    "genre": "生活",
+    "difficulty": 1,
+    "explanation": "1時間は60分です。",
+    "source": "https://www.bipm.org/en/publications/si-brochure",
+    "checked_at": null,
+    "review_status": "基本単位の自作問題・出典本文照合待ち"
   }
 ]

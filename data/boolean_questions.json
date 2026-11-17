@@ -334,5 +334,485 @@
     "source": "https://ja.wikipedia.org/wiki/アニメーション",
     "checked_at": null,
     "review_status": "出典URL登録済・本文照合待ち"
+  },
+  {
+    "id": "geo_tf001",
+    "type": "boolean",
+    "text": "北海道の都道府県庁所在地は札幌市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "北海道の都道府県庁所在地は札幌市です。",
+    "source": "https://www.wikidata.org/wiki/Q1037393",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf002",
+    "type": "boolean",
+    "text": "青森県の都道府県庁所在地は岡山市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "青森県の都道府県庁所在地は青森市です。",
+    "source": "https://www.wikidata.org/wiki/Q71699",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf003",
+    "type": "boolean",
+    "text": "岩手県の都道府県庁所在地は盛岡市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "岩手県の都道府県庁所在地は盛岡市です。",
+    "source": "https://www.wikidata.org/wiki/Q48326",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf004",
+    "type": "boolean",
+    "text": "宮城県の都道府県庁所在地は静岡市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "宮城県の都道府県庁所在地は仙台市です。",
+    "source": "https://www.wikidata.org/wiki/Q47896",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf005",
+    "type": "boolean",
+    "text": "秋田県の都道府県庁所在地は秋田市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "秋田県の都道府県庁所在地は秋田市です。",
+    "source": "https://www.wikidata.org/wiki/Q81863",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf006",
+    "type": "boolean",
+    "text": "山形県の都道府県庁所在地は新潟市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "山形県の都道府県庁所在地は山形市です。",
+    "source": "https://www.wikidata.org/wiki/Q125863",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf007",
+    "type": "boolean",
+    "text": "福島県の都道府県庁所在地は福島市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "福島県の都道府県庁所在地は福島市です。",
+    "source": "https://www.wikidata.org/wiki/Q71707",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf008",
+    "type": "boolean",
+    "text": "茨城県の都道府県庁所在地は京都市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "茨城県の都道府県庁所在地は水戸市です。",
+    "source": "https://www.wikidata.org/wiki/Q83273",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf009",
+    "type": "boolean",
+    "text": "栃木県の都道府県庁所在地は宇都宮市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "栃木県の都道府県庁所在地は宇都宮市です。",
+    "source": "https://www.wikidata.org/wiki/Q44843",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf010",
+    "type": "boolean",
+    "text": "群馬県の都道府県庁所在地は水戸市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "群馬県の都道府県庁所在地は前橋市です。",
+    "source": "https://www.wikidata.org/wiki/Q129499",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf011",
+    "type": "boolean",
+    "text": "埼玉県の都道府県庁所在地はさいたま市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "埼玉県の都道府県庁所在地はさいたま市です。",
+    "source": "https://www.wikidata.org/wiki/Q128186",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf012",
+    "type": "boolean",
+    "text": "千葉県の都道府県庁所在地は徳島市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "千葉県の都道府県庁所在地は千葉市です。",
+    "source": "https://www.wikidata.org/wiki/Q80011",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf013",
+    "type": "boolean",
+    "text": "神奈川県の都道府県庁所在地は横浜市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "神奈川県の都道府県庁所在地は横浜市です。",
+    "source": "https://www.wikidata.org/wiki/Q127513",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf014",
+    "type": "boolean",
+    "text": "新潟県の都道府県庁所在地は長崎市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "新潟県の都道府県庁所在地は新潟市です。",
+    "source": "https://www.wikidata.org/wiki/Q132705",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf015",
+    "type": "boolean",
+    "text": "富山県の都道府県庁所在地は富山市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "富山県の都道府県庁所在地は富山市です。",
+    "source": "https://www.wikidata.org/wiki/Q132929",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf016",
+    "type": "boolean",
+    "text": "石川県の都道府県庁所在地は山口市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "石川県の都道府県庁所在地は金沢市です。",
+    "source": "https://www.wikidata.org/wiki/Q131281",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf017",
+    "type": "boolean",
+    "text": "福井県の都道府県庁所在地は福井市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "福井県の都道府県庁所在地は福井市です。",
+    "source": "https://www.wikidata.org/wiki/Q133879",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf018",
+    "type": "boolean",
+    "text": "山梨県の都道府県庁所在地はさいたま市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "山梨県の都道府県庁所在地は甲府市です。",
+    "source": "https://www.wikidata.org/wiki/Q132720",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf019",
+    "type": "boolean",
+    "text": "長野県の都道府県庁所在地は長野市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "長野県の都道府県庁所在地は長野市です。",
+    "source": "https://www.wikidata.org/wiki/Q127877",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf020",
+    "type": "boolean",
+    "text": "岐阜県の都道府県庁所在地は京都市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "岐阜県の都道府県庁所在地は岐阜市です。",
+    "source": "https://www.wikidata.org/wiki/Q131277",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf021",
+    "type": "boolean",
+    "text": "静岡県の都道府県庁所在地は静岡市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "静岡県の都道府県庁所在地は静岡市です。",
+    "source": "https://www.wikidata.org/wiki/Q131320",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf022",
+    "type": "boolean",
+    "text": "愛知県の都道府県庁所在地は奈良市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "愛知県の都道府県庁所在地は名古屋市です。",
+    "source": "https://www.wikidata.org/wiki/Q80434",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf023",
+    "type": "boolean",
+    "text": "三重県の都道府県庁所在地は津市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "三重県の都道府県庁所在地は津市です。",
+    "source": "https://www.wikidata.org/wiki/Q128196",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf024",
+    "type": "boolean",
+    "text": "滋賀県の都道府県庁所在地は松山市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "滋賀県の都道府県庁所在地は大津市です。",
+    "source": "https://www.wikidata.org/wiki/Q131358",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf025",
+    "type": "boolean",
+    "text": "京都府の都道府県庁所在地は京都市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "京都府の都道府県庁所在地は京都市です。",
+    "source": "https://www.wikidata.org/wiki/Q120730",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf026",
+    "type": "boolean",
+    "text": "大阪府の都道府県庁所在地は青森市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "大阪府の都道府県庁所在地は大阪市です。",
+    "source": "https://www.wikidata.org/wiki/Q122723",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf027",
+    "type": "boolean",
+    "text": "兵庫県の都道府県庁所在地は神戸市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "兵庫県の都道府県庁所在地は神戸市です。",
+    "source": "https://www.wikidata.org/wiki/Q130290",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf028",
+    "type": "boolean",
+    "text": "奈良県の都道府県庁所在地は鹿児島市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "奈良県の都道府県庁所在地は奈良市です。",
+    "source": "https://www.wikidata.org/wiki/Q131287",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf029",
+    "type": "boolean",
+    "text": "和歌山県の都道府県庁所在地は和歌山市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 0,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "和歌山県の都道府県庁所在地は和歌山市です。",
+    "source": "https://www.wikidata.org/wiki/Q131314",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
+  },
+  {
+    "id": "geo_tf030",
+    "type": "boolean",
+    "text": "鳥取県の都道府県庁所在地は福島市である。",
+    "options": [
+      "○",
+      "×"
+    ],
+    "answer": 1,
+    "genre": "地理・社会",
+    "difficulty": 1,
+    "explanation": "鳥取県の都道府県庁所在地は鳥取市です。",
+    "source": "https://www.wikidata.org/wiki/Q133935",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの所在地を機械照合・人手確認待ち"
   }
 ]

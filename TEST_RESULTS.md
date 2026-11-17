@@ -63,3 +63,14 @@ GUIのバックアップ試験はLinux上でFileDialogの選択シグナルを�
 - 従来の `tests/ui_phase2.gd`：32チェック成功。追加後の大型鬼戦闘・特殊技・報酬保存。
 
 画像はLinux上のGodotで描画し、`docs/screenshots/phase4_home.png`と`phase4_wolf.png`を目視確認。デバイス上のタッチ・オフライン設定・APK署名・Androidシステム権限は未検証。
+
+## 0.6.0追加確認
+- `tests/test_questions.gd`：1122チェック成功。101問の四択と51問の○×のID、選択肢、重複、出典フィールドとジャンル、固定乱数、少数問題での動作を確認。問題文の人手校閲の代わりにはならない。
+- `tests/test_runner.gd`：330チェック成功。問題数の増加後の従来戦闘・保存回帰。
+- `tests/test_phase2.gd`：115チェック成功。○×増加後の特殊戦闘。
+- `tests/test_progression.gd`：32チェック成功。
+- `tests/ui_phase4.gd`：13チェック成功、`tests/ui_phase3_extra.gd`：18チェック成功（Linux Godot描画環境）。
+- `tests/test_offline_policy.gd`：購入・主要通信API静的検査で違反なし。
+- Godot 4.6.3によりAndroidデバッグAPKを書き出し。`apksigner verify`でv2/v3署名を検証、`aapt`でAPI 24以上・arm64-v8a/x86_64・追加権限なしを確認。APKの詳細は[ANDROID_TEST_BUILD.md](docs/ANDROID_TEST_BUILD.md)。
+
+Pixel 6a実機は接続されていない。実機でのインストール、タッチ、音声、バックアップ、更新・署名互換性は未検証。エミュレーターはソフトウェア実行で起動を試行中。

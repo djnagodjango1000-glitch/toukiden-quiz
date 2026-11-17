@@ -1,9 +1,10 @@
 config_version=5
 
 [application]
-config/name="鬼問戦記 — Phase 2"
+config/name="鬼問戦記"
 run/main_scene="res://main.tscn"
-config/version="0.5.0"
+config/version="0.6.0"
+config/icon="res://assets/icon.svg"
 
 [display]
 window/size/viewport_width=720
@@ -18,3 +19,4 @@ window/handheld/orientation=1
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/default_filters/use_nearest_mipmap_filter=false
+textures/vram_compression/import_etc2_astc=true

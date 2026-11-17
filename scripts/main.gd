@@ -1,6 +1,7 @@
 extends Control
 
 const Battle = preload("res://scripts/battle.gd")
+const QuizPool = preload("res://scripts/quiz_pool.gd")
 const SaveStore = preload("res://scripts/save_store.gd")
 const StageArt = preload("res://scripts/stage_art.gd")
 const ScrollOrnament = preload("res://scripts/scroll_ornament.gd")
@@ -151,7 +152,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("Phase 4 開発版  0.5.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("開発版  0.6.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -597,11 +598,8 @@ func show_battle() -> void:
 		skills.add_child(musuhi_button)
 	if busy: return
 	if model.status == "scrolls":
-		var available: Array = data.questions.duplicate()
-		# seedを指定したモデル乱数で巻物を選ぶ。
-		for k in range(4):
-			var pos: int = model.rng.randi_range(0,available.size()-1)
-			var q: Dictionary = available.pop_at(pos)
+		var available: Array = QuizPool.scrolls(data.questions,4,model.rng)
+		for q in available:
 			var rank: String = ["初級","中級","上級"][int(q.difficulty)-1]
 			var scroll_button := button("%s　　%s" % [rank,q.genre],func(): choose_question(q))
 			var parchment := style(Color("f2e3bc"),Color("694626"),5)
