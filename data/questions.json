@@ -2014,5 +2014,149 @@
     "source": "https://www.wikidata.org/wiki/Q3110493",
     "checked_at": "2026-11-17",
     "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "sport_new_01",
+    "type": "choice",
+    "text": "通常のサッカーの試合で、前半の基本時間は何分ですか？",
+    "options": [
+      "30分",
+      "20分",
+      "60分",
+      "45分"
+    ],
+    "answer": 3,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "競技規則では基本時間は45分ずつの前後半です。",
+    "source": "https://www.theifab.com/laws/latest/the-duration-of-the-match/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
+  },
+  {
+    "id": "sport_new_02",
+    "type": "choice",
+    "text": "通常のサッカーのハーフタイムは最大何分ですか？",
+    "options": [
+      "25分",
+      "45分",
+      "15分",
+      "5分"
+    ],
+    "answer": 2,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "ハーフタイムは15分を超えないと規定されています。",
+    "source": "https://www.theifab.com/laws/latest/the-duration-of-the-match/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
+  },
+  {
+    "id": "sport_new_03",
+    "type": "choice",
+    "text": "サッカーで選手への警告を示すカードの色は？",
+    "options": [
+      "緑色",
+      "黄色",
+      "青色",
+      "白色"
+    ],
+    "answer": 1,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "警告にはイエローカードを示します。",
+    "source": "https://www.theifab.com/laws/latest/fouls-and-misconduct/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
+  },
+  {
+    "id": "sport_new_04",
+    "type": "choice",
+    "text": "サッカーで選手への退場を示すカードの色は？",
+    "options": [
+      "赤色",
+      "青色",
+      "白色",
+      "緑色"
+    ],
+    "answer": 0,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "退場にはレッドカードを示します。",
+    "source": "https://www.theifab.com/laws/latest/fouls-and-misconduct/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
+  },
+  {
+    "id": "sport_new_05",
+    "type": "choice",
+    "text": "サッカーのペナルティーキックを行う場所にある印は？",
+    "options": [
+      "センターマーク",
+      "コーナーアーク",
+      "ハーフウェーライン",
+      "ペナルティーマーク"
+    ],
+    "answer": 3,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "PKではペナルティーマークの中心にボールの一部が触れるか、上方にかかるように置きます。",
+    "source": "https://www.theifab.com/laws/latest/the-penalty-kick/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
+  },
+  {
+    "id": "sport_new_06",
+    "type": "choice",
+    "text": "サッカーのPKで守備側のゴールキーパーは、キックまでどこにいますか？",
+    "options": [
+      "相手のゴール前",
+      "コーナーアーク内",
+      "ゴールライン上",
+      "センターサークル内"
+    ],
+    "answer": 2,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "ゴールキーパーはキックまでゴールライン上で、ゴールポストの間にいます。",
+    "source": "https://www.theifab.com/laws/latest/the-penalty-kick/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
+  },
+  {
+    "id": "sport_new_07",
+    "type": "choice",
+    "text": "サッカーの間接フリーキックが誰にも触れず相手ゴールに入った場合、再開方法は？",
+    "options": [
+      "スローイン",
+      "ゴールキック",
+      "得点してキックオフ",
+      "コーナーキック"
+    ],
+    "answer": 1,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "間接フリーキックから直接得点できず、守備側のゴールキックになります。",
+    "source": "https://www.theifab.com/laws/latest/free-kicks/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
+  },
+  {
+    "id": "sport_new_08",
+    "type": "choice",
+    "text": "サッカーのペナルティーキックはボールをどちらへ蹴りますか？",
+    "options": [
+      "前方",
+      "後方",
+      "必ず真横",
+      "真上"
+    ],
+    "answer": 0,
+    "genre": "スポーツ",
+    "difficulty": 2,
+    "explanation": "PKのボールは前方に蹴らなければなりません。",
+    "source": "https://www.theifab.com/laws/latest/the-penalty-kick/",
+    "checked_at": "2026-11-17",
+    "review_status": "IFAB競技規則本文と照合。競技規則の将来改訂時は再確認。"
   }
 ]

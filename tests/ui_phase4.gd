@@ -32,7 +32,7 @@ func run() -> void:
 	app.show_home()
 	await capture("phase4_home")
 	check(app.screen=="home","里画面")
-	check(app.data.mitama.size()==8,"8体のミタマ")
+	check(app.data.mitama.size()>=12,"12体以上のミタマ")
 	var first_portrait=app.portrait("m07")
 	var second_portrait=app.portrait("m08")
 	check(first_portrait.texture != null and second_portrait.texture != null,"追加肖像の読み込み")

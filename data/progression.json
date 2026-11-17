@@ -18,7 +18,9 @@
   "encyclopedia_rewards": {
     "4": 100,
     "6": 300,
-    "8": 500
+    "8": 500,
+    "10": 700,
+    "12": 1000
   },
   "orb_first_clear": 1,
   "orb_summon_cost": 1,

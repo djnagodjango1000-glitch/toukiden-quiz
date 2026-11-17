@@ -46,6 +46,53 @@
       "multiplier": 1.6,
       "hits": 4,
       "cost": 4
+    },
+    "hay_poem": {
+      "label": "速答・月のことのは",
+      "kind": "rally",
+      "multiplier": 1.15,
+      "hits": 3
+    },
+    "tama_moon": {
+      "label": "月影の詩",
+      "kind": "attack_heal",
+      "power": 1.5,
+      "fraction": 0.12,
+      "cost": 4
+    },
+    "hay_swift": {
+      "label": "速答・疾風",
+      "kind": "attack",
+      "power": 0.65
+    },
+    "tama_blade": {
+      "label": "飛燕の刃",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4
+    },
+    "hay_starlight": {
+      "label": "速答・星守り",
+      "kind": "guard",
+      "multiplier": 0.5
+    },
+    "tama_stars": {
+      "label": "星めぐり",
+      "kind": "rally",
+      "multiplier": 1.4,
+      "hits": 5,
+      "cost": 3
+    },
+    "hay_medicine": {
+      "label": "速答・薬草",
+      "kind": "heal",
+      "fraction": 0.11
+    },
+    "tama_medicine": {
+      "label": "旅路の妙薬",
+      "kind": "heal",
+      "fraction": 0.5,
+      "cost": 4
     }
   }
 }

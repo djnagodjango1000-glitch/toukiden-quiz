@@ -1,5 +1,12 @@
 # テスト結果 0.2.0
 
+## 0.8.0（2026-11-17）
+
+- Godot headless：`test_runner` 387、`test_phase2` 142、`test_progression` 32、`test_questions` 1388、`test_experience` 217チェック、いずれも失敗0。追加の複合技は不足時の拒否、ポイント消費、攻撃・回復とイベントを確認。
+- `ui_new_mitama`：追加4体の肖像リソースと切り出し範囲、編成・召喚画面の生成を確認。headlessのため画面レイアウトや実タッチは確認していない。
+- `test_offline_policy`：実行時スクリプトの静的検査18ファイル、違反0。Androidの追加権限宣言なし。
+- Android 0.8.0デバッグAPK生成。v2/v3署名の検証成功。0.7.0と同じ署名証明書・同じパッケージ名、versionCodeは7→8。更新時のAndroid実機・エミュレーターでのインストールやセーブ保持は未検証。
+
 実施日：2026-11-17（日本時間）。Godot 4.6.3 stable / Linux。
 
 |試験|結果|対象|

@@ -82,6 +82,19 @@ func _initialize() -> void:
 	hit(b)
 	check(b.rally_hits==3,"支援の残り攻撃回数")
 	check(b.use_tamafuri(0).accepted and b.points[0]==2,"攻撃タマフリのコスト")
+	# 攻撃と回復を併せ持つ追加タマフリ。効果とコストを同時に検証。
+	b=fresh()
+	b.party[0]=d.mitama[8].duplicate(true)
+	b.hp=500
+	b.points[0]=3
+	check(not b.use_tamafuri(0).accepted and b.points[0]==3,"複合技は不足時に消費しない")
+	b.points[0]=4
+	var before_enemy: int=b.enemies[0].hp
+	var before_hp: int=b.hp
+	var mixed: Dictionary=b.use_tamafuri(0)
+	check(mixed.accepted and b.points[0]==0,"複合技のポイント消費")
+	check(b.enemies[0].hp<before_enemy and b.hp>before_hp,"複合技の攻撃と回復")
+	check(count_event(mixed.events,"skill_attack")==1 and count_event(mixed.events,"heal")==1,"複合技の演出イベント")
 	b=fresh()
 	b.actor_index=1
 	b.hp=500

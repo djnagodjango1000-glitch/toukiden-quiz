@@ -267,7 +267,12 @@ func portrait(id: String, width: float = 112.0) -> TextureRect:
 	var positions := {"m01":4,"m02":0,"m03":2,"m04":3,"m05":1,"m06":5}
 	var index: int = positions.get(id,0)
 	var atlas := AtlasTexture.new()
-	if id in ["m07","m08"]:
+	if id in ["m09","m10","m11","m12"]:
+		var extra_index: int = ["m09","m10","m11","m12"].find(id)
+		atlas.atlas = load("res://assets/art/mitama_more.png")
+		var half := atlas.atlas.get_size() / 2.0
+		atlas.region = Rect2(Vector2((extra_index%2)*half.x,(extra_index/2)*half.y),half)
+	elif id in ["m07","m08"]:
 		atlas.atlas = load("res://assets/art/mitama_extra.png")
 		atlas.region = Rect2(0 if id=="m07" else 887,0,887,887)
 	else:
@@ -308,6 +313,15 @@ func save_change(updated: Dictionary) -> bool:
 	save = updated
 	return true
 
+func skill_description(effect: Dictionary) -> String:
+	match effect.kind:
+		"attack": return "攻撃力の%d%%で攻撃" % roundi(float(effect.power)*100)
+		"attack_heal": return "攻撃%d%%＋最大体力の%d%%回復" % [roundi(float(effect.power)*100),roundi(float(effect.fraction)*100)]
+		"heal": return "最大体力の%d%%回復" % roundi(float(effect.fraction)*100)
+		"guard": return "次の敵行動の被害を%d%%に" % roundi(float(effect.multiplier)*100)
+		"rally": return "次の%d撃を%d%%に強化" % [int(effect.hits),roundi(float(effect.multiplier)*100)]
+	return "効果未設定"
+
 func show_party() -> void:
 	screen = "party"
 	clear_page("ミタマ ── 編成と強化")
@@ -329,6 +343,14 @@ func show_party() -> void:
 		info.add_theme_color_override("font_color",palette.ink)
 		info.add_theme_font_size_override("font_size",21)
 		panel.add_child(info)
+		var skills_info := Label.new()
+		var hay: Dictionary = data.effects.definitions[m.hayafuri]
+		var tama: Dictionary = data.effects.definitions[m.tamafuri]
+		skills_info.text = "ハヤフリ：%s\n%s\nタマフリ：%s（%d pt）\n%s" % [hay.label,skill_description(hay),tama.label,int(tama.cost),skill_description(tama)]
+		skills_info.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		skills_info.add_theme_color_override("font_color",palette.ink)
+		skills_info.add_theme_font_size_override("font_size",18)
+		panel.add_child(skills_info)
 		var controls := HBoxContainer.new()
 		panel.add_child(controls)
 		var toggle := Button.new()
@@ -623,7 +645,7 @@ func show_battle() -> void:
 			var cost: int = int(data.effects.definitions[m.tamafuri].cost)
 			var skill_button := Button.new()
 			var kind: String = data.effects.definitions[m.tamafuri].kind
-			var role: String = {"attack":"攻","heal":"癒","guard":"守","rally":"援"}.get(kind,"技")
+			var role: String = {"attack":"攻","attack_heal":"攻癒","heal":"癒","guard":"守","rally":"援"}.get(kind,"技")
 			skill_button.text = "%s・%s\n%d/%d pt" % [m.name,role,model.points[index],cost]
 			skill_button.add_theme_font_size_override("font_size",18)
 			skill_button.custom_minimum_size.y = 56
