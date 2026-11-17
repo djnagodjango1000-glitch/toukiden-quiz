@@ -48,8 +48,8 @@ func run() -> void:
 		await app.answer(int(app.model.current_question.answer))
 		guard+=1
 	check(app.screen=="result" and app.model.status=="won","UIで討伐")
-	check(app.save.haku==100,"報酬表示と保存")
-	check(app.store.load_save().haku==100,"結果画面で保存済み")
+	check(app.save.haku==150,"報酬表示と保存")
+	check(app.store.load_save().haku==150,"結果画面で保存済み")
 	check(app.unlocked(app.data.missions[1]),"任務解放")
 	await capture("result")
 	# Pixel 6a相当の縦長描画。実機のタッチ・システムバー検証とは別。

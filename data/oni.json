@@ -18,8 +18,8 @@
   {
     "id": "boss",
     "name": "山門の大鬼（独自仮鬼）",
-    "hp": 3800,
-    "attack": 190,
+    "hp": 2600,
+    "attack": 150,
     "attribute": "砕",
     "large": true,
     "provenance": "C: 独自の鬼・部位効果・能力。",
@@ -47,8 +47,8 @@
   {
     "id": "wolf_boss",
     "name": "苔岩の牙獣（独自仮鬼）",
-    "hp": 4800,
-    "attack": 210,
+    "hp": 2800,
+    "attack": 160,
     "attribute": "斬",
     "large": true,
     "provenance": "C: 独自の鬼・部位効果・能力。",

@@ -1,6 +1,6 @@
 extends RefCounted
 ## ジャンル数の差で巻物が偏らないよう、最初に異なるジャンルを選ぶ。
-static func scrolls(questions: Array, count: int, rng: RandomNumberGenerator) -> Array:
+static func scrolls(questions: Array, count: int, rng: RandomNumberGenerator, recent: Array = []) -> Array:
 	var buckets := {}
 	for q in questions:
 		if q.get("type") != "choice": continue
@@ -13,14 +13,25 @@ static func scrolls(questions: Array, count: int, rng: RandomNumberGenerator) ->
 	while chosen.size()<count and not names.is_empty():
 		var position := rng.randi_range(0,names.size()-1)
 		var genre: String = names.pop_at(position)
-		var pool: Array = buckets[genre]
+		var all_in_genre: Array = buckets[genre]
+		var pool: Array = []
+		for candidate in all_in_genre:
+			if not candidate.id in recent: pool.append(candidate)
+		if pool.is_empty(): pool = all_in_genre
 		var q: Dictionary = pool[rng.randi_range(0,pool.size()-1)]
 		chosen.append(q)
 		used.append(q.id)
 	if chosen.size()<count:
 		var remaining: Array = []
 		for q in questions:
-			if q.get("type")=="choice" and not q.id in used: remaining.append(q)
+			if q.get("type")=="choice" and not q.id in used and not q.id in recent: remaining.append(q)
 		while chosen.size()<count and not remaining.is_empty():
-			chosen.append(remaining.pop_at(rng.randi_range(0,remaining.size()-1)))
+			var q: Dictionary = remaining.pop_at(rng.randi_range(0,remaining.size()-1))
+			chosen.append(q)
+			used.append(q.id)
+		if chosen.size()<count:
+			for q in questions:
+				if q.get("type")=="choice" and not q.id in used: remaining.append(q)
+			while chosen.size()<count and not remaining.is_empty():
+				chosen.append(remaining.pop_at(rng.randi_range(0,remaining.size()-1)))
 	return chosen

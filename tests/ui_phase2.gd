@@ -108,7 +108,7 @@ func run() -> void:
 		await app.answer(int(app.model.current_question.answer))
 		guard+=1
 	check(app.screen=="result" and app.model.status=="won","大型鬼討伐まで到達")
-	check(app.save.haku==300 and app.store.load_save().haku==300,"大型鬼報酬の保存")
+	check(app.save.haku==420 and app.store.load_save().haku==420,"大型鬼報酬の保存")
 	await capture("boss_result")
 	for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(app.store.base_path+suffix)
 	print("PHASE 2 UI TESTS: %d checks, %d failures" % [checks,failures])

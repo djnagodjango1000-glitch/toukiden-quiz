@@ -47,6 +47,9 @@
   "presentation": {
     "event_seconds": 0.35,
     "answer_seconds": 0.55,
-    "musuhi_feedback_seconds": 0.18
-  }
+    "musuhi_feedback_seconds": 0.18,
+    "event_seconds_fast": 0.18,
+    "answer_seconds_fast": 0.3
+  },
+  "quiz_recent_limit": 30
 }

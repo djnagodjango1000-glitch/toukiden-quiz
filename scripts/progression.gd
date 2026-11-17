@@ -79,7 +79,7 @@ func enter_mission(state: Dictionary, mission: Dictionary, now: int) -> Dictiona
 
 func valid_backup(state: Variant) -> bool:
 	if not state is Dictionary or not state.get("owned") is Array or not state.get("settings") is Dictionary: return false
-	for key in ["free_play","muted"]:
+	for key in ["free_play","muted","relaxed_effects"]:
 		if state.settings.has(key) and not state.settings[key] is bool: return false
 	var owned: Array = state.owned
 	if owned.is_empty() or owned.size()>catalog.size(): return false

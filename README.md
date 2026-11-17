@@ -2,9 +2,9 @@
 
 『クイズバトル討鬼伝』の機能的なゲーム体験を調査し、独自素材で構築する非公式Android向けクイズRPG。原作の画像・音源・ロゴ・問題文は含めません。
 
-**現在：四択101問・○×51問とAndroidデバッグAPKを用意した0.6.0試作。完成版ではありません。**
+**現在：戦闘の遊びやすさと四択112問・○×62問を追加した0.7.0試作。完成版ではありません。**
 
-[AndroidテストAPKをダウンロード（約84 MiB）](https://github.com/djnagodjango1000-glitch/toukiden-quiz/raw/refs/heads/codex/apk-0.6.0/android/kimon-senki-debug.apk)
+[AndroidテストAPKをダウンロード（約84 MiB）](https://github.com/djnagodjango1000-glitch/toukiden-quiz/raw/refs/heads/codex/apk-0.7.0/android/kimon-senki-0.7.0-debug.apk)
 
 このAPKはデバッグ署名付きの開発版です。Android実機・エミュレーターでのインストールと起動はまだ確認できていません。
 
@@ -21,6 +21,7 @@ godot --path .
 4秒以内の正解でハヤフリ。正解を重ねると各ミタマのタマフリとムスヒを使えます。大型鬼は角・左右腕を選んで破壊可能。能力・閾値・倍率は原作未確認の仮値です。
 
 ## 資料
+- [遊びやすさの調査と改善](GAMEPLAY_RESEARCH.md)
 - [原作調査・仕様の確度](RESEARCH.md)
 - [画面比較と実装前設計](UI_COMPARISON.md)
 - [開発構成](ARCHITECTURE.md)
@@ -39,12 +40,14 @@ godot --headless --path . --script tests/test_phase2.gd
 godot --headless --path . --script tests/test_progression.gd
 godot --headless --path . --script tests/test_offline_policy.gd
 godot --headless --path . --script tests/test_questions.gd
+godot --headless --path . --script tests/test_experience.gd
 # X11画面があるLinux環境。音声装置のない環境ではDummyを指定。
 godot --audio-driver Dummy --path . --script tests/ui_flow.gd
 godot --audio-driver Dummy --path . --script tests/ui_phase2.gd
 godot --audio-driver Dummy --path . --script tests/ui_phase3.gd
 godot --audio-driver Dummy --path . --script tests/ui_phase3_extra.gd
 godot --audio-driver Dummy --path . --script tests/ui_phase4.gd
+godot --audio-driver Dummy --path . --script tests/ui_experience.gd
 ```
 UIテストは`build/`にPNGを出力します。実セーブと別名のテスト用ファイルを使い、そのファイルのみ後片付けします。
 

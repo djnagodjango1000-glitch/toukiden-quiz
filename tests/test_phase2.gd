@@ -13,7 +13,12 @@ func check(ok: bool, message: String) -> void:
 
 func fresh():
 	var b = Battle.new()
-	b.setup(d.mitama.slice(0,4),d.missions[2],d.oni,d.balance,12345,d.effects.definitions)
+	var fixture: Array = d.oni.duplicate(true)
+	for enemy in fixture:
+		if enemy.id == "boss":
+			enemy.hp = 3800
+			enemy.attack = 190
+	b.setup(d.mitama.slice(0,4),d.missions[2],fixture,d.balance,12345,d.effects.definitions)
 	return b
 
 func count_event(events: Array, kind: String) -> int:

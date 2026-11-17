@@ -1816,5 +1816,203 @@
     "source": "https://www.bipm.org/en/publications/si-brochure",
     "checked_at": null,
     "review_status": "基本単位の自作問題・出典本文照合待ち"
+  },
+  {
+    "id": "lit_new001",
+    "type": "choice",
+    "text": "小説・童話『吾輩は猫である』の作者は誰ですか？",
+    "options": [
+      "芥川龍之介",
+      "夏目漱石",
+      "新美南吉",
+      "太宰治"
+    ],
+    "answer": 1,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『吾輩は猫である』の作者は夏目漱石です。",
+    "source": "https://www.wikidata.org/wiki/Q35690",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new002",
+    "type": "choice",
+    "text": "小説・童話『こころ』の作者は誰ですか？",
+    "options": [
+      "夏目漱石",
+      "中島敦",
+      "宮沢賢治",
+      "太宰治"
+    ],
+    "answer": 0,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『こころ』の作者は夏目漱石です。",
+    "source": "https://www.wikidata.org/wiki/Q2623003",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new003",
+    "type": "choice",
+    "text": "小説・童話『羅生門』の作者は誰ですか？",
+    "options": [
+      "芥川龍之介",
+      "中島敦",
+      "新美南吉",
+      "宮沢賢治"
+    ],
+    "answer": 0,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『羅生門』の作者は芥川龍之介です。",
+    "source": "https://www.wikidata.org/wiki/Q1076912",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new004",
+    "type": "choice",
+    "text": "小説・童話『蜘蛛の糸』の作者は誰ですか？",
+    "options": [
+      "太宰治",
+      "芥川龍之介",
+      "夏目漱石",
+      "宮沢賢治"
+    ],
+    "answer": 1,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『蜘蛛の糸』の作者は芥川龍之介です。",
+    "source": "https://www.wikidata.org/wiki/Q2471238",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new005",
+    "type": "choice",
+    "text": "小説・童話『銀河鉄道の夜』の作者は誰ですか？",
+    "options": [
+      "芥川龍之介",
+      "宮沢賢治",
+      "夏目漱石",
+      "太宰治"
+    ],
+    "answer": 1,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『銀河鉄道の夜』の作者は宮沢賢治です。",
+    "source": "https://www.wikidata.org/wiki/Q1524969",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new006",
+    "type": "choice",
+    "text": "小説・童話『注文の多い料理店』の作者は誰ですか？",
+    "options": [
+      "新美南吉",
+      "夏目漱石",
+      "宮沢賢治",
+      "太宰治"
+    ],
+    "answer": 2,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『注文の多い料理店』の作者は宮沢賢治です。",
+    "source": "https://www.wikidata.org/wiki/Q11555685",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new007",
+    "type": "choice",
+    "text": "小説・童話『風の又三郎』の作者は誰ですか？",
+    "options": [
+      "太宰治",
+      "宮沢賢治",
+      "芥川龍之介",
+      "中島敦"
+    ],
+    "answer": 1,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『風の又三郎』の作者は宮沢賢治です。",
+    "source": "https://www.wikidata.org/wiki/Q11665328",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new008",
+    "type": "choice",
+    "text": "小説・童話『走れメロス』の作者は誰ですか？",
+    "options": [
+      "夏目漱石",
+      "太宰治",
+      "芥川龍之介",
+      "中島敦"
+    ],
+    "answer": 1,
+    "genre": "言葉・文学",
+    "difficulty": 1,
+    "explanation": "『走れメロス』の作者は太宰治です。",
+    "source": "https://www.wikidata.org/wiki/Q194551",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new009",
+    "type": "choice",
+    "text": "小説・童話『人間失格』の作者は誰ですか？",
+    "options": [
+      "芥川龍之介",
+      "夏目漱石",
+      "宮沢賢治",
+      "太宰治"
+    ],
+    "answer": 3,
+    "genre": "言葉・文学",
+    "difficulty": 2,
+    "explanation": "『人間失格』の作者は太宰治です。",
+    "source": "https://www.wikidata.org/wiki/Q1147583",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new010",
+    "type": "choice",
+    "text": "小説・童話『山月記』の作者は誰ですか？",
+    "options": [
+      "夏目漱石",
+      "中島敦",
+      "宮沢賢治",
+      "芥川龍之介"
+    ],
+    "answer": 1,
+    "genre": "言葉・文学",
+    "difficulty": 2,
+    "explanation": "『山月記』の作者は中島敦です。",
+    "source": "https://www.wikidata.org/wiki/Q11468746",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
+  },
+  {
+    "id": "lit_new011",
+    "type": "choice",
+    "text": "小説・童話『ごん狐』の作者は誰ですか？",
+    "options": [
+      "太宰治",
+      "中島敦",
+      "芥川龍之介",
+      "新美南吉"
+    ],
+    "answer": 3,
+    "genre": "言葉・文学",
+    "difficulty": 2,
+    "explanation": "『ごん狐』の作者は新美南吉です。",
+    "source": "https://www.wikidata.org/wiki/Q3110493",
+    "checked_at": "2026-11-17",
+    "review_status": "Wikidataの著者を機械照合・人手確認待ち"
   }
 ]

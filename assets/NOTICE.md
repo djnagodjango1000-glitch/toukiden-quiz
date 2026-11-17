@@ -10,3 +10,5 @@ japanese.ttc: Noto Sans CJK Regular, Google / Adobe, SIL Open Font License 1.1�
 0.4.0の `art/small_oni.png` は本プロジェクト向けに新規生成した独自の小型鬼イラスト。原作の画像を使用していない。
 
 0.5.0の `art/village.png`、`art/wolf.png`、`art/mitama_extra.png` は本プロジェクト向けの新規生成画像。原作公式画像は調査のみに用い、同梱していない。歴史人物の創作肖像は史実や原作の姿の再現ではない。
+
+0.7.0の `art/slash.png` は本作向けに新規生成した透明背景の攻撃演出画像。原作の画面・エフェクトをコピーしていない。

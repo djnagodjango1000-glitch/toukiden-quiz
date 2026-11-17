@@ -16,7 +16,8 @@
     },
     "unlocks": [
       "trial02"
-    ]
+    ],
+    "perfect_bonus_haku": 50
   },
   {
     "id": "trial02",
@@ -39,7 +40,8 @@
     },
     "unlocks": [
       "trial03"
-    ]
+    ],
+    "perfect_bonus_haku": 80
   },
   {
     "id": "trial03",
@@ -58,7 +60,8 @@
     },
     "unlocks": [
       "trial04"
-    ]
+    ],
+    "perfect_bonus_haku": 120
   },
   {
     "id": "training01",
@@ -93,6 +96,7 @@
       "xp": 55,
       "material": 2
     },
-    "unlocks": []
+    "unlocks": [],
+    "perfect_bonus_haku": 150
   }
 ]
