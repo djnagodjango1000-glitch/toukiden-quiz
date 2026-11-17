@@ -51,7 +51,7 @@ func _ready() -> void:
 		theme_data.set_color(state,"Button",palette.ink)
 	theme_data.set_color("font_disabled_color","Button",Color("77705f"))
 	theme = theme_data
-	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions", "progression"]:
+	for filename in ["balance", "mitama", "oni", "missions", "questions", "effects", "boolean_questions", "progression", "story"]:
 		data[filename] = JSON.parse_string(FileAccess.get_file_as_string("res://data/" + filename + ".json"))
 	progression = Progression.new(data.progression,data.mitama)
 	add_child(sound)
@@ -172,7 +172,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("開発版  0.14.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("開発版  0.15.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -199,6 +199,7 @@ func show_home() -> void:
 	label("試作の里",36,palette.dark)
 	label("山の向こうで鬼が動き始めた。\n巻物の問いを解き、ミタマとともに出陣しよう。",25)
 	space(40)
+	button("物語 ── 帰る場所への旅",show_story_menu)
 	button("任務 ── 領域を選ぶ",show_regions)
 	button("遊び方",show_how_to_play)
 	button("ミタマ ── 編成・強化",show_party)
@@ -208,6 +209,45 @@ func show_home() -> void:
 	button("設定・セーブ情報",show_settings)
 	button("タイトルに戻る",show_title)
 	label("編成・強化・召喚は開発中の仮仕様です。",20)
+
+func story_unlocked(chapter: Dictionary) -> bool:
+	var requirement := str(chapter.get("unlock_after", ""))
+	return requirement.is_empty() or requirement in save.cleared
+
+func show_story_menu() -> void:
+	screen = "story_menu"
+	clear_page("物語 ── 帰る場所への旅")
+	label("原作の資料を参考に、新たな人物と文章で描いた物語です。",22)
+	label("任務を進めると続きを読めます。開いた場面は何度でも読み返せます。",22)
+	for item in data.story.chapters:
+		var chapter: Dictionary = item
+		var is_open := story_unlocked(chapter)
+		button(str(chapter.title) if is_open else "？？？　任務を進めると解放",func(): show_story_page(chapter,0),not is_open)
+	button("里に戻る",show_home)
+
+func show_story_page(chapter: Dictionary, index: int) -> void:
+	if not story_unlocked(chapter) or index < 0 or index >= chapter.pages.size():
+		show_story_menu()
+		return
+	screen = "story"
+	clear_page(str(chapter.title))
+	var illustration := TextureRect.new()
+	illustration.texture = load("res://assets/art/village.png")
+	illustration.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	illustration.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	illustration.custom_minimum_size.y = 200
+	content.add_child(illustration)
+	var page: Dictionary = chapter.pages[index]
+	label(str(page.speaker),28,palette.dark)
+	label(str(page.text),27)
+	space(20)
+	label("%d / %d" % [index+1,chapter.pages.size()],20)
+	if index+1 < chapter.pages.size():
+		button("次へ",func(): show_story_page(chapter,index+1))
+	else:
+		button("物語一覧へ",show_story_menu)
+	if index>0: button("前へ",func(): show_story_page(chapter,index-1))
+	button("里に戻る",show_home)
 
 func show_how_to_play() -> void:
 	screen = "guide"
@@ -1029,6 +1069,11 @@ func show_result() -> void:
 		if perfect and int(mission.get("perfect_bonus_haku",0))>0:
 			label("通常クイズ全問正解！ 追加 %dハク" % int(mission.perfect_bonus_haku),26,palette.dark)
 	else: label("報酬はありません。里で準備を整えましょう。",26)
+	if model.status == "won":
+		for item in data.story.chapters:
+			var chapter: Dictionary = item
+			if chapter.get("unlock_after", "") == mission.id:
+				button("物語の続きを見る",func(): show_story_page(chapter,0))
 	if not mistakes.is_empty(): button("間違えた問題を復習（%d問）" % mistakes.size(),show_review)
 	space(30)
 	button("里へ帰還",show_home)
