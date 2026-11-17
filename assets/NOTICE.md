@@ -18,3 +18,5 @@ japanese.ttc: Noto Sans CJK Regular, Google / Adobe, SIL Open Font License 1.1�
 0.11.0の `art/mitama_generals.jpg`・`art/mitama_court.jpg`・`art/mitama_crafts.jpg` は歴史上の人物に着想を得た12人分の新規生成イラスト。象徴的な創作であり、実際の顔・服装・原作の図像を正確に再現したものではない。
 
 0.12.0の `art/mitama_asuka.jpg`・`art/mitama_heian.jpg`・`art/mitama_medieval.jpg`・`art/mitama_sengoku.jpg`・`art/mitama_bushi.jpg`・`art/mitama_modern.jpg` は歴史上の人物に着想を得た23人分の新規生成イラスト。象徴的な創作であり、実際の顔・服装や原作の姿を再現したものではない。
+
+0.13.0の `art/mitama_shinsengumi.jpg`・`art/mitama_warlords.jpg`・`art/mitama_scholars.jpg` は歴史上の人物に着想を得た10人分の新規生成イラスト。象徴的な創作であり、実際の容姿・服装や原作の図像を再現したものではない。

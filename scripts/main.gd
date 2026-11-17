@@ -31,6 +31,8 @@ var recent_question_ids: Array = []
 var mistakes: Array = []
 var skip_effects := false
 var stage_art: Control
+var encyclopedia_owned_filter := 0
+var encyclopedia_attribute_filter := 0
 var palette := {"paper": Color("dfd0ad"), "ink": Color("30251e"), "gold": Color("95713d"), "dark": Color("263f3c")}
 
 func _ready() -> void:
@@ -333,6 +335,7 @@ func save_change(updated: Dictionary) -> bool:
 
 func skill_description(effect: Dictionary) -> String:
 	match effect.kind:
+		"reduce_choices": return "次の四択で誤答を%d個減らす" % int(effect.remove_count)
 		"attack": return "攻撃力の%d%%で攻撃" % roundi(float(effect.power)*100)
 		"multi_attack": return "攻撃力の%d%%で%d回攻撃" % [roundi(float(effect.power)*100),int(effect.hits)]
 		"attack_heal": return "攻撃%d%%＋最大体力の%d%%回復" % [roundi(float(effect.power)*100),roundi(float(effect.fraction)*100)]
@@ -455,9 +458,22 @@ func show_encyclopedia() -> void:
 	screen = "encyclopedia"
 	clear_page("ミタマ事典")
 	label("登録 %d / %d" % [save.owned.size(),data.mitama.size()],27)
+	var owned_labels := ["すべて","取得済み","未取得"]
+	var attribute_labels := ["すべて","斬","砕","突"]
+	button("所持："+owned_labels[encyclopedia_owned_filter],func():
+		encyclopedia_owned_filter=(encyclopedia_owned_filter+1)%owned_labels.size()
+		show_encyclopedia())
+	button("属性："+attribute_labels[encyclopedia_attribute_filter],func():
+		encyclopedia_attribute_filter=(encyclopedia_attribute_filter+1)%attribute_labels.size()
+		show_encyclopedia())
 	for m in data.mitama:
-		if m.id in save.owned:
-			label("◆ %s　%s" % [m.name,m.attribute],23)
+		var owned: bool = m.id in save.owned
+		if encyclopedia_owned_filter==1 and not owned: continue
+		if encyclopedia_owned_filter==2 and owned: continue
+		if encyclopedia_attribute_filter>0 and m.attribute!=attribute_labels[encyclopedia_attribute_filter]: continue
+		if owned:
+			var member: Dictionary=m
+			button("◆ %s　%s　★%d" % [member.name,member.attribute,int(member.rarity)],func(): show_mitama_detail(member))
 		else: label("◇ 未取得",23)
 	for key in data.progression.encyclopedia_rewards:
 		var threshold := int(key)
@@ -466,6 +482,29 @@ func show_encyclopedia() -> void:
 			var updated: Dictionary = progression.claim_collection(save,threshold)
 			if not updated.is_empty() and save_change(updated): show_encyclopedia(),claimed or save.owned.size()<threshold)
 	button("里に戻る",show_home)
+
+func show_mitama_detail(m: Dictionary) -> void:
+	if not m.id in save.owned: return
+	screen="mitama_detail"
+	clear_page("ミタマ事典 ── "+str(m.name))
+	content.add_child(portrait(m.id,180))
+	var level: int=int(save.get("levels",{}).get(m.id,1))
+	var stage: int=int(save.get("evolutions",{}).get(m.id,0))
+	var hp: int=int(m.hp)+(level-1)*int(data.progression.health_per_level)+stage*int(data.progression.evolve_health)
+	var attack: int=int(m.attack)+(level-1)*int(data.progression.attack_per_level)+stage*int(data.progression.evolve_attack)
+	label("%s　★%d　%s　Lv.%d　進化%d" % [m.name,int(m.rarity),m.attribute,level,stage],25)
+	label("体力 %d　攻撃 %d　速さ %d　コスト %d" % [hp,attack,int(m.speed),int(m.cost)],21)
+	label(str(m.get("historical_fact","")),21)
+	var hay: Dictionary=data.effects.definitions[m.hayafuri]
+	var tama: Dictionary=data.effects.definitions[m.tamafuri]
+	label("ハヤフリ：%s\n%s" % [hay.label,skill_description(hay)],21)
+	label("タマフリ：%s（%d pt）\n%s" % [tama.label,int(tama.cost),skill_description(tama)],21)
+	if m.has("reference_versions"):
+		label("非公式Wikiの掲載例（本作の能力ではありません）",18)
+		for reference in m.reference_versions:
+			label("★%d %s　%s属性　コスト%s" % [int(reference.rarity),reference.get("variant",""),reference.attribute,str(reference.get("cost","不明"))],18)
+	label("能力・技・進化条件は本作の暫定設定。",18)
+	button("事典に戻る",show_encyclopedia)
 
 func show_gacha() -> void:
 	screen = "gacha"
@@ -673,7 +712,7 @@ func show_battle() -> void:
 			var cost: int = int(data.effects.definitions[m.tamafuri].cost)
 			var skill_button := Button.new()
 			var kind: String = data.effects.definitions[m.tamafuri].kind
-			var role: String = {"attack":"攻","multi_attack":"連","attack_heal":"攻癒","attack_guard":"攻守","heal_guard":"癒守","attack_rally":"攻援","heal":"癒","guard":"守","rally":"援"}.get(kind,"技")
+			var role: String = {"attack":"攻","multi_attack":"連","attack_heal":"攻癒","attack_guard":"攻守","heal_guard":"癒守","attack_rally":"攻援","heal":"癒","guard":"守","rally":"援","reduce_choices":"知"}.get(kind,"技")
 			skill_button.text = "%s・%s\n%d/%d pt" % [m.name,role,model.points[index],cost]
 			skill_button.add_theme_font_size_override("font_size",18)
 			skill_button.custom_minimum_size.y = 56
@@ -690,6 +729,8 @@ func show_battle() -> void:
 		skills.add_child(musuhi_button)
 	if busy: return
 	if model.status == "scrolls":
+		if model.pending_choice_reduction>0:
+			label("次の四択は誤答が%d個減ります" % model.pending_choice_reduction,19)
 		if offered_scrolls.is_empty():
 			offered_scrolls = QuizPool.scrolls(data.questions,4,model.rng,recent_question_ids)
 		label("正解時の通常攻撃予想（追撃・技は含まず）",16)
@@ -713,7 +754,8 @@ func show_battle() -> void:
 		label(q.text,27)
 		clock_label = label("残り 20.0 秒",22)
 		for i in range(q.options.size()):
-			button("%d．%s" % [i+1,q.options[i]],func(): answer(i))
+			if i in model.visible_answer_indices:
+				button("%d．%s" % [i+1,q.options[i]],func(): answer(i))
 
 func choose_question(q: Dictionary) -> void:
 	if busy or model.status != "scrolls": return
@@ -779,7 +821,7 @@ func animate_events(events: Array) -> void:
 		center.add_child(strip)
 		var headline := Label.new()
 		headline.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		var headings := {"scroll_open":"巻物開封", "hayafuri":"ハヤフリ", "tamafuri":"タマフリ", "musuhi":"ムスヒノ刻", "part_break":"部位破壊", "followup":"追撃", "attack":"一閃", "enemy_attack":"鬼の反撃", "stun":"気絶", "kill":"討伐", "heal":"回復", "guard":"守護", "rally":"奮起", "part_hit":"部位攻撃", "skill_attack":"霊技", "musuhi_attack":"四魂の一撃"}
+		var headings := {"scroll_open":"巻物開封", "hayafuri":"ハヤフリ", "tamafuri":"タマフリ", "musuhi":"ムスヒノ刻", "quiz_help":"解答補助", "part_break":"部位破壊", "followup":"追撃", "attack":"一閃", "enemy_attack":"鬼の反撃", "stun":"気絶", "kill":"討伐", "heal":"回復", "guard":"守護", "rally":"奮起", "part_hit":"部位攻撃", "skill_attack":"霊技", "musuhi_attack":"四魂の一撃"}
 		headline.text = headings.get(event.type,"霊技")
 		headline.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		headline.add_theme_font_size_override("font_size",52)

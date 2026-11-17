@@ -142,12 +142,11 @@
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
     },
     "tama_person_04": {
-      "label": "十七条の和",
-      "kind": "rally",
-      "multiplier": 1.6,
-      "hits": 4,
+      "label": "和の智慧",
+      "kind": "reduce_choices",
+      "remove_count": 2,
       "cost": 4,
-      "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+      "inspiration": "聖徳太子の智慧とWikiの解答補助に着想を得た本作の暫定仕様。"
     },
     "hay_person_05": {
       "label": "速答・室町の号令",
@@ -788,6 +787,140 @@
       "cost": 4,
       "label": "北里の研究",
       "inspiration": "史実の要約を着想源としたゲーム独自の仮効果。"
+    },
+    "hay_person_51": {
+      "label": "速答・一番隊の構え",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_51": {
+      "label": "一番隊の剣",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_52": {
+      "label": "速答・会津の薙刀",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_52": {
+      "label": "婦女隊の志",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_53": {
+      "label": "速答・築城の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_53": {
+      "label": "高石垣の守り",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_54": {
+      "label": "速答・新田の進軍",
+      "kind": "attack",
+      "power": 0.65,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_54": {
+      "label": "新田の一閃",
+      "kind": "attack",
+      "power": 3.1,
+      "cost": 4,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_55": {
+      "label": "速答・関東の陣",
+      "kind": "attack",
+      "power": 0.45,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_55": {
+      "label": "将門の一撃",
+      "kind": "attack",
+      "power": 2.5,
+      "cost": 3,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_56": {
+      "label": "速答・源氏の構え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_56": {
+      "label": "頼光の守り",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_57": {
+      "label": "速答・早雲の策",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_57": {
+      "label": "伊勢宗瑞の采配",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_58": {
+      "label": "速答・陸援の志",
+      "kind": "rally",
+      "multiplier": 1.25,
+      "hits": 2,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_58": {
+      "label": "陸援隊の絆",
+      "kind": "rally",
+      "multiplier": 1.6,
+      "hits": 4,
+      "cost": 4,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_59": {
+      "label": "速答・鈴屋の学び",
+      "kind": "heal",
+      "fraction": 0.11,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_59": {
+      "label": "国学者の手当",
+      "kind": "heal",
+      "fraction": 0.5,
+      "cost": 4,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "hay_person_60": {
+      "label": "速答・彦根の備え",
+      "kind": "guard",
+      "multiplier": 0.6,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
+    },
+    "tama_person_60": {
+      "label": "大老の采配",
+      "kind": "guard",
+      "multiplier": 0.3,
+      "cost": 3,
+      "inspiration": "人物の活動を着想源とした本作独自の暫定効果。"
     }
   }
 }

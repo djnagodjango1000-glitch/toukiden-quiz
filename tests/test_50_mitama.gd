@@ -13,7 +13,8 @@ func _initialize() -> void:
 	var rules: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/progression.json"))
 	var effects: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://data/effects.json"))
 	var expected := ["新島八重","清少納言","世阿弥","聖徳太子","足利尊氏","土方歳三","北条政子","菅原道真","紫式部","源義経","推古天皇","杉田玄白","織田信長","伊達政宗","和泉式部","坂本龍馬","卑弥呼","天智天皇","天武天皇","持統天皇","小野妹子","柿本人麻呂","藤原道長","藤原定家","平清盛","源頼朝","木曽義仲","足利義満","雪舟","豊臣秀吉","徳川家康","真田幸村","上杉謙信","武田信玄","毛利元就","明智光秀","石田三成","前田利家","直江兼続","加藤清正","お市の方","千利休","宮本武蔵","葛飾北斎","伊能忠敬","松尾芭蕉","西郷隆盛","吉田松陰","勝海舟","北里柴三郎"]
-	check(members.size()==50 and expected.size()==50,"歴史人物50体")
+	expected.append_array(["沖田総司","中野竹子","藤堂高虎","新田義貞","平将門","源頼光","北条早雲","中岡慎太郎","本居宣長","井伊直弼"])
+	check(members.size()==60 and expected.size()==60,"歴史人物60体")
 	var seen := []
 	for i in range(members.size()):
 		var m: Dictionary = members[i]
@@ -38,7 +39,7 @@ func _initialize() -> void:
 	var all_state: Dictionary=store.initial()
 	all_state.owned=[]
 	for m in members: all_state.owned.append(m.id)
-	check(progression.valid_backup(all_state),"50体所持のバックアップ")
+	check(progression.valid_backup(all_state),"60体所持のバックアップ")
 	var rewarded: Dictionary=progression.claim_collection(all_state,50)
 	check(rewarded.haku==3000 and progression.claim_collection(rewarded,50).is_empty(),"50体の事典報酬と重複防止")
 	for suffix in ["",".bak",".tmp"]: DirAccess.remove_absolute(store.base_path+suffix)

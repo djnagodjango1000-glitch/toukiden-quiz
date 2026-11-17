@@ -28,7 +28,7 @@ func _initialize() -> void:
 		trial.points[0]=cost
 		var used: Dictionary=trial.use_tamafuri(0)
 		check(used.accepted and trial.points[0]==0 and trial.hp<=trial.max_hp,"人物別タマフリが発動: "+m.name)
-	check(drawn==50,"50体に創作肖像")
+	check(drawn==60,"60体に創作肖像")
 	var musashi: Dictionary=d.mitama[42]
 	check(musashi.name=="宮本武蔵" and "二刀" in musashi.historical_fact,"二天一流の紹介")
 	check(d.effects.definitions[musashi.tamafuri].kind=="multi_attack","武蔵の二回攻撃")

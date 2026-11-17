@@ -78,6 +78,8 @@ func _initialize() -> void:
 	check(b.use_tamafuri(2).accepted and b.guard_multiplier==0.3,"防御技")
 	var guard_result: Dictionary=hit(b)
 	check(guard_result.retaliation==57 and b.guard_multiplier==1.0,"防御は次の敵行動で消費")
+	# 支援効果の回帰は汎用定義で検証。聖徳太子の個別技は解答補助へ変更。
+	b.party[3].tamafuri="tama_rally"
 	check(b.use_tamafuri(3).accepted and b.rally_hits==4,"攻撃支援技")
 	hit(b)
 	check(b.rally_hits==3,"支援の残り攻撃回数")

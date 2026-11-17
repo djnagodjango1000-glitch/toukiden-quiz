@@ -16,6 +16,8 @@ var target_index := 0
 var target_part := "body"
 var current_question: Dictionary = {}
 var question_started_ms := 0
+var pending_choice_reduction := 0
+var visible_answer_indices: Array = []
 var rng := RandomNumberGenerator.new()
 var points: Array = []
 var gauge := 0
@@ -56,6 +58,8 @@ func setup(members: Array, mission: Dictionary, oni: Array, balance: Dictionary,
 	answered = 0
 	gauge = 0
 	streak = 0
+	pending_choice_reduction = 0
+	visible_answer_indices = []
 	guard_multiplier = 1.0
 	rally_multiplier = 1.0
 	rally_hits = 0
@@ -106,6 +110,17 @@ func _ensure_target() -> bool:
 func begin_question(question: Dictionary, now_ms: int) -> bool:
 	if status != "scrolls" or question.get("type", "choice") != "choice": return false
 	current_question = question.duplicate(true)
+	visible_answer_indices = []
+	var wrong: Array = []
+	for i in range(current_question.options.size()):
+		visible_answer_indices.append(i)
+		if i != int(current_question.answer): wrong.append(i)
+	var remove_count := mini(pending_choice_reduction, maxi(0,wrong.size()-1))
+	for _i in range(remove_count):
+		var chosen: int = rng.randi_range(0,wrong.size()-1)
+		visible_answer_indices.erase(wrong[chosen])
+		wrong.remove_at(chosen)
+	pending_choice_reduction = 0
 	question_started_ms = now_ms
 	status = "question"
 	return true
@@ -174,6 +189,9 @@ func _effect(skill_id: Variant, member: Dictionary, events: Array) -> int:
 	if skill_id == null or not effects.has(skill_id): return 0
 	var effect: Dictionary = effects[skill_id]
 	match effect.kind:
+		"reduce_choices":
+			pending_choice_reduction = clampi(int(effect.get("remove_count",2)),1,2)
+			events.append({"type":"quiz_help", "text":"次の四択で誤答を%d個減らす" % pending_choice_reduction})
 		"attack":
 			return _strike(member, float(effect.power), events, "skill_attack")
 		"multi_attack":
@@ -243,6 +261,7 @@ func _settle(events: Array, retaliate: bool) -> int:
 
 func resolve_answer(selection: int, now_ms: int) -> Dictionary:
 	if status != "question": return {"accepted": false}
+	if selection != -1 and not selection in visible_answer_indices: return {"accepted": false}
 	var elapsed := maxi(0, now_ms - question_started_ms)
 	var success: bool = elapsed < int(config.question_time_ms) and selection == int(current_question.answer)
 	answered += 1
@@ -282,6 +301,7 @@ func resolve_answer(selection: int, now_ms: int) -> Dictionary:
 func can_tamafuri(index: int) -> bool:
 	if status != "scrolls" or not config.tamafuri.enabled or index < 0 or index >= party.size(): return false
 	var id: Variant = party[index].get("tamafuri")
+	if id != null and effects.has(id) and effects[id].kind == "reduce_choices" and pending_choice_reduction > 0: return false
 	return id != null and effects.has(id) and int(points[index]) >= int(effects[id].cost)
 
 func use_tamafuri(index: int) -> Dictionary:

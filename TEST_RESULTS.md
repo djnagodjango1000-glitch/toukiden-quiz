@@ -1,5 +1,12 @@
 # テスト結果 0.2.0
 
+## 0.13.0（2026-11-17）
+
+- `test_quiz_assist`：12チェック成功。消費不足、重複発動の拒否、正答を残した2択、隠れた選択肢の拒否、次の問題への引継ぎ防止、時間切れ、固定乱数、再出陣での初期化を確認。
+- `ui_encyclopedia_assist`：9チェック成功。事典の詳細・Wiki参考表示・絞り込み、聖徳太子の補助待機と2択表示をheadlessで確認。Android実機の描画やタッチではない。
+- `test_50_mitama` 187、`test_history_skills` 256、`test_runner` 387、`test_phase2` 190、`test_progression` 32、`test_target_preview` 19、`test_questions` 1388、`test_experience` 217チェック成功。`ui_50_mitama` 168、`ui_target_preview` 6チェック、`ui_new_mitama`、オフライン静的検査も成功。
+- AndroidデバッグAPKを生成。v2/v3署名検証、0.12.0と同じ証明書・パッケージ、versionCode 12→13、追加権限なしを確認。APKはarm64-v8aのみ。実機・エミュレーターでの操作・更新・セーブ復元は未検証。
+
 ## 0.12.0（2026-11-17）
 
 - `test_history_skills`：216チェック成功。50人分の技の発動、複合技のポイント不足・消費、攻撃・回復・防御・攻撃強化の組み合わせを確認。
