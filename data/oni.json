@@ -43,5 +43,34 @@
         "attack_multiplier": 0.65
       }
     ]
+  },
+  {
+    "id": "wolf_boss",
+    "name": "苔岩の牙獣（独自仮鬼）",
+    "hp": 4800,
+    "attack": 210,
+    "attribute": "斬",
+    "large": true,
+    "provenance": "C: 独自の鬼・部位効果・能力。",
+    "parts": [
+      {
+        "id": "horn",
+        "label": "角",
+        "hp": 340,
+        "stun_turns": 2
+      },
+      {
+        "id": "foreleg",
+        "label": "前脚",
+        "hp": 480,
+        "attack_multiplier": 0.7
+      },
+      {
+        "id": "tail",
+        "label": "尾",
+        "hp": 420,
+        "attack_multiplier": 0.8
+      }
+    ]
   }
 ]

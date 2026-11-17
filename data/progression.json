@@ -17,10 +17,12 @@
   "energy_recovery_seconds": 300,
   "encyclopedia_rewards": {
     "4": 100,
-    "6": 300
+    "6": 300,
+    "8": 500
   },
   "orb_first_clear": 1,
   "orb_summon_cost": 1,
   "fusion_haku": 50,
-  "fusion_material": 1
+  "fusion_material": 1,
+  "training_orb_interval": 3
 }

@@ -3,7 +3,7 @@ config_version=5
 [application]
 config/name="鬼問戦記 — Phase 2"
 run/main_scene="res://main.tscn"
-config/version="0.4.0"
+config/version="0.5.0"
 
 [display]
 window/size/viewport_width=720

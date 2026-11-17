@@ -72,12 +72,16 @@ func persist(data: Dictionary) -> bool:
 	error = ""
 	return true
 
-func reward(data: Dictionary, mission: Dictionary, receipt: String, orb_per_first_clear: int = 1) -> Dictionary:
+func reward(data: Dictionary, mission: Dictionary, receipt: String, orb_per_first_clear: int = 1, training_interval: int = 3) -> Dictionary:
 	var updated := data.duplicate(true)
 	if receipt in updated.reward_ids: return updated
 	updated.haku += int(mission.rewards.haku)
 	updated.xp += int(mission.rewards.xp)
 	updated["material"] = int(updated.get("material",0))+int(mission.rewards.get("material",0))
+	if mission.get("training",false):
+		updated["training_wins"] = int(updated.get("training_wins",0))+1
+		if training_interval>0 and int(updated.training_wins)%training_interval==0:
+			updated["orbs"] = int(updated.get("orbs",0))+1
 	if not mission.id in updated.cleared:
 		updated.cleared.append(mission.id)
 		if not mission.get("training",false): updated["orbs"] = int(updated.get("orbs",0))+orb_per_first_clear

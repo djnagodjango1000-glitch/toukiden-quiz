@@ -100,5 +100,39 @@
     "evolution": 0,
     "art": "placeholder",
     "provenance": "C: 新規仮能力。原作個体未照合。"
+  },
+  {
+    "id": "m07",
+    "name": "北条政子",
+    "attribute": "突",
+    "rarity": 1,
+    "level": 1,
+    "hp": 360,
+    "attack": 112,
+    "speed": 48,
+    "cost": 2,
+    "hayafuri": "hay_guard",
+    "tamafuri": "tama_guard",
+    "skills": [],
+    "evolution": 0,
+    "art": "independent_symbolic",
+    "provenance": "C: 新規仮能力・創作肖像。原作個体未照合。"
+  },
+  {
+    "id": "m08",
+    "name": "菅原道真",
+    "attribute": "砕",
+    "rarity": 1,
+    "level": 1,
+    "hp": 340,
+    "attack": 120,
+    "speed": 52,
+    "cost": 2,
+    "hayafuri": "hay_heal",
+    "tamafuri": "tama_heal",
+    "skills": [],
+    "evolution": 0,
+    "art": "independent_symbolic",
+    "provenance": "C: 新規仮能力・創作肖像。原作個体未照合。"
   }
 ]

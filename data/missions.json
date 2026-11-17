@@ -56,7 +56,9 @@
       "xp": 40,
       "material": 1
     },
-    "unlocks": []
+    "unlocks": [
+      "trial04"
+    ]
   },
   {
     "id": "training01",
@@ -73,6 +75,23 @@
       "haku": 50,
       "xp": 5,
       "material": 1
+    },
+    "unlocks": []
+  },
+  {
+    "id": "trial04",
+    "label": "仮任務四・苔岩の牙獣",
+    "provisional": true,
+    "energy": 9,
+    "waves": [
+      [
+        "wolf_boss"
+      ]
+    ],
+    "rewards": {
+      "haku": 380,
+      "xp": 55,
+      "material": 2
     },
     "unlocks": []
   }

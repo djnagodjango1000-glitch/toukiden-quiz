@@ -103,7 +103,7 @@ func valid_backup(state: Variant) -> bool:
 			if value != values[id]: return false
 			if field=="levels" and (value<1 or value>int(rules.upgrade_max_level)): return false
 			if field=="evolutions" and (value<0 or value>int(rules.evolve_max)): return false
-	for field in ["material","energy","energy_updated","orbs"]:
+	for field in ["material","energy","energy_updated","orbs","training_wins","training_best"]:
 		if state.has(field) and (not (state[field] is int or state[field] is float) or state[field]<0): return false
 	if state.has("collection_claimed"):
 		if not state.collection_claimed is Array: return false

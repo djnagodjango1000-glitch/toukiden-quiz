@@ -55,3 +55,11 @@ Xvfb + Mesa llvmpipeのOpenGLで実際に描画。音声はDummyを明示。
 - 従来 `tests/test_runner.gd` 90、`tests/test_phase2.gd` 83、`tests/ui_phase2.gd` 32チェックも成功。
 
 GUIのバックアップ試験はLinux上でFileDialogの選択シグナルを再現。Androidのシステムファイル選択画面や権限、実機の再起動・アップデート・共有先での確認ではない。
+
+## 0.5.0追加確認
+- `tests/ui_phase4.gd`：13チェック成功。里・新たな8体のミタマ画像・牙獣・角/前脚/尾の選択・角破壊と気絶・4本の巻物装飾・Godotへの合成クリックが装飾を通ること・修練の正解率自己ベスト保存。
+- `tests/test_progression.gd`：32チェック成功。修練3回で無料宝玉を得ること、同じ任務結果による重複付与の拒否、新しい鬼の部位データなどを追加。
+- `tests/test_offline_policy.gd`：実行時スクリプトとプロジェクト設定を静的走査し、購入API・主なネットワークAPI・外部URL起動・インターネット権限の有効化に該当なし。網羅的なAndroid APKの依存・権限監査を意味しない。
+- 従来の `tests/ui_phase2.gd`：32チェック成功。追加後の大型鬼戦闘・特殊技・報酬保存。
+
+画像はLinux上のGodotで描画し、`docs/screenshots/phase4_home.png`と`phase4_wolf.png`を目視確認。デバイス上のタッチ・オフライン設定・APK署名・Androidシステム権限は未検証。

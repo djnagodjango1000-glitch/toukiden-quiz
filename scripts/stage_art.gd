@@ -1,6 +1,7 @@
 extends Control
 ## 新規制作の仮背景と鬼。原作の画像を使わない。
 const ONI_TEXTURE = preload("res://assets/art/oni.png")
+const WOLF_TEXTURE = preload("res://assets/art/wolf.png")
 const SMALL_ONI_TEXTURE = preload("res://assets/art/small_oni.png")
 var count := 1
 var dead: Array = []
@@ -13,10 +14,11 @@ func _ready() -> void:
 
 func _draw() -> void:
 	if enemy_data.size() == 1 and enemy_data[0].get("large", false):
-		var boss: Texture2D = ONI_TEXTURE
+		var boss: Texture2D = WOLF_TEXTURE if enemy_data[0].id=="wolf_boss" else ONI_TEXTURE
 		# 背景領域を埋めるように中央を切り出す。
 		var source_height := float(boss.get_width()) * size.y / size.x
-		var source := Rect2(0, (boss.get_height()-source_height)*0.13, boss.get_width(), source_height)
+		var crop_position := 0.18 if enemy_data[0].id=="wolf_boss" else 0.13
+		var source := Rect2(0, (boss.get_height()-source_height)*crop_position, boss.get_width(), source_height)
 		draw_texture_rect_region(boss, Rect2(Vector2.ZERO,size), source)
 		draw_rect(Rect2(Vector2.ZERO,size),Color(0.08,0.04,0.05,0.18))
 		var enemy: Dictionary = enemy_data[0]

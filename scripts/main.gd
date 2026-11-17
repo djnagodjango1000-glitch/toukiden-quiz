@@ -3,6 +3,7 @@ extends Control
 const Battle = preload("res://scripts/battle.gd")
 const SaveStore = preload("res://scripts/save_store.gd")
 const StageArt = preload("res://scripts/stage_art.gd")
+const ScrollOrnament = preload("res://scripts/scroll_ornament.gd")
 const Sound = preload("res://scripts/sound.gd")
 const Progression = preload("res://scripts/progression.gd")
 var progression
@@ -150,7 +151,7 @@ func show_title() -> void:
 	label("鬼 問 戦 記",64,palette.dark)
 	label("巻物をひらき、知恵で鬼を討つ。",28)
 	space(40)
-	label("Phase 3 開発版  0.4.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
+	label("Phase 4 開発版  0.5.0\n特殊戦闘の動作検証用です。\n能力値・任務・戦闘順は暫定仕様です。",23)
 	label("原作の画像・音楽・問題文は使用していません。",20)
 	space(50)
 	button("里へ",show_home,store.blocked)
@@ -168,7 +169,13 @@ func show_home() -> void:
 	content.add_child(hero_banner)
 	for id in deck_ids(): hero_banner.add_child(portrait(id,92))
 	space(12)
-	label("試作の里",44,palette.dark)
+	var village := TextureRect.new()
+	village.texture = load("res://assets/art/village.png")
+	village.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	village.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
+	village.custom_minimum_size.y = 200
+	content.add_child(village)
+	label("試作の里",36,palette.dark)
 	label("山の向こうで鬼が動き始めた。\n巻物の問いを解き、ミタマとともに出陣しよう。",25)
 	space(40)
 	button("任務 ── 領域を選ぶ",show_regions)
@@ -205,7 +212,7 @@ func show_missions() -> void:
 		var suffix := "  達成" if m.id in save.cleared else ""
 		button(m.label+suffix,func(): show_details(m),not unlocked(m))
 		label("報酬 %dハク / %d経験値" % [m.rewards.haku,m.rewards.xp],21)
-	label("初陣で連戦、連戦で大型鬼任務が解放されます。",22)
+	label("任務達成で次の任務が解放されます。",22)
 	button("領域選択に戻る",show_regions)
 
 func show_training() -> void:
@@ -223,6 +230,8 @@ func show_details(m: Dictionary) -> void:
 	label("独自の仮任務 / 行動力 %d（所持 %d）%s" % [m.energy,energy.amount," 自由プレイ" if free else ""],24)
 	label("戦闘数 %d / 最大出現数 %d" % [m.waves.size(),m.waves[0].size()],26)
 	label("報酬 %dハク / %d経験値" % [m.rewards.haku,m.rewards.xp],26)
+	if m.get("training",false):
+		label("自己ベスト：正解率 %d%%　%d回達成ごとに宝玉1個（無料）" % [save.get("training_best",0),data.progression.training_orb_interval],22)
 	space(20)
 	label("編成したミタマを速さ順で使用します。\n巻物を選び、20秒以内に四択へ解答。正解で攻撃し、残った鬼が反撃します。\n敵をタップして攻撃対象を変更できます。",24)
 	label("仮仕様：4秒以内の正解で固有効果と後続1体の追撃。\n正解でタマフリとムスヒを蓄積。角を壊すと気絶、腕を壊すと攻撃低下。",22)
@@ -233,10 +242,13 @@ func show_details(m: Dictionary) -> void:
 func portrait(id: String, width: float = 112.0) -> TextureRect:
 	var positions := {"m01":4,"m02":0,"m03":2,"m04":3,"m05":1,"m06":5}
 	var index: int = positions.get(id,0)
-	var sheet: Texture2D = load("res://assets/art/portraits.png")
 	var atlas := AtlasTexture.new()
-	atlas.atlas = sheet
-	atlas.region = Rect2((index%3)*512,(index/3)*512,512,512)
+	if id in ["m07","m08"]:
+		atlas.atlas = load("res://assets/art/mitama_extra.png")
+		atlas.region = Rect2(0 if id=="m07" else 887,0,887,887)
+	else:
+		atlas.atlas = load("res://assets/art/portraits.png")
+		atlas.region = Rect2((index%3)*512,(index/3)*512,512,512)
 	var image := TextureRect.new()
 	image.texture = atlas
 	image.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
@@ -415,7 +427,7 @@ func show_gacha() -> void:
 			show_gacha()
 			content.add_child(portrait(selected.id,180))
 			label("%s を迎えました！" % selected.name,30),int(save.get("orbs",0))<int(data.progression.orb_summon_cost) or missing.is_empty())
-	label("宝玉は任務の初回達成で無料入手。召喚対象はハクと共通で、未所持から等確率。",20)
+	label("宝玉は任務の初回達成、または修練%d回で無料入手。課金・広告なし。召喚対象は未所持から等確率。" % data.progression.training_orb_interval,20)
 	button("里に戻る",show_home)
 
 func show_settings() -> void:
@@ -551,7 +563,7 @@ func show_battle() -> void:
 	content.add_child(portraits_row)
 	for j in range(model.party.size()):
 		var member: Dictionary = model.party[(model.actor_index+j)%model.party.size()]
-		portraits_row.add_child(portrait(member.id,58))
+		portraits_row.add_child(portrait(member.id,68 if j==0 else 54))
 	var hp_bar := ProgressBar.new()
 	hp_bar.max_value = model.max_hp
 	hp_bar.value = model.hp
@@ -591,8 +603,15 @@ func show_battle() -> void:
 			var pos: int = model.rng.randi_range(0,available.size()-1)
 			var q: Dictionary = available.pop_at(pos)
 			var rank: String = ["初級","中級","上級"][int(q.difficulty)-1]
-			var scroll_button := button("┃  %s　　%s  ┃" % [rank,q.genre],func(): choose_question(q))
-			scroll_button.add_theme_stylebox_override("normal",style(Color("f2e3bc"),palette.gold,2))
+			var scroll_button := button("%s　　%s" % [rank,q.genre],func(): choose_question(q))
+			var parchment := style(Color("f2e3bc"),Color("694626"),5)
+			parchment.shadow_color = Color(0.17,0.11,0.05,0.55)
+			parchment.shadow_size = 3
+			parchment.shadow_offset = Vector2(0,3)
+			scroll_button.add_theme_stylebox_override("normal",parchment)
+			var ornament = ScrollOrnament.new()
+			ornament.tier = int(q.difficulty)
+			scroll_button.add_child(ornament)
 		button("撤退して里へ（報酬なし）",show_home)
 	elif model.status == "question":
 		var q: Dictionary = model.current_question
@@ -761,7 +780,10 @@ func show_result() -> void:
 	clear_page("任務達成" if model.status == "won" else "敗北")
 	label("%s\n正解 %d / %d問" % [mission.label,model.correct,model.answered],30)
 	if model.status == "won":
-		var updated: Dictionary = store.reward(save,mission,receipt,int(data.progression.orb_first_clear))
+		var updated: Dictionary = store.reward(save,mission,receipt,int(data.progression.orb_first_clear),int(data.progression.training_orb_interval))
+		if mission.get("training",false) and model.answered>0:
+			var score := int(floor(100.0*model.correct/model.answered))
+			updated["training_best"] = maxi(int(updated.get("training_best",0)),score)
 		if not store.persist(updated):
 			label("保存できませんでした。報酬は未確定です。\n"+store.error,24,Color("8a332d"))
 			button("保存を再試行",show_result)
